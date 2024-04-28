@@ -57,7 +57,7 @@
 					<form action="<?php echo base_url()?>auth" method="post" class="j-pro" id="j-pro" style="border:0;height:100%;position:fixed;overflow-y:scroll;opacity:0.95">
 							<!-- end /.header -->
 						<div class="j-content" >
-								<center><img class="img-fluid" src="https://pmb.stifar.ac.id/images/logo.png" alt="Dijawa Logo" style="height:80px;margin:20px;"></center>
+								<center><img class="img-fluid" src="<?php echo $this->config->item('logo_url')?>" alt="Dijawa Logo" style="height:80px;margin:20px;"></center>
 								<center><p><b>Sekolah Tinggi Ilmu Farmasi</b></p></center>
 								<hr>
 								<center><h5>Login</h5></center>
