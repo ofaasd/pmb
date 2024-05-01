@@ -54,6 +54,14 @@
 <script type="text/javascript" src="<?php echo base_url()?>assets/bower_components/bootstrap/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
 <script src="<?php echo base_url()?>assets/js/bootstrap-datepicker.min.js"></script>
+<style>
+	.pcoded-navbar{
+		background:#bdc3c7;
+	}
+	.pcoded-inner-navbar{
+		background:#bdc3c7;
+	}
+</style>
 </head>
 
 <body>
@@ -72,8 +80,8 @@
     <div class="pcoded-overlay-box"></div>
     <div class="pcoded-container navbar-wrapper">
 
-        <nav class="navbar header-navbar pcoded-header">
-            <div class="navbar-wrapper">
+        <nav class="navbar header-navbar pcoded-header" >
+            <div class="navbar-wrapper" >
 
                 <div class="navbar-logo">
                     <a class="mobile-menu" id="mobile-collapse" href="#!">
@@ -123,11 +131,11 @@
                 </div>
             </div>
         </nav>
-        <div class="pcoded-main-container">
+        <div class="pcoded-main-container" >
             <div class="pcoded-wrapper">
-                <nav class="pcoded-navbar">
+                <nav class="pcoded-navbar" >
                     <div class="pcoded-inner-navbar main-menu">
-                        <div class="pcoded-navigatio-lavel">Navigation</div>
+                        <div class="pcoded-navigatio-lavel" style="color:#fff !important"></div>
                         <ul class="pcoded-item pcoded-left-item">
 							<li class="pcoded-hasmenu">
 								<a href="<?php echo base_url();?>dashboard">
@@ -138,16 +146,11 @@
 							<li class="pcoded-hasmenu">
 								<a href="<?php echo base_url();?>formulir/info">
 									<span class="pcoded-micon"><i class="feather icon-user"></i></span>
-									<span class="pcoded-mtext">Informasi Pribadi</span>
+									<span class="pcoded-mtext">Formulir Pendaftaran</span>
 								</a>
 							</li>
-							<li class="pcoded-hasmenu">
-								<a href="<?php echo base_url();?>formulir/penpres">
-									<span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
-									<span class="pcoded-mtext">Nilai Rapor dan Prestasi</span>
-								</a>
-							</li>
-							<li class="pcoded-hasmenu">
+							
+							<!-- <li class="pcoded-hasmenu">
 								<?php
 									$id = $this->session->userdata("id_user");
 									$nopen = (!empty($this->db->get_where("user_guest",array("id"=>$id))->row()->no_pendaftaran))?$this->db->get_where("user_guest",array("id"=>$id))->row()->no_pendaftaran:"";
@@ -168,20 +171,15 @@
 									}
 								?>
 								
-							</li>
+							</li> -->
 							
 							<li class="pcoded-hasmenu">
 								<a href="<?php echo base_url();?>formulir/upload_bukti">
 									<span class="pcoded-micon"><i class="feather icon-upload"></i></span>
-									<span class="pcoded-mtext">Upload Bukti Pembayaran</span>
+									<span class="pcoded-mtext">Pembayaran Pendaftaran</span>
 								</a>
 							</li>
-							<li class="pcoded-hasmenu">
-								<a href="<?php echo base_url();?>formulir/upload_foto">
-									<span class="pcoded-micon"><i class="feather icon-upload"></i></span>
-									<span class="pcoded-mtext">Upload Foto</span>
-								</a>
-							</li>
+							
 							<li class="pcoded-hasmenu">
 								<a href="<?php echo base_url();?>formulir/jadwal_ujian">
 									<span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
@@ -194,24 +192,14 @@
 									<span class="pcoded-mtext">Pengumuman Ujian</span>
 								</a>
 							</li>
-							
 							<li class="pcoded-hasmenu">
-								<a href="#">
+								<a href="<?php echo base_url()?>user/ganti_password">
 									<span class="pcoded-micon"><i class="feather icon-settings"></i></span>
-									<span class="pcoded-mtext">Settings</span>
-
+									<span class="pcoded-mtext">Ganti Password</span>
 								</a>
-								<ul class="pcoded-submenu">
-									<li class="">
-										<a href="<?php echo base_url()?>user/ganti_password">
-											<span class="pcoded-mtext">Ganti Password</span>
-										</a>
-									</li>
-								</ul>
 							</li>
-							
 							<li class="pcoded-hasmenu">
-								<a href="<?php echo base_url();?>mhs/dashboard/logout">
+								<a href="<?php echo base_url()?>dashboard/logout">
 									<span class="pcoded-micon"><i class="feather icon-log-out"></i></span>
 									<span class="pcoded-mtext">Logout</span>
 

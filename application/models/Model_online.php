@@ -190,7 +190,6 @@
 			} */
 			$data = array(
 							'nisn' => $this->input->post('nisn'),
-							'gelombang' => $this->input->post('gelombang'),
 							'noktp' => $this->input->post('noktp'),
 							'nama' => $this->input->post('nama'),
 							'jk' => $this->input->post('jk'),
@@ -211,17 +210,10 @@
 							'kodepos' => $this->input->post('kode_pos'),
 							'telpon' => $this->input->post('telpon'),
 							'hp' => $this->input->post('hp'),
-							'foto_peserta' => $nama_foto,
-							'asal_sekolah' => $this->input->post('asal_sekolah'),
 							'warga_negara' => $this->input->post('warga_negara'),
 							// 'peringkat_pmdp' => $pmdp,
 							// 'kelas' => $this->input->post('kelas'),
 							// 'jenis_pendaftaran' => $this->input->post('pendaftaran'),
-							'kelas' => $this->input->post('kelas'),
-							'jalur_pendaftaran' => $jalur,
-							'pilihan1' => $this->input->post('pilihan1'),
-							'pilihan2' => $this->input->post('pilihan2'),
-							'info_pmb' => $this->input->post('info_pmb'),
 							'is_bayar' => '0',
 							'is_online' => '1',
 							'admin_input' => $this->session->userdata("user_id"),
@@ -534,31 +526,14 @@
 		function simpan_cmhs(){
 			$user_id = $this->session->userdata("id_user");
 			// error_reporting(0);
-			
 			$jalur = $this->input->post('jalur');
-			if ($jalur == 1) {
-				# code...
-				$is_kerjasama = null;
-				$is_mou = null;
-				$gelombang = 'PMDP';
-			}elseif ($jalur == 2) {
-				# code...
-				$pmdp = null;
-				$is_kerjasama = $this->input->post('kerjasama');
-				$is_mou = $this->input->post('nama_sekolah_mou');
-				$gelombang = $this->input->post('gelombang');
-			}elseif ($jalur == 3) {
-				# code...
-				$pmdp = null;
-				$is_kerjasama = null;
-				$is_mou = null;
-				$gelombang = $this->input->post('gelombang');
-			} 
+			
+			
 			// echo $set_nopen."<br>".$pmdp."<br>".$is_kerjasama."<br>".$is_mou."<br>".$gelombang;
 
-			$config['upload_path'] = './assets/foto_pmb_peserta/';
-		    $config['allowed_types'] = 'jpg|png|jpeg';
-		    $config['max_size']  = '1048';
+			$config['upload_path'] = './assets/file_pmb/';
+		    $config['allowed_types'] = 'pdf';
+		    $config['max_size']  = '5240';
 		    $config['overwrite'] = TRUE;
 			$config['file_name'] = 'pmb_peserta_online_'.$user_id;
 			
@@ -567,7 +542,6 @@
 		    $this->load->library('upload', $config);  
 		    $data = '';
 		    $ta = $this->db->query("SELECT * FROM `master_tahun_ajaran` where is_aktif = 1")->row();
-		    $kelas = explode('-', $this->input->post('kelas'));
 		    $nama_foto = 'default.png';
 		    if($this->upload->do_upload('foto')){ 
 		      $nama_foto = $config['file_name'].$config['file_ext'];
@@ -576,7 +550,7 @@
 		    $data = array(
 							//'nopen' => $set_nopen, tidak ada karena blm verifikasi
 							'user_id' => $user_id,
-							'nisn' => $this->input->post('nisn'),
+							'nisn' => '',
 							'gelombang' => $gelombang,
 							'noktp' => $this->input->post('ktp'),
 							'nama' => $this->input->post('nama'),
@@ -601,29 +575,57 @@
 							'telpon' => $this->input->post('telepon'),
 							'hp' => $this->input->post('hp'),
 							'ukuran_seragam' => $this->input->post('ukuran_seragam'),
-							'foto_peserta' => $nama_foto,
-							'asal_sekolah' => $this->input->post('asal_sekolah'),
+							'file_pendukung' => $nama_foto,
+							//'asal_sekolah' => $this->input->post('asal_sekolah'),
 							'warga_negara' => $this->input->post('warga_negara'),
 							//'peringkat_pmdp' => $pmdp,
-							'kelas' => $kelas[1],
-							'jalur_pendaftaran' => $this->input->post('jalur'),
-							'is_kerjasama' => $is_kerjasama,
-							'is_mou' => $is_mou,
-							'jenis_pendaftaran' => $this->input->post('pendaftaran'),
+							'jalur_pendaftaran' => $jalur,
 							//'kelas' => $this->input->post('kelas'),
-							'pilihan1' => $this->input->post('pilihan1'),
-							'pilihan2' => $this->input->post('pilihan2'),
+							'pilihan1' => $this->input->post('prodi')[0],
+							'pilihan2' => (!empty($this->input->post('prodi')[1]))?$this->input->post('prodi')[1]:'0',
 							'info_pmb' => $this->input->post('info_pmb'),
 							'is_bayar' => '0',
 							'is_online' => '1',
 							'admin_input' => $user_id,
 							'angkatan' => $this->input->post('gel_ta'),
+							'ipk' => $this->input->post('ipk') ?? '',
+							'toefl' => $this->input->post('toefl') ?? '',
 							'tahun_ajaran' => $ta->id,
 							'is_delete' => '0',
 							'is_mundur' => '0',
 							'admin_input_date' => date('Y-m-d H:i:s')
 						 );
 		      $r = $this->db->insert('pmb_peserta_online', $data);
+			  $id_peserta = $this->db->insert_id();
+			  $data2 = [
+				'id_peserta' => $id_peserta,
+				'asal_sekolah' => $this->input->post('asal_sekolah'),
+				'jurusan' => $this->input->post('jurusan'),
+				'akreditasi' => $this->input->post('akreditasi'),
+				'alamat' => $this->input->post('alamat_sekolah'),
+				'provinsi_id' => $this->input->post('provinsi_sekolah'),
+				'kota_id' => $this->input->post('kota_sekolah'),
+				'updated_at' => date('Y-m-d H:i:s'),
+			  ];
+			  $r = $this->db->insert('pmb_asal_sekolah', $data2);
+			  if($jalur == 1 || $jalur == 2){
+				$data_nilai = [
+					'id_user' => $user_id,
+					'id_peserta' => $id_peserta,
+				];
+				$r = $this->db->insert('pmb_nilai_rapor', $data_nilai);
+				$id_rapor = $this->db->insert_id();
+				for($i=0; $i < 5; $i++){
+					$data_nilai = [
+						'nilai_mtk_smt'. ($i+1) => $this->input->post('nilai_mtk_smt' . ($i+1)),
+						'nilai_bing_smt'. ($i+1) => $this->input->post('nilai_bing_smt' . ($i+1)),
+						'nilai_kimia_smt'. ($i+1) => $this->input->post('nilai_kimia_smt' . ($i+1)),
+						'nilai_biologi_smt'. ($i+1) => $this->input->post('nilai_biologi_smt' . ($i+1)),
+						'nilai_fisika_smt'. ($i+1) => $this->input->post('nilai_fisika_smt' . ($i+1)),
+					];
+					$r = $this->db->update('pmb_nilai_rapor', $data_nilai, ['id'=>$id_rapor]);
+				}
+			  }
 		    return $r;
 		}
 		function get_where_reg($id){

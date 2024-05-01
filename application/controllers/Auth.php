@@ -70,7 +70,7 @@
 			
 			
 			if($cek->num_rows() > 0 ){
-				$this->session->set_flashdata('gagal', 'Akun sudah pernah terdaftar harap hubungi pihak Admisi STIFERA');
+				$this->session->set_flashdata('gagal', 'Akun sudah pernah terdaftar harap hubungi pihak Admisi STIFAR');
 				redirect("welcome/register");
 			}else{
 				

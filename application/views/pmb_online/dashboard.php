@@ -1,17 +1,110 @@
 <div class="page-body">
 	<div class="row">
-		<div class="col-sm-12">
+		<div class="col-sm-12 mb-4">
+			<?php echo $this->session->userdata('status_update'); 
+				$this->session->set_userdata('status_update', ''); ?>
+			<h3>Selamat Datang, <?php echo $this->session->userdata("nama"); ?></h3>
+		</div>
+		<div class="col-sm-12 mb-4">
 			<div class="card">
 				<div class="card-header">
-					<?php echo $this->session->userdata('status_update'); 
-								$this->session->set_userdata('status_update', ''); ?>
-					<h3>Selamat Datang, <?php echo $this->session->userdata("nama"); ?></h3>
+					<B>Langkah-Langkah Pendaftaran</B>	
+				</div>
+				<div class="card-block">
+					<div class="row">
+						<div class="col-md-3 mb-3">
+							<div class="card bg-primary">
+								<div class="card-header">
+									1. Formulir
+								</div>
+								<div class="card-block">
+									<p>Mengisi dan melengkapi formulir pendaftaran melalui tombol dibawah atau melalui menu di sebelah kanan</p>
+									<a href="<?php echo base_url()?>formulir/info" class="btn btn-warning btn-sm">Formulir</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 mb-3">
+							<div class="card bg-primary">
+								<div class="card-header">
+									2. Validasi Data
+								</div>
+								<div class="card-block">
+									<p>Setelah form dilengkapi silahkan melakukan validasi data dengan menekan tombol di bawah ini.</p>
+									
+									<a href="#" class="btn btn-success btn-sm" id="validasi_biodata" onclick="return validasi()">Validasi Sekarang</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 mb-3">
+							<div class="card bg-primary">
+								<div class="card-header">
+									3. Pembayaran Pendaftaran
+								</div>
+								<div class="card-block">
+									<p>Melakukan pembayaran pendaftaran melalui VA yang didapatkan setelah peserta melakukan validasi data</p>
+									
+									<?php
+										$id = $this->session->userdata("id_user");
+										$nopen = (!empty($this->db->get_where("user_guest",array("id"=>$id))->row()->no_pendaftaran))?$this->db->get_where("user_guest",array("id"=>$id))->row()->no_pendaftaran:"";
+										if(empty($nopen)){
+									?>
+											<a href="#" class="btn btn-danger btn-sm btn-disabled">
+												Validasi Data Terlebih Dahulu
+											</a>
+									<?php
+										}else{
+									?>
+										<a href="<?php echo base_url();?>formulir/upload_bukti/" class="btn btn-primary btn-sm">
+											<span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
+											<span class="pcoded-mtext">Lihat VA</span>
+										</a>
+									<?php
+										}
+									?>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 mb-3">
+							<div class="card bg-primary">
+								<div class="card-header">
+									4. Pengumuman
+								</div>
+								<div class="card-block">
+									<p>Melihat hasil pengumuman peserta yang dinyatakan lolos seleksi oleh pihak Admisi STIFAR</p>
+									
+									<?php
+										$id = $this->session->userdata("id_user");
+										$nopen = (!empty($this->db->get_where("user_guest",array("id"=>$id))->row()->no_pendaftaran))?$this->db->get_where("user_guest",array("id"=>$id))->row()->no_pendaftaran:"";
+										if(empty($nopen)){
+									?>
+											<a href="#" class="btn btn-danger btn-sm btn-disabled">
+												Validasi Data Terlebih Dahulu
+											</a>
+									<?php
+										}else{
+									?>
+										<a href="<?php echo base_url();?>formulir/pengumuman_ujian/" class="btn btn-primary btn-sm">
+											<span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
+											<span class="pcoded-mtext">Lihat Pengumuman</span>
+										</a>
+									<?php
+										}
+									?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="card">
+				<div class="card-header">
+					
 				</div>
 				<div class="card-block">
 					<table class="table table-styling">
 						<thead>
 							<tr class="table-primary">
-								<th>Langkah-Langkah Pendaftaran</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -32,7 +125,7 @@
 										if(empty($nopen)){
 									?>
 											<a href="#" <?php (empty($nopen))?"disabled":""?> class="btn btn-danger btn-sm">
-												Verifikasi Terlebih Dahulu
+												Validasi Data Terlebih Dahulu
 											</a>
 									<?php
 										}else{
@@ -60,7 +153,7 @@
 					</table>
 				</div>
 				
-			</div>
+			</div> -->
 		</div>
 	</div>
 </div>

@@ -37,13 +37,19 @@
 				//$data['menu'] = $this->Model_front->getMenu($this->authact->getRole());
 				//$pmb['detail_cmhs'] = $this->Model_pmb->get_where_reg($id);
 				$pmb['detail_cmhs'] = $this->db->get_where('pmb_peserta_online', array('user_id' => $id))->result();
+				$pmb['detail_cmhs2'] = $this->db->get_where('pmb_peserta_online', array('user_id' => $id))->row();
 				$pmb['warga_negara'] = $this->Model_pmb->warga_negara();
 				$pmb['prodi'] = $this->Model_pmb->prodi();
 				$pmb['gelombang'] = $this->Model_pmb->get_gelombang('pmb_gelombang')->result();
 				$pmb['kelas'] = $this->db->get_where('pmb_kelas', array('is_active' => 1))->result();
 				$pmb['wilayah'] = $this->db->get_where('wilayah', array('id_induk_wilayah' => '000000'))->result();
 				$pmb['data'] = $this->Model_online->detail_($id);
+				$pmb['jalur'] = $this->db->get('pmb_jalur')->result();
+				$pmb['curr_gelombang'] = $this->db->get_where('pmb_gelombang',['id'=>$pmb['detail_cmhs2']->gelombang])->row();
+				$pmb['curr_jalur'] = $this->db->get_where('pmb_jalur',['id'=>$pmb['detail_cmhs2']->jalur_pendaftaran])->row();
+				$pmb['content2'] = $this->load->view('formulir/info_pribadi',$pmb,true);
 				$data['content'] = $this->load->view('formulir/update_cmhs',$pmb,true);
+				
 			}else{
 				$cek_nopen = $this->db->where(array("id"=>$id))->get("user_guest")->row();
 				if(empty($cek_nopen->no_pendaftaran)){
@@ -55,8 +61,9 @@
 					$pmb['rapor'] = $this->db->get_where('pmb_nilai_rapor',array('id_user'=>$id))->row();
 					$pmb['piagam'] = $this->db->get_where('piagam_pmb',array('user_id'=>$id))->row();
 					//$pmb['gelombang'] = $this->Model_online->get_gelombang('pmb_gelombang')->row();
-					$pmb['gelombang'] = $this->Model_pmb->get_gelombang('pmb_gelombang')->result();
+					$pmb['jalur'] = $this->db->get('pmb_jalur')->result();
 					$pmb['wilayah'] = $this->db->get_where('wilayah', array('id_induk_wilayah' => '000000'))->result();
+					$pmb['mapel'] = ['mtk'=>'Matematika','bing'=>'B. Inggris','kimia'=>'Kimia','biologi'=>'Biologi','fisika'=>'Fisika'];
 					$data['content'] = $this->load->view('formulir/add_cmhs',$pmb,true);
 				}else{
 					$data['title'] = "Formulir Mahasiswa - Academic Portal";
@@ -76,6 +83,159 @@
 			//error_reporting(0);
 			
 			// var_dump($pmb['data']);
+		}
+		function jalur_pendaftaran(){
+			$data['title'] = "Formulir Mahasiswa - Academic Portal";	
+			$id = $this->session->userdata("id_user");
+			$pmb['detail_cmhs2'] = $this->db->get_where('pmb_peserta_online', array('user_id' => $id))->row();
+			$pmb['jalur'] = $this->db->get('pmb_jalur')->result();
+			$pmb['curr_gelombang'] = $this->db->get_where('pmb_gelombang',['id'=>$pmb['detail_cmhs2']->gelombang])->row();
+			$pmb['curr_jalur'] = $this->db->get_where('pmb_jalur',['id'=>$pmb['detail_cmhs2']->jalur_pendaftaran])->row();
+			$pmb['content2'] = $this->load->view('formulir/jalur_pendaftaran',$pmb,true);
+			$data['content'] = $this->load->view('formulir/update_cmhs',$pmb,true);
+
+			$this->load->view('pmb_online/index_layout',$data);
+		}
+		function update_jalur(){
+			$id_peserta = $this->input->post('id');
+			$data = [
+				'jalur_pendaftaran' => $this->input->post('jalur'),
+				'gelombang' => $this->input->post('gelombang'),
+			];
+			$hasil = $this->db->update('pmb_peserta_online',$data,['id'=>$id_peserta]);
+			if($hasil){
+				$this->session->set_userdata('success', '<script type="text/javascript">
+											alert("Data Calon Mahasiswa Berhasil di update."); 
+										</script>');
+			}else{
+				$this->session->set_userdata('error', '<script type="text/javascript">
+											alert("Data Calon Mahasiswa Gagal di update."); 
+										</script>');
+			}
+			redirect('formulir/jalur_pendaftaran');
+		}
+		function asal_sekolah(){
+			$data['title'] = "Formulir Mahasiswa - Academic Portal";	
+			$id = $this->session->userdata("id_user");
+			$pmb['detail_cmhs2'] = $this->db->get_where('pmb_peserta_online', array('user_id' => $id))->row();
+			$pmb['jalur'] = $this->db->get('pmb_jalur')->result();
+			$pmb['curr_gelombang'] = $this->db->get_where('pmb_gelombang',['id'=>$pmb['detail_cmhs2']->gelombang])->row();
+			$pmb['curr_jalur'] = $this->db->get_where('pmb_jalur',['id'=>$pmb['detail_cmhs2']->jalur_pendaftaran])->row();
+			$pmb['rapor'] = $this->db->get_where('pmb_nilai_rapor',['id_peserta'=>$pmb['detail_cmhs2']->id])->row_array();
+			$pmb['asal_sekolah'] = $this->db->get_where('pmb_asal_sekolah',['id_peserta'=>$pmb['detail_cmhs2']->id])->row();
+			$pmb['wilayah'] = $this->db->get_where('wilayah', array('id_induk_wilayah' => '000000'))->result();
+			$pmb['kota']=$this->Model_pmb->daftar_kotakab($pmb['asal_sekolah']->provinsi_id);
+			$pmb['curr_wil'] = $this->db->get_where('wilayah',['id_wil'=>$pmb['asal_sekolah']->provinsi_id])->row();
+			$pmb['curr_kota'] = $this->db->get_where('wilayah',['id_wil'=>$pmb['asal_sekolah']->kota_id])->row();
+			$mydata = [];
+			for($i=1; $i <= $pmb['curr_jalur']->pilihan; $i++){
+				$mydata[$i-1] = $this->db->select('pmb_jalur_prodi.*,program_studi.nama_jurusan')->join('program_studi','program_studi.id = pmb_jalur_prodi.id_program_studi','inner')->get_where('pmb_jalur_prodi',['id_jalur'=>$pmb['curr_jalur']->id])->result();
+			}
+			$pmb['list_prodi'] = $mydata;
+			$pmb['mapel'] = ['mtk'=>'Matematika','bing'=>'B. Inggris','kimia'=>'Kimia','biologi'=>'Biologi','fisika'=>'Fisika'];
+			$pmb['content2'] = $this->load->view('formulir/asal_sekolah',$pmb,true);
+			$data['content'] = $this->load->view('formulir/update_cmhs',$pmb,true);
+
+			$this->load->view('pmb_online/index_layout',$data);
+		}
+		function update_asal_sekolah(){
+			$id_peserta = $this->input->post('id');
+			
+			$data = [
+				'pilihan1' => $this->input->post('prodi')[0],
+				'pilihan2' => (!empty($this->input->post('prodi')[1]))?$this->input->post('prodi')[1]:'0',
+				'ipk' => $this->input->post('ipk'),
+				'toefl' => $this->input->post('toefl'),
+			];
+			$hasil = $this->db->update('pmb_peserta_online',$data,['id'=>$id_peserta]);
+
+			$data2 = [
+				'asal_sekolah' => $this->input->post('asal_sekolah'),
+				'jurusan' => $this->input->post('jurusan'),
+				'akreditasi' => $this->input->post('akreditasi'),
+				'alamat' => $this->input->post('alamat_sekolah'),
+				'provinsi_id' => $this->input->post('provinsi_sekolah'),
+				'kota_id' => $this->input->post('kota_sekolah'),
+			];
+			$hasil = $this->db->update('pmb_asal_sekolah',$data2,['id_peserta'=>$id_peserta]);
+
+			$jalur = $this->input->post('jalur');
+			if($jalur == 1 || $jalur == 2){
+				for($i=0; $i < 5; $i++){
+					$data_nilai = [
+						'nilai_mtk_smt'. ($i+1) => $this->input->post('nilai_mtk_smt' . ($i+1)),
+						'nilai_bing_smt'. ($i+1) => $this->input->post('nilai_bing_smt' . ($i+1)),
+						'nilai_kimia_smt'. ($i+1) => $this->input->post('nilai_kimia_smt' . ($i+1)),
+						'nilai_biologi_smt'. ($i+1) => $this->input->post('nilai_biologi_smt' . ($i+1)),
+						'nilai_fisika_smt'. ($i+1) => $this->input->post('nilai_fisika_smt' . ($i+1)),
+					];
+					$r = $this->db->update('pmb_nilai_rapor', $data_nilai, ['id_peserta'=>$id_peserta]);
+				}
+			}
+
+			if($hasil){
+				$this->session->set_userdata('success', '<script type="text/javascript">
+											alert("Data Calon Mahasiswa Berhasil di update."); 
+										</script>');
+			}else{
+				$this->session->set_userdata('error', '<script type="text/javascript">
+											alert("Data Calon Mahasiswa Gagal di update."); 
+										</script>');
+			}
+			redirect('formulir/asal_sekolah');
+		}
+		function file_pendukung(){
+			$data['title'] = "Formulir Mahasiswa - Academic Portal";	
+			$id = $this->session->userdata("id_user");
+			$pmb['detail_cmhs2'] = $this->db->get_where('pmb_peserta_online', array('user_id' => $id))->row();
+			$pmb['jalur'] = $this->db->get('pmb_jalur')->result();
+			$pmb['curr_gelombang'] = $this->db->get_where('pmb_gelombang',['id'=>$pmb['detail_cmhs2']->gelombang])->row();
+			$pmb['curr_jalur'] = $this->db->get_where('pmb_jalur',['id'=>$pmb['detail_cmhs2']->jalur_pendaftaran])->row();
+			$pmb['content2'] = $this->load->view('formulir/file_pendukung',$pmb,true);
+			$data['content'] = $this->load->view('formulir/update_cmhs',$pmb,true);
+
+			$this->load->view('pmb_online/index_layout',$data);
+		}
+		function update_file_pendukung(){
+			$id_peserta = $this->input->post('id');
+			if(!empty($_FILES['foto']['name'])){
+				$config['upload_path'] = './assets/file_pmb/';
+				$config['allowed_types'] = 'pdf';
+				$config['max_size']  = '5240';
+				$config['overwrite'] = TRUE;
+				$config['file_name'] = 'pmb_peserta_online_'.$user_id;
+				
+				$config['file_ext'] = '.'.pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
+				$config['remove_space'] = TRUE;
+				$this->load->library('upload', $config); 
+				$this->upload->do_upload('foto');
+				$nama_foto = $config['file_name'].$config['file_ext'];
+				$data = [
+					'info_pmb' => $this->input->post('info_pmb'),
+					'ukuran_seragam' => $this->input->post('ukuran_seragam'),
+					'file_pendukung'=> $nama_foto,
+				];
+				$hasil = $this->db->update('pmb_peserta_online',$data,['id'=>$id_peserta]);
+				
+			}else{
+				$data = [
+					'info_pmb' => $this->input->post('info_pmb'),
+					'ukuran_seragam' => $this->input->post('ukuran_seragam'),
+				];
+				$hasil = $this->db->update('pmb_peserta_online',$data,['id'=>$id_peserta]);
+			}
+			
+			
+			if($hasil){
+				$this->session->set_userdata('success', '<script type="text/javascript">
+											alert("Data Calon Mahasiswa Berhasil di update."); 
+										</script>');
+			}else{
+				$this->session->set_userdata('error', '<script type="text/javascript">
+											alert("Data Calon Mahasiswa Gagal di update."); 
+										</script>');
+			}
+			redirect('formulir/file_pendukung');
 		}
 		function penpres(){
 			$id = $this->session->userdata("id_user");
@@ -215,7 +375,7 @@
                                                         </script>');
 				redirect('formulir/info');
 			}else{
-				$r = $this->Model_online->simpan_penpres();
+				//$r = $this->Model_online->simpan_penpres();
 				if ($r == 1) {
 					# code...
 					$this->session->set_userdata('success', '<script type="text/javascript">
@@ -331,6 +491,27 @@
                                                     </div>');
 				redirect('formulir/upload_foto');
 			}
+		}
+		function get_gelombang(){
+			$id = $this->input->post('id');
+			$gelombang = $this->db->get_where("pmb_gelombang", ['id_jalur'=>$id])->result();
+			echo json_encode($gelombang);
+		}
+		function get_info_gelombang(){
+			$id = $this->input->post('id');
+			$gelombang = $this->db->get_where("pmb_gelombang", ['id'=>$id])->row();
+			echo json_encode(nl2br($gelombang->nama_gel_long));
+		}
+		function get_jurusan(){
+			$id = $this->input->post('id');
+			
+			//$gelombang = $this->db->get_where("pmb_gelombang", ['id'=>$id])->row();
+			$jalur = $this->db->get_where('pmb_jalur',['id'=>$id])->row();
+			$data = [];
+			for($i=1; $i <= $jalur->pilihan; $i++){
+				$data[$i-1] = $this->db->select('pmb_jalur_prodi.*,program_studi.nama_jurusan')->join('program_studi','program_studi.id = pmb_jalur_prodi.id_program_studi','inner')->get_where('pmb_jalur_prodi',['id_jalur'=>$jalur->id])->result();
+			}
+			echo json_encode($data);
 		}
 	}
 ?>

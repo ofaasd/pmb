@@ -4,6 +4,17 @@
 <div class="page-body">
 	<div class="row">
 		<div class="col-sm-12">
+			<div class="row">
+				<div class="col-md-3">
+					<a href="#" class="btn btn-primary">Info Pribadi</a>
+				</div>
+				<div class="col-md-3">
+					<a href="#" class="btn btn-primary">Asal Sekolah</a>
+				</div>
+				<div class="col-md-3">
+					<a href="#" class="btn btn-primary">File Pendukung</a>
+				</div>
+			</div>
 			<div class="card">
 				<div class="card-header">
 					<?php echo $this->session->userdata('status_update'); 
@@ -15,7 +26,7 @@
 				 <form action="#" method="post" enctype="multipart/form-data">
 					  
 			<?php foreach($detail_cmhs as $d){ ?>
-				PILIH KELAS :
+					PILIH KELAS :
 					<p><select id="kelas" name="kelas" class="form-control" required="" disabled>
 							<option value="opt1" selected="" disabled="">- Pilih Kelas -</option>
 							<?php foreach($kelas as $kel){?>

@@ -147,7 +147,17 @@
 		function logout()
 		{
 			$this->session->sess_destroy();
-    		redirect('');
+			$data_sess = array(
+				'nama' => '',
+				'nim' => '',
+				'id_user' => '',
+				'status' => ''
+			  );
+			$this->session->unset_userdata('nama');
+			$this->session->unset_userdata('nim');
+			$this->session->unset_userdata('id_user');
+			$this->session->unset_userdata('status');
+    		redirect('pmb/dashboard');
 		}
 	}
 ?>

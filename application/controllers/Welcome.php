@@ -16,7 +16,7 @@ class Welcome extends CI_Controller {
 
 	public function index()
 	{
-		$data['title'] = "STIFERA";
+		$data['title'] = "STIFAR";
 			//$data['menu'] = $this->Model_simpeg->getMenu($this->authact->getSimpegRole());
 			//$hasil['menu_tree'] = $hasil['menu_tree'] = $this->Model_menu_tree->get_all_p0();
 
@@ -32,7 +32,7 @@ class Welcome extends CI_Controller {
 	}
 	public function landing()
 	{
-		$data['title'] = "Landing - STIFERA";
+		$data['title'] = "Landing - STIFAR";
 		//$data['menu'] = $this->Model_simpeg->getMenu($this->authact->getSimpegRole());
 		//$hasil['menu_tree'] = $hasil['menu_tree'] = $this->Model_menu_tree->get_all_p0();
 
@@ -47,7 +47,7 @@ class Welcome extends CI_Controller {
 	}
 	public function register()
 	{
-		$data['title'] = "Register - STIFERA";
+		$data['title'] = "Register - STIFAR";
 			//$data['menu'] = $this->Model_simpeg->getMenu($this->authact->getSimpegRole());
 			//$hasil['menu_tree'] = $hasil['menu_tree'] = $this->Model_menu_tree->get_all_p0();
 
@@ -71,9 +71,9 @@ class Welcome extends CI_Controller {
         $nama = $this->input->post('nama');
         $tgl_lahir = $this->input->post('tgl_lahir');
 		
-		$subject = "Penerimaan Mahasiswa Baru STIFERA";
+		$subject = "Penerimaan Mahasiswa Baru STIFAR";
 		$tanggal = date("Ymd",strtotime($tgl_lahir));
-        $message = "Selamat kepada " . $nama . ". Anda sudah tergabung sebagai Calon Mahasiswa di Sekolah Tinggi Farmasi Nusaputera \n Berikut Username dan Password anda adalah : \n username : " . $email  . "\n Password : " . $tanggal . "\n\n Terimakasih, \n Admin PMB";
+        $message = "Selamat kepada " . $nama . ". Anda sudah tergabung sebagai Calon Mahasiswa di Sekolah Tinggi Ilmu Farmasi \n Berikut Username dan Password anda adalah : \n username : " . $email  . "\n Password : " . $tanggal . "\n\n Terimakasih, \n Admin PMB";
 
         $this->email->set_newline("\r\n");
         $this->email->from($from);
@@ -87,26 +87,4 @@ class Welcome extends CI_Controller {
             show_error($this->email->print_debugger());
         }
     }
-	public function artikel($id){
-		$data['title'] = "Detaiil Artikel - STIFERA";
-		//$data['menu'] = $this->Model_simpeg->getMenu($this->authact->getSimpegRole());
-		//$hasil['menu_tree'] = $hasil['menu_tree'] = $this->Model_menu_tree->get_all_p0();
-
-		
-		$hasil['artikel'] = $this->db->get_where("master_post",array("id"=>$id))->row();
-
-		$data['content'] = $this->load->view('detail_artikel',$hasil,true);
-		$this->load->view('index_login',$data);
-	}
-	public function artikel_all($kategori){
-		$data['title'] = "Artikel All - STIFERA";
-		//$data['menu'] = $this->Model_simpeg->getMenu($this->authact->getSimpegRole());
-		//$hasil['menu_tree'] = $hasil['menu_tree'] = $this->Model_menu_tree->get_all_p0();
-		$list_kategori = array(1=>"Pengumuman","Agenda","Berita");
-		$hasil['kategori'] = $list_kategori[$kategori];
-		$hasil['artikel'] = $this->db->get_where("master_post",array("kategori"=>$kategori))->result();
-
-		$data['content'] = $this->load->view('artikel',$hasil,true);
-		$this->load->view('index_login',$data);
-	}
 }

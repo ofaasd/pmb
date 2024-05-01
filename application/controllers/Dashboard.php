@@ -31,6 +31,15 @@
 		function logout()
 		{
 			$this->session->sess_destroy();
+
+			$data_sess = array(
+				'nama' => '',
+				'nim' => '',
+				'id_user' => '',
+				'status' => ''
+			  );
+			$this->session->set_userdata($data_sess);
+
     		redirect('');
 		}
 	}

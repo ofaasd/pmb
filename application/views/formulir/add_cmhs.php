@@ -92,26 +92,17 @@
 							::-webkit-input-placeholder { /* Edge 12-18 */
 							  font-family: Raleway !important;
 							}
+							.alert-info{
+								border:1px solid #2980b9;
+								background:#3498db;
+								color:#fff;
+								font-size:12pt;
+							}
                             </style>
 							
 <div class="card-block">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="alert alert-primary" style="border:1px solid #01a9ac">
-				<b>SYARAT PENDAFTARAN:</b>
-					<ul style="list-style:disc">
-						<li>Surat Keterangan Bebas Narkoba (menyertakan hasil Lab min. 3 jenis, misal Amphetamin, Metaphetamin, Morphin)</li>
-						<li>Surat Keterangan Sehat dan tidak Buta Warna</li>
-						<li>Pas Photo terbaru berwarna 3x4 (3 lembar)</li>
-						<li>Fotokopi KK </li>
-						<li>Fotokopi KTP </li>
-						<li>Fotokopi Raport legalisir sampai semester terakhir berjalan</li>
-						<li>Surat Rekomendasi Kepala Sekolah</li>
-					</ul>
-					<ul>
-						<li>Jika SUDAH LULUS, melampirkan fotokopi ijazah dan nilai UAN</li>
-					</ul>
-			</div>
 			<div id="wizard">
 				<section>
 					<form id="create-pegawai" class="wizard-form" action="<?php echo base_url()?>formulir/cmhs_tambah_aksi" method="post" enctype="multipart/form-data">
@@ -121,40 +112,52 @@
 								<div class="col-sm-6">
 									Nomor KTP <span class="text-danger">*</span> :
 									<p><input type="text" class="form-control" placeholder="Nomor KTP" oninput="this.className = ''" name="ktp" required=""></p>
-									NISN <span class="text-danger">*</span> :
-									<p><input type="text" class="form-control" placeholder="NISN" oninput="this.className = ''" name="nisn" required="">
-									Tidak Tahu NISN anda? <a href="https://nisn.data.kemdikbud.go.id/page/data" target="_blank">cek DISINI</a></p>
+									<!-- NISN <span class="text-danger">*</span> : -->
+									<input type="hidden" class="form-control" placeholder="NISN" oninput="this.className = ''" name="nisn" required="" value=" ">
+									<!-- Tidak Tahu NISN anda? <a href="https://nisn.data.kemdikbud.go.id/page/data" target="_blank">cek DISINI</a></p> -->
 									Nama Lengkap <span class="text-danger">*</span> :
 									<p><input type="text" class="form-control" placeholder="Nama Lengkap" oninput="this.className = ''" name="nama" required=""></p>
-									Jenis Kelamin <span class="text-danger">*</span> :
-									<p>
-										<select name="jk" class="form-control" required="">
-											<option selected="" disabled="">Jenis Kelamin</option>
-											<option value="1">Laki - Laki</option>
-											<option value="2">Perempuan</option>
-										</select>
-									</p>
-									Agama <span class="text-danger">*</span> :
-									<p>
-										<select name="agama" class="form-control" required="">
-											<option value="opt1" selected="" disabled="">Pilih Agama</option>
-											<option value="1">Islam</option>
-											<option value="2">Kristen</option>
-											<option value="3">Katolik</option>
-											<option value="4">Hindu</option>
-											<option value="5">Budha</option>
-											<option value="6">Konghucu</option>
-											<option value="99">Lainnya</option>
-										</select>
-									</p>
+									<div class="row">
+										<div class="col-md-6">
+											Tempat Lahir <span class="text-danger">*</span> :
+											<p><input type="text" class="form-control" placeholder="Tempat Lahir" oninput="this.className = ''" name="tl" required=""></p>
+										</div>
+										<div class="col-md-6">
+											Tanggal Lahir <span class="text-danger">*</span> :
+											<p><input type="date" class="form-control" oninput="this.className = ''" name="tgl" required=""></p>
+										</div>
+										<div class="col-md-6">
+											Jenis Kelamin <span class="text-danger">*</span> :
+											<p>
+												<select name="jk" class="form-control" required="">
+													<option selected="" disabled="">Jenis Kelamin</option>
+													<option value="1">Laki - Laki</option>
+													<option value="2">Perempuan</option>
+												</select>
+											</p>
+										</div>
+										<div class="col-md-6">
+											Agama <span class="text-danger">*</span> :
+											<p>
+												<select name="agama" class="form-control" required="">
+													<option value="opt1" selected="" disabled="">Pilih Agama</option>
+													<option value="1">Islam</option>
+													<option value="2">Kristen</option>
+													<option value="3">Katolik</option>
+													<option value="4">Hindu</option>
+													<option value="5">Budha</option>
+													<option value="6">Konghucu</option>
+													<option value="99">Lainnya</option>
+												</select>
+											</p>
+										</div>
+									</div>
 									Nama Ibu <span class="text-danger">*</span> :
 									<p><input type="text" class="form-control" placeholder="Nama Ibu" oninput="this.className = ''" name="ibu" required=""></p>
 									Nama Ayah <span class="text-danger">*</span> :
 									<p><input type="text" class="form-control" placeholder="Nama Ayah" oninput="this.className = ''" name="ayah" required=""></p>
 									Nomor HP Orang Tua <span class="text-danger">*</span> :
 									<p><input type="text" class="form-control" placeholder="Nomor HP Orang Tua" oninput="this.className = ''" name="hp_ortu" required=""></p>
-									Alamat Semarang <span class="text-danger">*</span> :
-									<p><textarea class="form-control" style="resize: none;" name="alamat_semarang" placeholder="Alamat Semarang" required="" ></textarea></p>
 									<div class="row">
 										<div class="col-md-6">
 											Tinggi Badan <span class="text-danger">*</span> :
@@ -164,21 +167,15 @@
 											Berat Badan <span class="text-danger">*</span> :
 											<p><input type="number" class="form-control" placeholder="Berat Badan" oninput="this.className = ''" name="bb" required=""></p>
 										</div>
-										<div class="col-md-6">
-											Tempat Lahir <span class="text-danger">*</span> :
-											<p><input type="text" class="form-control" placeholder="Tempat Lahir" oninput="this.className = ''" name="tl" required=""></p>
-										</div>
-										<div class="col-md-6">
-											Tanggal Lahir <span class="text-danger">*</span> :
-											<p><input type="date" class="form-control" oninput="this.className = ''" name="tgl" required=""></p>
-										</div>
+										
 									</div>
-								</div>
-								<div class="col-sm-6">
 									Nomor Handphone <span class="text-danger">*</span> :
 									<p><input type="text" class="form-control" placeholder="No Handphone" oninput="this.className = ''" name="hp" required=""></p>
-									Nomor Telepon :
-									<p><input type="text" class="form-control" placeholder="Nomor Telepon" oninput="this.className = ''" name="telepon" ></p>
+									Nomor WA Aktif <span class="text-danger">*</span>:
+									<p><input type="text" class="form-control" placeholder="Nomor Telepon" oninput="this.className = ''" name="telepon" required=""></p>
+								</div>
+								<div class="col-sm-6">
+									
 									Status Warga Negara <span class="text-danger">*</span> :
 									<p>
 										<select name="warga_negara" id="wn" class="form-control" required="">
@@ -225,10 +222,95 @@
 											<p><input type="text" class="form-control" placeholder="RW" oninput="this.className = ''" name="rw" required=""></p>
 										</div>
 									</div>
-									Sekolah Asal <span class="text-danger">*</span> :
-									<p><select name="asal_sekolah" id="asal_sekolah" class="form-control js-example-basic-single" required="">
+								</div>
+							</div>
+						</fieldset>
+						<h3> Gelombang & Jalur </h3>
+						<fieldset>
+							<div class="row">
+								<div class="col-md-12">
+									Tahun Ajaran :
+									<p>
+										<?php 
+										$curr_ta = "";
+										$gel_ta = $this->db->get('pmb_ta')->result();
+										foreach($gel_ta as $gel_ta){
+											if($gel_ta->is_active == 1){
+												$curr_ta = $gel_ta->awal;
+											}
+										} ?>
+										<input type="text" class="form-control" name="gel_ta" value="<?php echo $curr_ta?>" readonly>
+									</p>
+
+									PILIH JALUR<span class="text-danger">*</span> :
+									<p>
+										<select id="jalur" name="jalur" class="form-control"  required="">
+											<option value="">Pilih Jalur Pendaftaran</option>
+											<?php foreach($jalur as $row){
+												echo "<option value='" . $row->id . "'>" . $row->nama . "</option>";
+											}?>
+										</select>
+									</p>
+									
+									<div id="gel_text">PILIH GELOMBANG<span class="text-danger">*</span> :
+										<p><select name="gelombang" id="gelombang" class="form-control" required="">
+											<option selected="" disabled="">Gelombang Pendaftaran</option>
+										</select></p>
+									</div>
+									<div class="info_gelombang">
+
+									</div>
+								</div>
+							</div>
+						</fieldset>
+						<h3> Jurusan & Asal Sekolah </h3>
+						<fieldset>
+							<div class="row">
+								<div class="col-md-6">
+									<h3>Pilihan Program Studi</h3>
+									<div id="jurusan">
+											
+									</div>
+									<h3>Asal Sekolah</h3>
+									<span id="judul_asal">Nama Sekolah / Kampus</span> <span class="text-danger">*</span> :
+									<p><input type="text" name="asal_sekolah" id="asal_sekolah"></p>
+									<span id="judul_jurusan">Jurusan / Program Studi</span> <span class="text-danger">*</span> :
+									<p><input type="text" name="jurusan" id="jurusan"></p>
+									<span id="judulakreditasi">Akreditasi</span> <span class="text-danger">*</span> :
+									<p><select name="akreditasi" class="form-control" id="akre_default">
+										<option value="A">A (Unggul)</option>
+										<option value="B">B (Baik Sekali)</option>
+										<option value="C">C (Baik)</option>
 									</select></p>
-									<div id="tambah-sekolah"></div>
+									<span id="judul_alamat_sekolah">Alamat Sekolah / Kampus</span> <span class="text-danger">*</span> :
+									<p><input type="text" name="alamat_sekolah" id="alamat_sekolah"></p>
+									<span id="judul_provinsi_sekolah">Provinsi Sekolah / Kampus</span> <span class="text-danger">*</span> :
+									<p>
+										<select name="provinsi_sekolah" id="provinsi_sekolah" class="form-control" required="">
+											<option selected="" disabled="">Pilih Provinsi</option>
+											<?php foreach($wilayah as $w){?>
+											<option value="<?php echo $w->id_wil ?>"><?php echo $w->nm_wil ?></option>
+											<?php } ?>
+										</select>
+									</p>
+									<span id="judul_kota_sekolah">Kota Sekolah / Kampus</span> <span class="text-danger">*</span> :
+									<p>
+										<select name="kota_sekolah" id="kota_sekolah" class="form-control" required=""> 
+											<option selected="" disabled="">Pilih Kota/Kabupaten</option>
+										</select>
+									</p>
+									<div id="area_pasca">
+										<label for="ipk">Nilai IPK S1</label> <span class="text-danger">*</span> :
+										<p><input type="number" name="ipk" id="ipk"> <br /><small class="text-warning">Gunakan . (titik) untuk nilai desimal</small></p>
+										<label for="toefl">Nilai TOEFL</label> <span class="text-danger">*</span> :
+										<p><input type="number" name="toefl" id="toefl"><br /><small class="text-warning">Gunakan . (titik) untuk nilai desimal</small></p>
+									</div>
+								</div>
+								<div class="col-md-6" id="nilai_mapel">
+
+									<!-- <p><select name="asal_sekolah" id="asal_sekolah" class="form-control js-example-basic-single" required="">
+									</select></p> -->
+									<!-- <div id="tambah-sekolah"></div>
 									<div class="modal fade" id="modal_tambah_sekolah" tabindex="-1" role="dialog">
 										<div class="modal-dialog" role="document">
 											<div class="modal-content">
@@ -252,64 +334,42 @@
 												</div>
 											</div>
 										</div>
-									</div>
-								</div>
-							</div>
-						</fieldset>
-						<h3> Gelombang & Jalur </h3>
-						<fieldset>
-							<div class="row">
-								<div class="col-md-12">
-									Tahun Ajaran :
-									<p>
-										<?php 
-										$curr_ta = "";
-										$gel_ta = $this->db->get('pmb_ta')->result();
-										foreach($gel_ta as $gel_ta){
-											if($gel_ta->is_active == 1){
-												$curr_ta = $gel_ta->awal;
-											}
-										} ?>
-										<input type="text" class="form-control" name="gel_ta" value="<?php echo $curr_ta?>" readonly>
-									</p>
-									
-									PILIH KELAS<span class="text-danger">*</span> :
-									<p><select id="kelas" name="kelas" class="form-control" required="">
-											<option value="opt1" selected="" disabled="">- Pilih Kelas -</option>
-											<?php foreach($kelas as $kel){?>
-											<option value="<?php echo $kel->jalur."-".$kel->id; ?>"><?php echo $kel->nama_kelas ?></option>
-											<?php } ?>
-										</select></p>
-									PILIH JALUR<span class="text-danger">*</span> :
-									<p><select id="jalur" name="jalur" class="form-control"  required="">
-										</select></p>
-										<div id="kerdiv" hidden="">
-											JENIS KERJASAMA (JIKA JALUR KERJSAMA) :
-											<p><select id="kerjasama" name="kerjasama" class="form-control">
-												</select></p>
-										</div>
-									<div id="skl_mou" hidden="">
-										<p id="mou_akfar"></p>
-									</div>
-									
-									<div id="gel_text">PILIH GELOMBANG<span class="text-danger">*</span> :
-										<p><select name="gelombang" id="gelombang" class="form-control" required="">
-											<option selected="" disabled="">Gelombang Pendaftaran</option>
-										<?php foreach($gelombang as $g){?>
-											<option value="<?php echo $g->id ?>"><?php echo $g->nama_gel_long ?></option>
-										<?php } ?>
-										</select></p>
-									</div>
-								</div>
-							</div>
-						</fieldset>
-						<h3> Nilai & Prestasi </h3>
-						<fieldset>
-							<div class="row">
-								<div class="col-md-12">
+									</div> -->
+									<?php 
+										for($i=0; $i<5; $i++){
+									?>
+										<h3>Nilai 
+											<?php
+												if($i < 2){
+													echo "Kelas X";
+												}elseif($i > 1 && $i < 4){
+													echo "Kelas XI";
+												}else{
+													echo "Kelas XII";
+												}
+
+												if($i % 2 == 1){
+													echo " Semester 2";
+												}else{
+													echo " Semester 1";
+												}
+											?>
+											</h3>
+											<?= ($i == 4)?"<p>(Diisi 0 jika belum mendapat rapor kelas XII semester 1)</p>" : "" ?>
+										<small class="text-warning">Gunakan . (titik) untuk nilai desimal</small><br /><br />
+									<?php 
+										foreach($mapel as $key=>$value){
+											$new_mapel = 'nilai_' . $key . '_smt' . ($i+1);
+									?>
+										Nilai <?= $value ?>
+										<p><input type="number" value="<?php echo (!empty($rapor[$new_mapel]))?$rapor[$new_mapel]:""?>" name="<?= $new_mapel ?>" class="form-control"></p>
+									<?php	}
+										}
+									?>
+									<!-- <h3>Nilai Raport</h3>
 									NILAI RATA - RATA SEMESTER 1<span class="text-danger">*</span> :
-									<p><input type="number" value="<?php echo (!empty($rapor->nilai_smt1))?$rapor->nilai_smt1:""?>" placeholder="NILAI RATA - RATA SEMESTER 1" name="smt1" required="" class="form-control"></p>
-									BERKAS RAPOR SEMESTER 1<span class="text-danger">*</span> :
+									<p><input type="number" value="<?php echo (!empty($rapor->nilai_smt1))?$rapor->nilai_smt1:""?>" placeholder="NILAI RATA - RATA SEMESTER 1" name="smt1" required="" class="form-control"></p> -->
+									<!-- BERKAS RAPOR SEMESTER 1<span class="text-danger">*</span> :
 									<p>
 										<input type="file" name="file_smt1"  class="form-control" required=""><small>* File Max 1MB</small>
 										<?php 
@@ -317,10 +377,10 @@
 												echo "<a href='" . base_url() . "assets/rapor/" . $rapor->file_smt1 . "' target='_blank' class='btn btn-primary btn-mini'>Lihat FIle</a>";
 											}
 										?>
-									</p>
-									NILAI RATA - RATA SEMESTER 2<span class="text-danger">*</span> :
-									<p><input type="number" value="<?php echo (!empty($rapor->nilai_smt2))?$rapor->nilai_smt2:""?>" placeholder="NILAI RATA - RATA SEMESTER 2" name="smt2" required="" class="form-control"></p>
-									BERKAS RAPOR SEMESTER 2<span class="text-danger">*</span> :
+									</p> -->
+									<!-- NILAI RATA - RATA SEMESTER 2<span class="text-danger">*</span> :
+									<p><input type="number" value="<?php echo (!empty($rapor->nilai_smt2))?$rapor->nilai_smt2:""?>" placeholder="NILAI RATA - RATA SEMESTER 2" name="smt2" required="" class="form-control"></p> -->
+									<!-- BERKAS RAPOR SEMESTER 2<span class="text-danger">*</span> :
 									<p>
 										<input type="file" name="file_smt2"  class="form-control" required=""><small>* File Max 1MB</small>
 										<?php 
@@ -329,10 +389,10 @@
 											}
 										?>
 										
-									</p>
-									NILAI RATA - RATA SEMESTER 3<span class="text-danger">*</span> :
-									<p><input type="number" value="<?php echo (!empty($rapor->nilai_smt3))?$rapor->nilai_smt3:""?>" placeholder="NILAI RATA - RATA SEMESTER 3" name="smt3" required="" class="form-control"></p>
-									BERKAS RAPOR SEMESTER 3 :
+									</p> -->
+									<!-- NILAI RATA - RATA SEMESTER 3<span class="text-danger">*</span> :
+									<p><input type="number" value="<?php echo (!empty($rapor->nilai_smt3))?$rapor->nilai_smt3:""?>" placeholder="NILAI RATA - RATA SEMESTER 3" name="smt3" required="" class="form-control"></p> -->
+									<!-- BERKAS RAPOR SEMESTER 3 :
 									<p>
 										<input type="file" name="file_smt3"  class="form-control" required=""><small>* File Max 1MB</small>
 										<?php 
@@ -340,10 +400,10 @@
 												echo "<a href='" . base_url() . "assets/rapor/" . $rapor->file_smt3 . "' target='_blank' class='btn btn-primary btn-mini'>Lihat FIle</a>";
 											}
 										?>
-									</p>
-									NILAI RATA - RATA SEMESTER 4<span class="text-danger">*</span> :
-									<p><input type="number" value="<?php echo (!empty($rapor->nilai_smt4))?$rapor->nilai_smt4:""?>" placeholder="NILAI RATA - RATA SEMESTER 4" name="smt4" required="" class="form-control"></p>
-									BERKAS RAPOR SEMESTER 4 :
+									</p> -->
+									<!-- NILAI RATA - RATA SEMESTER 4<span class="text-danger">*</span> :
+									<p><input type="number" value="<?php echo (!empty($rapor->nilai_smt4))?$rapor->nilai_smt4:""?>" placeholder="NILAI RATA - RATA SEMESTER 4" name="smt4" required="" class="form-control"></p> -->
+									<!-- BERKAS RAPOR SEMESTER 4 :
 									<p>
 										<input type="file" name="file_smt4"  class="form-control" required=""><small>* File Max 1MB</small>
 										<?php 
@@ -351,10 +411,10 @@
 												echo "<a href='" . base_url() . "assets/rapor/" . $rapor->file_smt4 . "' target='_blank' class='btn btn-primary btn-mini'>Lihat FIle</a>";
 											}
 										?>
-									</p>
-									NILAI RATA - RATA SEMESTER 5<span class="text-danger">*</span> :
-									<p><input type="number" value="<?php echo (!empty($rapor->nilai_smt5))?$rapor->nilai_smt5:""?>" placeholder="NILAI RATA - RATA SEMESTER 5" name="smt5" required="" class="form-control"></p>
-									BERKAS RAPOR SEMESTER 5 :
+									</p> -->
+									<!-- NILAI RATA - RATA SEMESTER 5 (Jika Sudah Ada, Jika balum harap diisi dengan angka 0)<span class="text-danger">*</span> :
+									<p><input type="number" value="<?php echo (!empty($rapor->nilai_smt5))?$rapor->nilai_smt5:""?>" placeholder="NILAI RATA - RATA SEMESTER 5" name="smt5" required="" class="form-control"></p> -->
+									<!-- BERKAS RAPOR SEMESTER 5 (Jika Sudah Ada):
 									<p>
 										<input type="file" name="file_smt5"  class="form-control" required=""><small>* File Max 1MB</small>
 										<?php 
@@ -362,7 +422,8 @@
 												echo "<a href='" . base_url() . "assets/rapor/" . $rapor->file_smt5 . "' target='_blank' class='btn btn-primary btn-mini'>Lihat FIle</a>";
 											}
 										?>
-									</p>
+									</p> -->
+									<!-- <div id="sertifikat_juara">
 									SERTIFIKAT JUARA :
 									<p><input type="file" name="file1"  class="form-control"></p>
 									<p><input type="text" name="ket1" placeholder="Keterangan Sertifikat" class="form-control" value="<?php echo (!empty($piagam->ket1))?$piagam->ket1:""?>"></p>
@@ -393,29 +454,18 @@
 											}
 										?>
 									</p>
-									Program Studi 1<span class="text-danger">*</span> : 
-									<input type="hidden" value="1" name="pendaftaran" class="form-control" required="">
-										<p><select name="pilihan1" class="form-control" required="">
-										<option value="opt1" selected="" disabled="">- Pilih Program Studi 1 -</option>
-										<?php foreach($prodi as $p){?>
-										<option value="<?php echo $p->id ?>"><?php echo $p->jenjang." - ".$p->nama_jurusan ?></option>
-										<?php } ?>
-									</select></p>Program Studi 2 :
-									<p><select name="pilihan2" class="form-control">
-										<option value="opt1" selected="" disabled="">- Pilih Program Studi 1 -</option>
-										<?php foreach($prodi as $p){?>
-										<option value="<?php echo $p->id ?>"><?php echo $p->jenjang." - ".$p->nama_jurusan ?></option>
-										<?php } ?>
-									</select>
-									</p>
+									</div> -->
 								</div>
 							</div>
 						</fieldset>
-						<h3> Foto </h3>
+						<h3> File Pendukung </h3>
 						<fieldset>
 							<div class="row">
 								<div class="col-md-12">
 									<!-- bagian foto -->
+									<div class="info_gelombang">
+
+									</div>
 									Dapat Info PMB darimana?
 									  <p>
 										  <select name="info_pmb" class="form-control" required="">
@@ -434,12 +484,14 @@
 											<option value="M">M</option>
 											<option value="L">L</option>
 											<option value="XL">XL</option>
+											<option value="XXL">XXL</option>
+											<option value="XXXL">XXXL</option>
 										  </select>
 									  </p>
-									  Upload Foto :
+									  Upload File Pendukung :
 									  <p><input type='file' name="foto" onchange="readURL(this);" required="" />
-										Maksimal 1 MB dengan background merah.</p>
-									  <img id="blah" src="http://placehold.it/180" alt="your image" style="width:225px;height:280px;" />
+										Maksimal 5 MB dengan format pdf.</p>
+									  
 									  <br><br><br>	
 									
 									<!--<div class="col-sm-2">
@@ -506,6 +558,9 @@ function fixStepIndicator(n) {
 }
 	$(document).ready(function(){
 		
+		$("#nilai_mapel").hide();
+		$("#area_pasca").hide();
+		
 		
 	    var form = $("#create-pegawai").show();
 
@@ -545,7 +600,7 @@ function fixStepIndicator(n) {
 		  },
 		  onFinishing: function(event, currentIndex) {
 
-		      form.validate().settings.ignore = ":disabled";
+		      form.validate().settings.ignore = ":disabled,:hidden";
 		      return form.valid();
 		  },
 		  onFinished: function(event, currentIndex) {
@@ -574,73 +629,82 @@ function fixStepIndicator(n) {
 			}else if(kelas == 2){
 				isi = '<option value="opt1" selected="" disabled="">- Pilih Jalur -</option><option value="3" selected>Umum</option><option value="2">Kerjasama</option>';
 			}
+
 			// $('#gelombang').html(data);
 			$('#jalur').html(isi);
 		});
 		$('#jalur').change(function(){
-			var pilihan = $(this).val();
-			var get_kelas = $('#kelas').val();
-			console.log(get_kelas);
-			var str_explode = get_kelas.split('-');
-			var kelas = str_explode[0];
-			var hasil = '';
-			if ((pilihan == 2) && (kelas == 1)) {
-				hasil = '<option value="opt1" selected="" disabled="">- Pilih Kerjasama -</option><option value="1">MOU</option><option value="2">Alumni SMK Farmasi</option>';
-				document.getElementById('kerdiv').hidden = false;
-				document.getElementById('skl_mou').hidden = false;
-			}else if((pilihan == 2) && (kelas == 2)){
-				hasil = '<option value="opt1" selected="" disabled="">- Pilih Kerjasama -</option><option value="1">MOU</option><option value="2">Alumni SMK Farmasi</option>';
-				document.getElementById('kerdiv').hidden = false;
-				document.getElementById('skl_mou').hidden = false;
+			const jalur = $(this).val();
+			if(jalur == 1 || jalur == 2){
+				$("#nilai_mapel").show();
 			}else{
-				document.getElementById('kerdiv').hidden = true;
-				document.getElementById('skl_mou').hidden = true;
+				$("#nilai_mapel").hide();
 			}
 
-			if (pilihan == 3) {
-				document.getElementById('gel_text').hidden = false;
-				document.getElementById('pmdp_text').hidden = true;
+			if(jalur == 5 || jalur == 6){
+				$("#area_pasca").show();
+			}else{
+				$("#area_pasca").hide();
 			}
-			if (pilihan == 2) {
-				document.getElementById('gel_text').hidden = false;
-				//document.getElementById('pmdp_text').hidden = true;
-			}
-			if(pilihan == 1){
-				document.getElementById('gel_text').hidden = false;
-				//document.getElementById('pmdp_text').hidden = false;
-			}
-			if ((pilihan != 1) && (pilihan != 3) && (pilihan != 2)) {
-				document.getElementById('gel_text').hidden = true;
-				//document.getElementById('pmdp_text').hidden = true;
-			}
-			$('#kerjasama').html(hasil);
-		});
-		$('#kerjasama').change(function(){
-			var mou_val = $(this).val();
-			var html = '';
-			if (mou_val == 1) {
-				document.getElementById('skl_mou').hidden = false;
-				$.ajax({
-				url : "<?php echo base_url();?>pmb/daftar_mou/",
+			$.ajax({
+				url : "<?php echo base_url();?>formulir/get_gelombang/",
 				method: "POST",
-				data:{id:mou_val},
+				data:{id:jalur},
 				async: false,
 				dataType: "json",
 				success: function(data){
-						html += 'PILIH SEKOLAH : <p><select id="mou_akfar" name="nama_sekolah_mou" class="form-control">';
-					var i;
+					$("#gelombang").html("<option value=''>Plih Gelombang</option>");
+					let i;
 					for (i = 0; i < data.length; i++) {
-						html += '<option value="'+ data[i].id_sekolah +'">'+data[i].nama_sekolah+'</option>';
+						$("#gelombang").append('<option value="'+ data[i].id +'">'+data[i].nama_gel+'</option>');
+						i++;
 					}
-						html += '</select></p>';
-						
-					}
-				});
-			}else{
-				document.getElementById('skl_mou').hidden = true;
-			}
-			$('#mou_akfar').html(html);
+					get_jurusan();	
+				}
+			});
 		});
+		$('#gelombang').change(function(){
+			//alert("test");
+			const gelombang = $(this).val();
+			$.ajax({
+				url : "<?php echo base_url();?>formulir/get_info_gelombang/",
+				method: "POST",
+				data:{id:gelombang},
+				async: false,
+				dataType: "json",
+				success: function(data){
+					$(".info_gelombang").html(`<div class="alert alert-info">${data}</div>`);
+					
+				}
+			});
+		});
+		function get_jurusan()
+		{
+			const jalur = $("#jalur").val();
+			$.ajax({
+				url : "<?php echo base_url();?>formulir/get_jurusan/",
+				method: "POST",
+				data:{id:jalur},
+				async: false,
+				dataType: "json",
+				success: function(data){
+					//alert(data);
+					//alert(data);
+					temp = "";
+
+					data.forEach((item, index) => {
+						temp += `Program Studi ${index + 1}
+						<p><select name='prodi[]' class="form-control">`
+						item.forEach((item2, index2) => {
+							temp += `<option value='${item2.id_program_studi}'>${item2.nama_jurusan} ${item2.keterangan}</option>`
+						});
+						temp += `</select></p>`
+					});	
+
+					$("#jurusan").html(temp);
+				}
+			});
+		}
 		$('#wn').change(function(){
 			var id=$(this).val();
 			$.ajax({
@@ -660,64 +724,7 @@ function fixStepIndicator(n) {
 				}
 			});
 		});
-		/* $('#gelombang').change(function(){
-			var val_gel = $(this).val();
-			var nopen_pmdp = 20000;
-			var nopen_gel = 50000;
-			if(val_gel == 'PMDP'){
-				$.ajax({
-					url : "<?php echo base_url();?>pmb/nopen_pmdp/",
-					method : "POST",
-					data : {id: nopen_pmdp},
-					async : false,
-					dataType : 'json',
-					success: function(data){
-						var nopen_baru = '';
-						var i;
-						for(i=0; i<data.length; i++){
-							// nopen_baru += data[i].nopen;
-							nopen_baru += '<input type="text" class="form-control" readonly="" value="'+ data[i].nopen +'" name="nopen">';
-						}
-						// console.log(nopen_baru);
-						$('#nopen').html(nopen_baru);
-					}
-				});
-				document.getElementById('label1').innerHTML = "Kelas X Semester 1";
-				document.getElementById('label2').innerHTML = "Kelas X Semester 2";
-				document.getElementById('label3').innerHTML = "Kelas XI Semester 1";
-				document.getElementById('label4').innerHTML = "Kelas XI Semester 2";
-				document.getElementById('pmdp1').hidden = false;
-				document.getElementById('pmdp2').hidden = false;
-				document.getElementById('pmdp3').hidden = false;
-				document.getElementById('pmdp4').hidden = false;
-			}else{
-				$.ajax({
-					url : "<?php echo base_url();?>pmb/nopen_gel/",
-					method : "POST",
-					data : {id: nopen_gel},
-					async : false,
-					dataType : 'json',
-					success: function(data){
-						var nopen_baru = '';
-						var i;
-						for(i=0; i<data.length; i++){
-							// nopen_baru += data[i].nopen;
-							nopen_baru += '<input type="text" class="form-control" readonly="" value="'+ data[i].nopen +'" name="nopen">';
-						}
-						// console.log(nopen_baru);
-						$('#nopen').html(nopen_baru);
-					}
-				});
-				document.getElementById('label1').innerHTML = "";
-				document.getElementById('label2').innerHTML = "";
-				document.getElementById('label3').innerHTML = "";
-				document.getElementById('label4').innerHTML = "";
-				document.getElementById('pmdp1').hidden = true;
-				document.getElementById('pmdp2').hidden = true;
-				document.getElementById('pmdp3').hidden = true;
-				document.getElementById('pmdp4').hidden = true;
-			}
-		}); */
+		
 		$('#provinsi').change(function(){
 			//alert("asdasd");
 			var id=$(this).val();
@@ -734,6 +741,26 @@ function fixStepIndicator(n) {
 						html += '<option value="'+ data[i].id_wil +'">'+data[i].nm_wil+'</option>';
 					}
 					$('#kotakab').html(html);
+					 
+				}
+			});
+		});
+		$('#provinsi_sekolah').change(function(){
+			//alert("asdasd");
+			var id=$(this).val();
+			$.ajax({
+				url : "<?php echo base_url();?>pmb/daftar_kotakab/",
+				method : "POST",
+				data : {id: id},
+				async : false,
+				dataType : 'json',
+				success: function(data){
+					var html = '';
+					var i;
+					for(i=0; i<data.length; i++){
+						html += '<option value="'+ data[i].id_wil +'">'+data[i].nm_wil+'</option>';
+					}
+					$('#kota_sekolah').html(html);
 					 
 				}
 			});
@@ -762,7 +789,7 @@ function fixStepIndicator(n) {
 			var id_prov=$(this).val();
 			$('#kotakab').change(function(){
 				var id_kota=$(this).val();
-				reload_daftar_sekolah(id_prov,id_kota);
+				//reload_daftar_sekolah(id_prov,id_kota);
 			});
 		});
 		
@@ -813,7 +840,7 @@ function fixStepIndicator(n) {
 				$('#asal_sekolah').html(html);
 				$("#add_sekolah_provinsi").val(id_prov);
 				$("#add_sekolah_kota").val(id_kota);
-				$('#tambah-sekolah').html('Sekolah Tidak Ditemukan Klik <a href="#" id="btn_tambah_sekolah" class="" data-toggle="modal" data-target="#modal_tambah_sekolah">Disini</a> untuk menambah');
+				$('#tambah-sekolah').html('Jika sekolah tidak ditemukan, klik <a href="#" id="btn_tambah_sekolah" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_tambah_sekolah">Disini</a> untuk menambah');
 				}
 			});
 	}
