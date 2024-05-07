@@ -193,7 +193,6 @@
 			$pmb['curr_jalur'] = $this->db->get_where('pmb_jalur',['id'=>$pmb['detail_cmhs2']->jalur_pendaftaran])->row();
 			$pmb['content2'] = $this->load->view('formulir/file_pendukung',$pmb,true);
 			$data['content'] = $this->load->view('formulir/update_cmhs',$pmb,true);
-
 			$this->load->view('pmb_online/index_layout',$data);
 		}
 		function update_file_pendukung(){

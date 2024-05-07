@@ -427,59 +427,19 @@
 			
 			//echo $set_nopen;
 			//exit;
-			$data = array(
+				$no = "9129.1";
+				if(empty($pmb_online->pilihan1)){
+					echo "Pilihan Prodi belum diisi";
+					redirect('formulir/info');
+				}else{
+					//$prodi = $this->db->get_where('program_studi',['id'=>$pmb_online->pilihan1])->row()->pilihan1;
+				}
+				echo $no . "." . $pmb_online->pilihan1;
+				exit;
+				$data = array(
 						'nopen' => $set_nopen,
-						//'user_id' => $user_id,
-						//'is_online' => 1,
-						'nisn' => $pmb_online->nisn,
-						'gelombang' => $pmb_online->gelombang,
-						'noktp' => $pmb_online->noktp,
-						'nama' => $pmb_online->nama,
-						'jk' => $pmb_online->jk,
-						'agama' => $pmb_online->agama,
-						'nama_ibu' => $pmb_online->nama_ibu,
-						'nama_ayah' => $pmb_online->nama_ayah,
-						'hp_ortu' => $pmb_online->hp_ortu,
-						'email' => $user->email,
-						'alamat_semarang' => $pmb_online->alamat_semarang,
-						'tinggi_badan' => $pmb_online->tinggi_badan,
-						'berat_badan' => $pmb_online->berat_badan,
-						'tempat_lahir' => $pmb_online->tempat_lahir,
-						'tanggal_lahir' => $pmb_online->tanggal_lahir,
-						'alamat' => $pmb_online->alamat,
-						'rt' => $pmb_online->rt,
-						'rw' => $pmb_online->rw,
-						'kelurahan' => $pmb_online->kelurahan,
-						'kecamatan' => $pmb_online->kecamatan,
-						'kotakab' => $pmb_online->kotakab,
-						'provinsi' => $pmb_online->provinsi,
-						'kodepos' => $pmb_online->kodepos,
-						'telpon' => $pmb_online->telpon,
-						'hp' => $pmb_online->hp,
-						'foto_peserta' => $pmb_online->foto_peserta,
-						'ukuran_seragam' => $pmb_online->ukuran_seragam,
-						'asal_sekolah' => $pmb_online->asal_sekolah,
-						'warga_negara' => $pmb_online->warga_negara,
-						'peringkat_pmdp' => $pmb_online->peringkat_pmdp,
-						'kelas' => $pmb_online->kelas,
-						'jalur_pendaftaran' => $pmb_online->jalur_pendaftaran,
-						'is_kerjasama' => $pmb_online->is_kerjasama,
-						'is_mou' => $pmb_online->is_mou,
-						'jenis_pendaftaran' => $pmb_online->jenis_pendaftaran,
-						'pilihan1' => $pmb_online->pilihan1,
-						'pilihan2' => $pmb_online->pilihan2,
-						'info_pmb' => $pmb_online->info_pmb,
-						'is_bayar' => $pmb_online->is_bayar,
-						'is_online' => $pmb_online->is_online,
-						'admin_input' => $user_id,
-						'angkatan' => $pmb_online->angkatan,
-						'tahun_ajaran' => $pmb_online->tahun_ajaran,
-						'is_delete' => $pmb_online->is_delete,
-						'is_mundur' => $pmb_online->is_mundur,
-						'registrasi_pendaftaran' => 1,
-						'admin_input_date' => $pmb_online->admin_input_date
 					 );
-				$r = $this->db->insert('pmb_peserta', $data);
+				$r = $this->db->update('pmb_peserta_online', $data, ['id'=>$pmb_online->id]);
 				$data_user = array(
 					"no_pendaftaran"=>$set_nopen,
 				);

@@ -90,7 +90,6 @@
 					let i;
 					for (i = 0; i < data.length; i++) {
 						$("#gelombang").append('<option value="'+ data[i].id +'">'+data[i].nama_gel+'</option>');
-						i++;
 					}
 					get_jurusan();	
 				}

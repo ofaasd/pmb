@@ -11,16 +11,17 @@
 		<div class="col-sm-12">
 			<div class="row">
 				<div class="col-md-3 mb-4">
-					<a href="<?php echo base_url()?>formulir/info" class="btn btn-primary col-md-12 btn-active" style="padding:10px 0;">Info Pribadi</a>
+					
+					<a href="<?php echo base_url()?>formulir/info" class="btn btn-primary col-md-12 <?= ($this->router->fetch_method() == "info")?"btn-active":""?>" style="padding:10px 0;"> Info Pribadi</a>
 				</div>
 				<div class="col-md-3 mb-4">
-					<a href="<?php echo base_url()?>formulir/jalur_pendaftaran" class="btn btn-primary col-md-12" style="padding:10px 0;">Jalur Pendaftaran</a>
+					<a href="<?php echo base_url()?>formulir/jalur_pendaftaran" class="btn btn-primary col-md-12 <?= ($this->router->fetch_method() == "jalur_pendaftaran")?"btn-active":""?>" style="padding:10px 0;">Jalur Pendaftaran</a>
 				</div>
 				<div class="col-md-3 mb-4">
-					<a href="<?php echo base_url()?>formulir/asal_sekolah" class="btn btn-primary col-md-12" style="padding:10px 0;">Asal Sekolah</a>
+					<a href="<?php echo base_url()?>formulir/asal_sekolah" class="btn btn-primary col-md-12 <?= ($this->router->fetch_method() == "asal_sekolah")?"btn-active":""?>" style="padding:10px 0;">Asal Sekolah</a>
 				</div>
 				<div class="col-md-3 mb-4">
-					<a href="<?php echo base_url()?>formulir/file_pendukung" class="btn btn-primary col-md-12" style="padding:10px 0;">File Pendukung</a>
+					<a href="<?php echo base_url()?>formulir/file_pendukung" class="btn btn-primary col-md-12 <?= ($this->router->fetch_method() == "file_pendukung")?"btn-active":""?>" style="padding:10px 0;">File Pendukung</a>
 				</div>
 			</div>
 			<div class="card">

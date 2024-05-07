@@ -20,7 +20,7 @@
 										$pilihan = $detail_cmhs2->pilihan2;
 									}
 									?>
-									<option value="<?= $detail->id; ?>" <?= ($pilihan == $detail->id)?"selected":"" ?>><?=$detail->nama_jurusan?></option>
+									<option value="<?= $detail->id_program_studi; ?>" <?= ($pilihan == $detail->id_program_studi)?"selected":"" ?>><?=$detail->nama_jurusan?></option>
 								<?php } ?>
 							</select></p>
 							<?php }	?>
