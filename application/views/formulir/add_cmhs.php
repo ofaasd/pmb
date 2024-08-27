@@ -658,7 +658,7 @@ function fixStepIndicator(n) {
 					for (i = 0; i < data.length; i++) {
 						$("#gelombang").append('<option value="'+ data[i].id +'">'+data[i].nama_gel+'</option>');
 					}
-					get_jurusan();	
+				
 				}
 			});
 		});
@@ -673,17 +673,17 @@ function fixStepIndicator(n) {
 				dataType: "json",
 				success: function(data){
 					$(".info_gelombang").html(`<div class="alert alert-info">${data}</div>`);
-					
+					get_jurusan();	
 				}
 			});
 		});
 		function get_jurusan()
 		{
-			const jalur = $("#jalur").val();
+			const gelombang = $("#gelombang").val();
 			$.ajax({
 				url : "<?php echo base_url();?>formulir/get_jurusan/",
 				method: "POST",
-				data:{id:jalur},
+				data:{id:gelombang},
 				async: false,
 				dataType: "json",
 				success: function(data){

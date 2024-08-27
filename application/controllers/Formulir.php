@@ -505,9 +505,9 @@
 			$id = $this->input->post('id');
 			
 			//$gelombang = $this->db->get_where("pmb_gelombang", ['id'=>$id])->row();
-			$jalur = $this->db->get_where('pmb_jalur',['id'=>$id])->row();
+			$gelombang = $this->db->get_where('pmb_gelombang',['id'=>$id])->row();
 			$data = [];
-			for($i=1; $i <= $jalur->pilihan; $i++){
+			for($i=1; $i <= $gelombang->pilihan; $i++){
 				$data[$i-1] = $this->db->select('pmb_jalur_prodi.*,program_studi.nama_jurusan')->join('program_studi','program_studi.id = pmb_jalur_prodi.id_program_studi','inner')->get_where('pmb_jalur_prodi',['id_jalur'=>$jalur->id])->result();
 			}
 			echo json_encode($data);
