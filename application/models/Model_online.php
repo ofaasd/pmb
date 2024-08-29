@@ -395,10 +395,14 @@
 			$qr = $this->db->get_where('bukti_registrasi', ['user_id' => $user_id]);
 			
 			$pmb_online = $this->db->get_where("pmb_peserta_online",array("user_id"=>$user_id))->row();
+			
+			$gelombang = $this->db->get_where('pmb_gelombang',array('id'=>$pmb_online->gelombang))->row();
+			$kode_jalur = $this->db->get_where('pmb_jalur',array('id'=>$gelombang->id_jalur))->row()->kode;
 			$user = $this->db->get_where("user_guest",array("id"=>$user_id))->row();
 			$jalur = $pmb_online->jalur_pendaftaran;
 			$gel_ta = $this->db->get_where('pmb_ta', ['is_active'=>1])->row();
 			$cek_nopen = $this->db->order_by('id','DESC')->get_where('pmb_peserta', array('angkatan' => $gel_ta->awal));
+			$prodi = $this->db->get_where('program_studi',array('id'=>$pmb_online->pilihan1))->row();
 			
 			$count_nopen = $cek_nopen->num_rows();
 			
@@ -430,12 +434,21 @@
 				$no = "9129.1";
 				if(empty($pmb_online->pilihan1)){
 					echo "Pilihan Prodi belum diisi";
-					redirect('formulir/info');
+					//redirect('formulir/info');
 				}else{
 					//$prodi = $this->db->get_where('program_studi',['id'=>$pmb_online->pilihan1])->row()->pilihan1;
 				}
-				echo $no . "." . $pmb_online->pilihan1;
-				exit;
+				$ta = substr($gelombang->ta_awal, 2,2);
+				$new_id = 0;
+				if(strlen($pmb_online->id) == 1){
+					$new_id = "00" . $pmb_online->id;					
+				}elseif(strlen($pmb_online->id) == 2){
+					$new_id = "0" . $pmb_online->id;					
+				}else{
+					$new_id = $pmb_online->id;
+				}
+				$set_nopen = $no . "." . $prodi->kode . $ta . $kode_jalur . $gelombang->no_gel . $new_id;
+				
 				$data = array(
 						'nopen' => $set_nopen,
 					 );

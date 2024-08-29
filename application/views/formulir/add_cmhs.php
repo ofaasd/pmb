@@ -695,7 +695,7 @@ function fixStepIndicator(n) {
 						temp += `Program Studi ${index + 1}
 						<p><select name='prodi[]' class="form-control">`
 						item.forEach((item2, index2) => {
-							temp += `<option value='${item2.id_program_studi}'>${item2.nama_jurusan} ${item2.keterangan}</option>`
+							temp += `<option value='${item2.id_program_studi}'>${item2.nama_prodi} ${item2.keterangan}</option>`
 						});
 						temp += `</select></p>`
 					});	

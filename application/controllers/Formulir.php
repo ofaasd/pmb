@@ -61,7 +61,7 @@
 					$pmb['rapor'] = $this->db->get_where('pmb_nilai_rapor',array('id_user'=>$id))->row();
 					$pmb['piagam'] = $this->db->get_where('piagam_pmb',array('user_id'=>$id))->row();
 					//$pmb['gelombang'] = $this->Model_online->get_gelombang('pmb_gelombang')->row();
-					$pmb['jalur'] = $this->db->get('pmb_jalur')->result();
+					$pmb['jalur'] = $this->db->where('deleted_at',NULL)->get('pmb_jalur')->result();
 					$pmb['wilayah'] = $this->db->get_where('wilayah', array('id_induk_wilayah' => '000000'))->result();
 					$pmb['mapel'] = ['mtk'=>'Matematika','bing'=>'B. Inggris','kimia'=>'Kimia','biologi'=>'Biologi','fisika'=>'Fisika'];
 					$data['content'] = $this->load->view('formulir/add_cmhs',$pmb,true);
@@ -128,8 +128,8 @@
 			$pmb['curr_wil'] = $this->db->get_where('wilayah',['id_wil'=>$pmb['asal_sekolah']->provinsi_id])->row();
 			$pmb['curr_kota'] = $this->db->get_where('wilayah',['id_wil'=>$pmb['asal_sekolah']->kota_id])->row();
 			$mydata = [];
-			for($i=1; $i <= $pmb['curr_jalur']->pilihan; $i++){
-				$mydata[$i-1] = $this->db->select('pmb_jalur_prodi.*,program_studi.nama_jurusan')->join('program_studi','program_studi.id = pmb_jalur_prodi.id_program_studi','inner')->get_where('pmb_jalur_prodi',['id_jalur'=>$pmb['curr_jalur']->id])->result();
+			for($i=1; $i <= $pmb['curr_gelombang']->pilihan; $i++){
+				$mydata[$i-1] = $this->db->select('pmb_jalur_prodi.*,program_studi.nama_prodi')->join('program_studi','program_studi.id = pmb_jalur_prodi.id_program_studi','inner')->get_where('pmb_jalur_prodi',['id_jalur'=>$pmb['curr_jalur']->id])->result();
 			}
 			$pmb['list_prodi'] = $mydata;
 			$pmb['mapel'] = ['mtk'=>'Matematika','bing'=>'B. Inggris','kimia'=>'Kimia','biologi'=>'Biologi','fisika'=>'Fisika'];
@@ -493,7 +493,8 @@
 		}
 		function get_gelombang(){
 			$id = $this->input->post('id');
-			$gelombang = $this->db->get_where("pmb_gelombang", ['id_jalur'=>$id])->result();
+			$tanggal = date('Y-m-d');
+			$gelombang = $this->db->where('tgl_mulai <= ',$tanggal)->where('tgl_akhir >= ',$tanggal)->where(['id_jalur'=>$id])->get("pmb_gelombang")->result();
 			echo json_encode($gelombang);
 		}
 		function get_info_gelombang(){
@@ -508,7 +509,7 @@
 			$gelombang = $this->db->get_where('pmb_gelombang',['id'=>$id])->row();
 			$data = [];
 			for($i=1; $i <= $gelombang->pilihan; $i++){
-				$data[$i-1] = $this->db->select('pmb_jalur_prodi.*,program_studi.nama_jurusan')->join('program_studi','program_studi.id = pmb_jalur_prodi.id_program_studi','inner')->get_where('pmb_jalur_prodi',['id_jalur'=>$jalur->id])->result();
+				$data[$i-1] = $this->db->select('pmb_jalur_prodi.*,program_studi.nama_prodi')->join('program_studi','program_studi.id = pmb_jalur_prodi.id_program_studi','inner')->get_where('pmb_jalur_prodi',['id_jalur'=>$gelombang->id_jalur])->result();
 			}
 			echo json_encode($data);
 		}
