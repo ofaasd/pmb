@@ -6,7 +6,7 @@
 			parent::__construct();
 			if($this->session->userdata('status') != 'login_camaba')
 			{
-				redirect(base_url());
+				redirect(base_url() . '/welcome/login/' . $this->session->userdata("gelombang"));
 			}
 			$this->load->model('pmb_model/Model_pmb');
 			$this->load->model('Model_online');
@@ -43,7 +43,7 @@
 			  );
 			$this->session->set_userdata($data_sess);
 
-    		redirect('');
+    		redirect(base_url() . '/welcome/login/' . $this->session->userdata("gelombang"));
 		}
 	}
 ?>
