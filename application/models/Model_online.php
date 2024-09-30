@@ -27,7 +27,8 @@
 		function get_gelombang($table){
 			// $where = "PMDP";
 			// $this->db->where('nama_gel !=', $where);
-			$q = $this->db->order_by("id","desc")->limit("1")->get_where($table,array("pmb_online"=>1));
+			$date = date('Y-m-d');
+			$q = $this->db->order_by("id","desc")->limit("1")->where("pmb_online",1)->where('tgl_akhir >=', $date)->get($table);
 			return $q;
 		}
 		function detail_($id){

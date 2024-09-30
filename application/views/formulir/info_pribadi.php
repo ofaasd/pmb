@@ -1,5 +1,4 @@
 <form action="<?php echo base_url()?>formulir/update_detail" method="post" enctype="multipart/form-data">
-
 				<?php foreach($detail_cmhs as $d){ ?>
 				
 				<h4>Data Pribadi</h4>
@@ -12,11 +11,13 @@
 						</div>
 						<div class="col-sm-12">
 							<input type="text" class="form-control" value="<?php echo $d->id ?>" name="id" hidden="">
-							<input type="number" class="form-control" readonly="" name="nopen" value="<?php echo $d->nopen ?>"  maxlength="16">
+							<input type="text" class="form-control" readonly="" name="nopen" value="<?php echo $d->nopen ?>"  maxlength="16">
 						</div>
 						<br />
 						<div class="col-sm-12">
+							<?php if(empty($d->nopen)){?>
 							<a href="#" class="btn btn-primary btn-mini" id="validasi_biodata" onclick="return validasi()">Validasi </a> Untuk Mendapatkan No. Pendaftaran</a>
+							<?php } ?>
 						</div><br />
 						<div class="col-sm-12">
 							<label>Nomor KTP : </label>

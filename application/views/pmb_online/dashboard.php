@@ -30,8 +30,16 @@
 								</div>
 								<div class="card-block">
 									<p>Setelah form dilengkapi silahkan melakukan validasi data dengan menekan tombol di bawah ini.</p>
-									
-									<a href="#" class="btn btn-success btn-sm" id="validasi_biodata" onclick="return validasi()">Validasi Sekarang</a>
+									<?php
+										$id = $this->session->userdata("id_user");
+										$user = $this->db->get_where("user_guest",array("id"=>$id))->row();
+										$nopen = (!empty($user->no_pendaftaran))?$user->no_pendaftaran:"";
+										if(empty($nopen)){
+									?>
+										<a href="#" class="btn btn-success btn-sm" id="validasi_biodata" onclick="return validasi()">Validasi Sekarang</a>
+									<?php }else{ ?>
+										<a href="#" class="btn btn-success btn-sm" id="validasi_biodata"><i class="fa fa-check"></i>Data Tervalidasi</a>
+									<?php } ?>
 								</div>
 							</div>
 						</div>
@@ -44,8 +52,6 @@
 									<p>Melakukan pembayaran pendaftaran melalui VA yang didapatkan setelah peserta melakukan validasi data</p>
 									
 									<?php
-										$id = $this->session->userdata("id_user");
-										$nopen = (!empty($this->db->get_where("user_guest",array("id"=>$id))->row()->no_pendaftaran))?$this->db->get_where("user_guest",array("id"=>$id))->row()->no_pendaftaran:"";
 										if(empty($nopen)){
 									?>
 											<a href="#" class="btn btn-danger btn-sm btn-disabled">
