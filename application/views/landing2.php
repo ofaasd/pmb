@@ -97,7 +97,20 @@
 									</span>
 								</div>
 							</div>
-							<!-- end password -->
+							<div class="j-unit">
+								<div class="j-input">
+									<p><label for="gelombang"><b>Gelombang Pendaftaran</b></label></p>
+									<select name="gelombang" class="form-control" style="font-size:14px;height:50px;">
+										<?php foreach($gelombang as $row_gel){?>		
+											<option value="<?=$row_gel->id?>" <?=($id == $row_gel->id)?"selected":""?>><?= $row_gel->nama_gel?> (TA <?=$row_gel->ta_awal?>/<?=$row_gel->ta_akhir?>)</option>
+										<?php } ?>
+									</select>
+									<div class="alert alert-warning border-warning">
+										Pastikan Gelombang pendaftaran sesuai dengan data pendaftaran anda
+									</div>
+								</div>
+							</div>
+							
 							<!-- start reCaptcha -->
 							<div class="j-unit">
 								<!-- start an example of the site key -->

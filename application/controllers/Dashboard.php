@@ -15,11 +15,14 @@
 		function index()
 		{
 			$gelombang = $this->Model_online->get_gelombang('pmb_gelombang');
+			
 			if($gelombang->num_rows() > 0){	
-				$data['title'] = "Dashboard - Calon Mahasiswa Baru";			
-				$hasil['asd'] = "";
+				$data['title'] = "Dashboard - Calon Mahasiswa Baru";
+				$hasil['cur_gel'] = $this->session->userdata("gelombang");
+				$user_id = $this->session->userdata("id_user");		
+				$hasil['pmb_peserta'] = $this->db->where('user_id',$user_id)->where('gelombang',$hasil['cur_gel'])->get('pmb_peserta_online')->row();	
+				$hasil['gelombang'] = $this->db->where('id',$hasil['cur_gel'])->get('pmb_gelombang')->row();
 				$data['content'] = $this->load->view('pmb_online/dashboard',$hasil,true);
-				
 			}else{
 				$hasil['msg'] = "Belum ada gelombang pendaftaran";
 				$data['title'] = "Formulir Mahasiswa - Academic Portal";

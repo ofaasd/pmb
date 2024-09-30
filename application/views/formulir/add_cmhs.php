@@ -228,37 +228,31 @@
 						<h3> Gelombang & Jalur </h3>
 						<fieldset>
 							<div class="row">
-								<div class="col-md-12">
+								<div class="col-md-6">
 									Tahun Ajaran :
 									<p>
-										<?php 
-										$curr_ta = "";
-										$gel_ta = $this->db->get('pmb_ta')->result();
-										foreach($gel_ta as $gel_ta){
-											if($gel_ta->is_active == 1){
-												$curr_ta = $gel_ta->awal;
-											}
-										} ?>
-										<input type="text" class="form-control" name="gel_ta" value="<?php echo $curr_ta?>" readonly>
+										
+										<input type="text" class="form-control" name="gel_ta" value="<?= $gelombang->ta_awal ?>/<?= $gelombang->ta_akhir ?>" readonly>
 									</p>
 
 									PILIH JALUR<span class="text-danger">*</span> :
 									<p>
-										<select id="jalur" name="jalur" class="form-control"  required="">
-											<option value="">Pilih Jalur Pendaftaran</option>
-											<?php foreach($jalur as $row){
-												echo "<option value='" . $row->id . "'>" . $row->nama . "</option>";
-											}?>
+										<select id="jalur" name="jalur" class="form-control"  required="" readonly>
+											<option value="<?= $gelombang->id_jalur ?>"><?= $gelombang->nama_jalur?></option>
+											
 										</select>
 									</p>
 									
 									<div id="gel_text">PILIH GELOMBANG<span class="text-danger">*</span> :
-										<p><select name="gelombang" id="gelombang" class="form-control" required="">
-											<option selected="" disabled="">Gelombang Pendaftaran</option>
+										<p><select name="gelombang" id="gelombang" class="form-control" required="" readonly>
+											<option value="<?= $gelombang->id ?>"><?= $gelombang->nama_gel ?></option>
 										</select></p>
 									</div>
+									
+								</div>
+								<div class="col-md-6">
 									<div class="info_gelombang">
-
+										<div class="alert alert-info"><?= nl2br($gelombang->nama_gel_long) ?></div>
 									</div>
 								</div>
 							</div>
@@ -307,34 +301,6 @@
 									</div>
 								</div>
 								<div class="col-md-6" id="nilai_mapel">
-
-									<!-- <p><select name="asal_sekolah" id="asal_sekolah" class="form-control js-example-basic-single" required="">
-									</select></p> -->
-									<!-- <div id="tambah-sekolah"></div>
-									<div class="modal fade" id="modal_tambah_sekolah" tabindex="-1" role="dialog">
-										<div class="modal-dialog" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h4 class="modal-title">Tambah Sekolah</h4>
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">
-													<div class="form-group">
-														<label for="Nama Sekolah">Nama Sekolah</label>
-														<input type="text" id="nama_sekolah" class="form-control">
-														<input type="hidden" id="add_sekolah_provinsi" >
-														<input type="hidden" id="add_sekolah_kota" >
-													</div>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
-													<button id="simpan_sekolah" type="button" class="btn btn-primary waves-effect waves-light ">Save changes</button> 
-												</div>
-											</div>
-										</div>
-									</div> -->
 									<?php 
 										for($i=0; $i<5; $i++){
 									?>
@@ -366,95 +332,7 @@
 									<?php	}
 										}
 									?>
-									<!-- <h3>Nilai Raport</h3>
-									NILAI RATA - RATA SEMESTER 1<span class="text-danger">*</span> :
-									<p><input type="number" value="<?php echo (!empty($rapor->nilai_smt1))?$rapor->nilai_smt1:""?>" placeholder="NILAI RATA - RATA SEMESTER 1" name="smt1" required="" class="form-control"></p> -->
-									<!-- BERKAS RAPOR SEMESTER 1<span class="text-danger">*</span> :
-									<p>
-										<input type="file" name="file_smt1"  class="form-control" required=""><small>* File Max 1MB</small>
-										<?php 
-											if(!empty($rapor->file_smt1)){
-												echo "<a href='" . base_url() . "assets/rapor/" . $rapor->file_smt1 . "' target='_blank' class='btn btn-primary btn-mini'>Lihat FIle</a>";
-											}
-										?>
-									</p> -->
-									<!-- NILAI RATA - RATA SEMESTER 2<span class="text-danger">*</span> :
-									<p><input type="number" value="<?php echo (!empty($rapor->nilai_smt2))?$rapor->nilai_smt2:""?>" placeholder="NILAI RATA - RATA SEMESTER 2" name="smt2" required="" class="form-control"></p> -->
-									<!-- BERKAS RAPOR SEMESTER 2<span class="text-danger">*</span> :
-									<p>
-										<input type="file" name="file_smt2"  class="form-control" required=""><small>* File Max 1MB</small>
-										<?php 
-											if(!empty($rapor->file_smt2)){
-												echo "<a href='" . base_url() . "assets/rapor/" . $rapor->file_smt2 . "' target='_blank' class='btn btn-primary btn-mini'>Lihat FIle</a>";
-											}
-										?>
-										
-									</p> -->
-									<!-- NILAI RATA - RATA SEMESTER 3<span class="text-danger">*</span> :
-									<p><input type="number" value="<?php echo (!empty($rapor->nilai_smt3))?$rapor->nilai_smt3:""?>" placeholder="NILAI RATA - RATA SEMESTER 3" name="smt3" required="" class="form-control"></p> -->
-									<!-- BERKAS RAPOR SEMESTER 3 :
-									<p>
-										<input type="file" name="file_smt3"  class="form-control" required=""><small>* File Max 1MB</small>
-										<?php 
-											if(!empty($rapor->file_smt3)){
-												echo "<a href='" . base_url() . "assets/rapor/" . $rapor->file_smt3 . "' target='_blank' class='btn btn-primary btn-mini'>Lihat FIle</a>";
-											}
-										?>
-									</p> -->
-									<!-- NILAI RATA - RATA SEMESTER 4<span class="text-danger">*</span> :
-									<p><input type="number" value="<?php echo (!empty($rapor->nilai_smt4))?$rapor->nilai_smt4:""?>" placeholder="NILAI RATA - RATA SEMESTER 4" name="smt4" required="" class="form-control"></p> -->
-									<!-- BERKAS RAPOR SEMESTER 4 :
-									<p>
-										<input type="file" name="file_smt4"  class="form-control" required=""><small>* File Max 1MB</small>
-										<?php 
-											if(!empty($rapor->file_smt4)){
-												echo "<a href='" . base_url() . "assets/rapor/" . $rapor->file_smt4 . "' target='_blank' class='btn btn-primary btn-mini'>Lihat FIle</a>";
-											}
-										?>
-									</p> -->
-									<!-- NILAI RATA - RATA SEMESTER 5 (Jika Sudah Ada, Jika balum harap diisi dengan angka 0)<span class="text-danger">*</span> :
-									<p><input type="number" value="<?php echo (!empty($rapor->nilai_smt5))?$rapor->nilai_smt5:""?>" placeholder="NILAI RATA - RATA SEMESTER 5" name="smt5" required="" class="form-control"></p> -->
-									<!-- BERKAS RAPOR SEMESTER 5 (Jika Sudah Ada):
-									<p>
-										<input type="file" name="file_smt5"  class="form-control" required=""><small>* File Max 1MB</small>
-										<?php 
-											if(!empty($rapor->file_smt5)){
-												echo "<a href='" . base_url() . "assets/rapor/" . $rapor->file_smt5 . "' target='_blank' class='btn btn-primary btn-mini'>Lihat FIle</a>";
-											}
-										?>
-									</p> -->
-									<!-- <div id="sertifikat_juara">
-									SERTIFIKAT JUARA :
-									<p><input type="file" name="file1"  class="form-control"></p>
-									<p><input type="text" name="ket1" placeholder="Keterangan Sertifikat" class="form-control" value="<?php echo (!empty($piagam->ket1))?$piagam->ket1:""?>"></p>
-									<p>
-										<?php 
-											if(!empty($piagam->file1)){
-												echo "<a href='" . base_url() . "assets/sertifikat/" . $piagam->file1 . "' target='_blank' class='btn btn-primary btn-mini'>Lihat FIle</a>";
-											}
-										?>
-									</p>
-									SERTIFIKAT JUARA :
-									<p><input type="file" name="file2" class="form-control"></p>
-									<p><input type="text" name="ket2" placeholder="Keterangan Sertifikat" class="form-control" value="<?php echo (!empty($piagam->ket2))?$piagam->ket2:""?>"></p>
-									<p>
-										<?php 
-											if(!empty($piagam->file2)){
-												echo "<a href='" . base_url() . "assets/sertifikat/" . $piagam->file2 . "' target='_blank' class='btn btn-primary btn-mini'>Lihat FIle</a>";
-											}
-										?>
-									</p>
-									SERTIFIKAT JUARA :
-									<p><input type="file" name="file3" class="form-control"></p>
-									<p><input type="text" name="ket3" placeholder="Keterangan Sertifikat" class="form-control" value="<?php echo (!empty($piagam->ket3))?$piagam->ket3:""?>"></p>
-									<p>
-										<?php 
-											if(!empty($piagam->file3)){
-												echo "<a href='" . base_url() . "assets/sertifikat/" . $piagam->file3 . "' target='_blank' class='btn btn-primary btn-mini'>Lihat FIle</a>";
-											}
-										?>
-									</p>
-									</div> -->
+									
 								</div>
 							</div>
 						</fieldset>
@@ -557,9 +435,21 @@ function fixStepIndicator(n) {
   x[n].className += " active";
 }
 	$(document).ready(function(){
+		const jalur = '<?= $gelombang->id_jalur ?>';
 		
-		$("#nilai_mapel").hide();
-		$("#area_pasca").hide();
+		if(jalur == 1 || jalur == 2){
+			$("#nilai_mapel").show();
+		}else{
+			$("#nilai_mapel").hide();
+		}
+
+		if(jalur == 5 || jalur == 6){
+			$("#area_pasca").show();
+		}else{
+			$("#area_pasca").hide();
+		}
+		
+		get_jurusan();
 		
 		
 	    var form = $("#create-pegawai").show();

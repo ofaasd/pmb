@@ -25,25 +25,20 @@
 		}
 		function info(){
 			$id = $this->session->userdata("id_user");
-			
-			$gelombang = $this->Model_online->get_gelombang('pmb_gelombang');
-			$pmb['gelombang'] = $gelombang->result();
+			$pmb['cur_gel'] = $this->session->userdata("gelombang");
+			$gelombang = $hasil['gelombang'] = $this->db->select('pmb_gelombang.*,pmb_jalur.nama as nama_jalur')->join('pmb_jalur','pmb_jalur.id = pmb_gelombang.id_jalur','inner')->where('pmb_gelombang.id',$pmb['cur_gel'])->get('pmb_gelombang')->row();
+			$pmb['gelombang'] = $gelombang;
 			$in_gel = [];
 			
-			foreach($pmb['gelombang'] as $row){
-				
-					$in_gel[] = $row->id;
-			}
-			$query = $this->db->where_in('gelombang',$in_gel)->where(array("user_id"=>$id))->get("pmb_peserta_online");
 			
-			$query2 = $this->db->where(array("id"=>$id))->get("user_guest");
-			if($query->num_rows() > 0 && empty($query2->row()->no_pendaftaran)){
+			$query = $this->db->where('gelombang',$pmb['cur_gel'])->where(array("user_id"=>$id))->get("pmb_peserta_online");
+			//$query2 = $this->db->where(array("id"=>$id))->get("user_guest");
+			if($query->num_rows() > 0 && empty($query->row()->no_pendaftaran)){
 				//redirect('formulir/info');
 				$data['title'] = "Formulir Mahasiswa - Academic Portal";
 				//$data['menu'] = $this->Model_front->getMenu($this->authact->getRole());
 				//$pmb['detail_cmhs'] = $this->Model_pmb->get_where_reg($id);
-				$pmb['detail_cmhs'] = $this->db->where_in('gelombang',$in_gel)->where(array("user_id"=>$id))->get("pmb_peserta_online")->result();
-				$pmb['detail_cmhs2'] = $this->db->where_in('gelombang',$in_gel)->where(array("user_id"=>$id))->get("pmb_peserta_online")->row();
+				$pmb['detail_cmhs'] = $query->row();
 				$pmb['warga_negara'] = $this->Model_pmb->warga_negara();
 				$pmb['prodi'] = $this->Model_pmb->prodi();
 				$pmb['gelombang'] = $this->Model_pmb->get_gelombang('pmb_gelombang')->result();
@@ -57,37 +52,50 @@
 				$data['content'] = $this->load->view('formulir/update_cmhs',$pmb,true);
 				
 			}else{
-				$cek_nopen = $this->db->where(array("id"=>$id))->get("user_guest")->row();
-				if(empty($cek_nopen->no_pendaftaran)){
-					$data['title'] = "Formulir Mahasiswa - Academic Portal";
-					$pmb['warga_negara'] = $this->Model_pmb->warga_negara();
-					$pmb['prodi'] = $this->Model_pmb->prodi();
-					$pmb['kelas'] = $this->db->get_where('pmb_kelas', array('is_active' => 1))->result();
-					$pmb['detail'] = $this->db->get_where('pmb_peserta_online', array('id' => $id))->row();
-					$pmb['rapor'] = $this->db->get_where('pmb_nilai_rapor',array('id_user'=>$id))->row();
-					$pmb['piagam'] = $this->db->get_where('piagam_pmb',array('user_id'=>$id))->row();
-					//$pmb['gelombang'] = $this->Model_online->get_gelombang('pmb_gelombang')->row();
-					$pmb['jalur'] = $this->db->where('deleted_at',NULL)->get('pmb_jalur')->result();
-					$pmb['wilayah'] = $this->db->get_where('wilayah', array('id_induk_wilayah' => '000000'))->result();
-					$pmb['mapel'] = ['mtk'=>'Matematika','bing'=>'B. Inggris','kimia'=>'Kimia','biologi'=>'Biologi','fisika'=>'Fisika'];
-					$data['content'] = $this->load->view('formulir/add_cmhs',$pmb,true);
-				}else{
-					$data['title'] = "Formulir Mahasiswa - Academic Portal";
-					$nopen = $cek_nopen->no_pendaftaran;
-					$pmb['detail_cmhs'] = $this->db->where_in('gelombang',$in_gel)->where(array("user_id"=>$id))->get("pmb_peserta_online")->result();
-					$pmb['detail_cmhs2'] = $this->db->where_in('gelombang',$in_gel)->where(array("user_id"=>$id))->get("pmb_peserta_online")->row();
-					$pmb['warga_negara'] = $this->Model_pmb->warga_negara();
-					$pmb['prodi'] = $this->Model_pmb->prodi();
-					$pmb['gelombang'] = $this->Model_pmb->get_gelombang('pmb_gelombang')->result();
-					$pmb['kelas'] = $this->db->get_where('pmb_kelas', array('is_active' => 1))->result();
-					$pmb['wilayah'] = $this->db->get_where('wilayah', array('id_induk_wilayah' => '000000'))->result();
-					$pmb['data'] = $this->Model_online->detail_($id);
-					$pmb['jalur'] = $this->db->get('pmb_jalur')->result();
-					$pmb['curr_gelombang'] = $this->db->get_where('pmb_gelombang',['id'=>$pmb['detail_cmhs2']->gelombang])->row();
-					$pmb['curr_jalur'] = $this->db->get_where('pmb_jalur',['id'=>$pmb['detail_cmhs2']->jalur_pendaftaran])->row();
-					$pmb['content2'] = $this->load->view('formulir/info_pribadi',$pmb,true);
-					$data['content'] = $this->load->view('formulir/update_cmhs',$pmb,true);
-				}
+				$data['title'] = "Formulir Mahasiswa - Academic Portal";
+				$pmb['warga_negara'] = $this->Model_pmb->warga_negara();
+				$pmb['prodi'] = $this->Model_pmb->prodi();
+				$pmb['kelas'] = $this->db->get_where('pmb_kelas', array('is_active' => 1))->result();
+				$pmb['detail'] = $this->db->get_where('pmb_peserta_online', array('id' => $id))->row();
+				//$pmb['gelombang'] = $this->Model_online->get_gelombang('pmb_gelombang')->row();
+				$pmb['jalur'] = $this->db->where('deleted_at',NULL)->get('pmb_jalur')->result();
+				$pmb['wilayah'] = $this->db->get_where('wilayah', array('id_induk_wilayah' => '000000'))->result();
+				$pmb['mapel'] = ['mtk'=>'Matematika','bing'=>'B. Inggris','kimia'=>'Kimia','biologi'=>'Biologi','fisika'=>'Fisika'];
+				$data['content'] = $this->load->view('formulir/add_cmhs',$pmb,true);
+				// ini salah logic harus di ganti relasi ke table pmb peserta
+				// $cek_nopen = $this->db->where(array("user_id"=>$id))->where('gelombang',$pmb['cur_gel'])->get("pmb_peserta_online")->row();
+				// if(empty($cek_nopen)){
+					
+				// }elseif(empty($cek_nopen->no_pendaftaran)){
+				// 	$data['title'] = "Formulir Mahasiswa - Academic Portal";
+				// 	$pmb['warga_negara'] = $this->Model_pmb->warga_negara();
+				// 	$pmb['prodi'] = $this->Model_pmb->prodi();
+				// 	$pmb['kelas'] = $this->db->get_where('pmb_kelas', array('is_active' => 1))->result();
+				// 	$pmb['detail'] = $this->db->get_where('pmb_peserta_online', array('id' => $id))->row();
+				// 	$pmb['rapor'] = $this->db->get_where('pmb_nilai_rapor',array('id_peserta'=>$cek_nopen->id))->row();
+				// 	$pmb['piagam'] = $this->db->get_where('piagam_pmb',array('id_peserta'=>$cek_nopen->id))->row();
+				// 	//$pmb['gelombang'] = $this->Model_online->get_gelombang('pmb_gelombang')->row();
+				// 	$pmb['jalur'] = $this->db->where('deleted_at',NULL)->get('pmb_jalur')->result();
+				// 	$pmb['wilayah'] = $this->db->get_where('wilayah', array('id_induk_wilayah' => '000000'))->result();
+				// 	$pmb['mapel'] = ['mtk'=>'Matematika','bing'=>'B. Inggris','kimia'=>'Kimia','biologi'=>'Biologi','fisika'=>'Fisika'];
+				// 	$data['content'] = $this->load->view('formulir/add_cmhs',$pmb,true);
+				// }else{
+				// 	$data['title'] = "Formulir Mahasiswa - Academic Portal";
+				// 	$nopen = $cek_nopen->no_pendaftaran;
+				// 	$pmb['detail_cmhs'] = $this->db->where_in('gelombang',$in_gel)->where(array("user_id"=>$id))->get("pmb_peserta_online")->result();
+				// 	$pmb['detail_cmhs2'] = $this->db->where_in('gelombang',$in_gel)->where(array("user_id"=>$id))->get("pmb_peserta_online")->row();
+				// 	$pmb['warga_negara'] = $this->Model_pmb->warga_negara();
+				// 	$pmb['prodi'] = $this->Model_pmb->prodi();
+				// 	$pmb['gelombang'] = $this->Model_pmb->get_gelombang('pmb_gelombang')->result();
+				// 	$pmb['kelas'] = $this->db->get_where('pmb_kelas', array('is_active' => 1))->result();
+				// 	$pmb['wilayah'] = $this->db->get_where('wilayah', array('id_induk_wilayah' => '000000'))->result();
+				// 	$pmb['data'] = $this->Model_online->detail_($id);
+				// 	$pmb['jalur'] = $this->db->get('pmb_jalur')->result();
+				// 	$pmb['curr_gelombang'] = $this->db->get_where('pmb_gelombang',['id'=>$pmb['detail_cmhs2']->gelombang])->row();
+				// 	$pmb['curr_jalur'] = $this->db->get_where('pmb_jalur',['id'=>$pmb['detail_cmhs2']->jalur_pendaftaran])->row();
+				// 	$pmb['content2'] = $this->load->view('formulir/info_pribadi',$pmb,true);
+				// 	$data['content'] = $this->load->view('formulir/update_cmhs',$pmb,true);
+				// }
 			}
 			$this->load->view('pmb_online/index_layout',$data);
 			//error_reporting(0);

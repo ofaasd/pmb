@@ -11,37 +11,26 @@
 		<h4>Jalur Pendaftaran</h4>
 		<hr />
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-6">
 				Tahun Ajaran :
 				<p>	
-					<?php 
-					$curr_ta = "";
-					$gel_ta = $this->db->get('pmb_ta')->result();
-					foreach($gel_ta as $gel_ta){
-						if($gel_ta->is_active == 1){
-							$curr_ta = $gel_ta->awal;
-						}
-					} ?>
-					<input type="text" class="form-control" name="gel_ta" value="<?php echo $curr_ta?>" readonly>
+					
+					<input type="text" class="form-control" name="gel_ta" value="<?php echo $curr_gelombang->ta_awal ?>/<?php echo $curr_gelombang->ta_akhir ?>" readonly>
 				</p>
 
 				PILIH JALUR<span class="text-danger">*</span> :
 				<p>
-					<select id="jalur" name="jalur" class="form-control"  required="">
+					<select id="jalur" name="jalur" class="form-control"  required="" readonly>
 						<?php if(!empty($curr_jalur) ){
 							echo '<option value="' . $curr_jalur->id . '">'. $curr_jalur->nama .'</option>';
 						}else{
 							echo '<option value="0">Pilih Jalur Pendaftaran</option>';
 						}?>
-						
-						<?php foreach($jalur as $row){
-							echo "<option value='" . $row->id . "'>" . $row->nama . "</option>";
-						}?>
 					</select>
 				</p>
 				
 				<div id="gel_text">PILIH GELOMBANG<span class="text-danger">*</span> :
-					<p><select name="gelombang" id="gelombang" class="form-control" required="">
+					<p><select name="gelombang" id="gelombang" class="form-control" required="" readonly>
 						<?php if(!empty($curr_jalur) ){
 							echo '<option value="' . $curr_gelombang->id . '">'. $curr_gelombang->nama_gel .'</option>';
 						}else{
@@ -49,6 +38,8 @@
 						}?>
 					</select></p>
 				</div>
+			</div>
+			<div class="col-md-6">
 				<div class="info_gelombang">
 					<?php
 						if(!empty($curr_gelombang)){
@@ -56,9 +47,11 @@
 						}
 					?>
 				</div>
+			</div>
+			<div class="col-md-12">
 				<div class="row">
 					<div class="col-sm-12">
-						<input type="submit" value="simpan" class="btn btn-primary" style="width:100%">
+						
 					</div>
 				</div>
 			</div>

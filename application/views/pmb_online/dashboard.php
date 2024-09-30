@@ -4,6 +4,7 @@
 			<?php echo $this->session->userdata('status_update'); 
 				$this->session->set_userdata('status_update', ''); ?>
 			<h3>Selamat Datang, <?php echo $this->session->userdata("nama"); ?></h3>
+
 		</div>
 		<div class="col-sm-12 mb-4">
 			<div class="card">
@@ -16,6 +17,7 @@
 							<div class="card bg-primary">
 								<div class="card-header">
 									1. Formulir
+									<hr>
 								</div>
 								<div class="card-block">
 									<p>Mengisi dan melengkapi formulir pendaftaran melalui tombol dibawah atau melalui menu di sebelah kanan</p>
@@ -24,29 +26,38 @@
 							</div>
 						</div>
 						<div class="col-md-3 mb-3">
-							<div class="card bg-primary">
+							<?php $nopen = (!empty($pmb_peserta->nopen))?$pmb_peserta->nopen:""; ?>
+							<div class="card <?= (empty($pmb_peserta))?"bg-secondary":"bg-primary"?>">
 								<div class="card-header">
 									2. Validasi Data
+									<hr>
 								</div>
 								<div class="card-block">
 									<p>Setelah form dilengkapi silahkan melakukan validasi data dengan menekan tombol di bawah ini.</p>
+
 									<?php
-										$id = $this->session->userdata("id_user");
-										$user = $this->db->get_where("user_guest",array("id"=>$id))->row();
-										$nopen = (!empty($user->no_pendaftaran))?$user->no_pendaftaran:"";
-										if(empty($nopen)){
+										
+										if(empty($pmb_peserta)){
+									?>
+										<a href="#" class="btn btn-danger btn-sm btn-disabled">
+											Formulir Kosong
+										</a>
+									<?php
+										}elseif(empty($nopen)){
 									?>
 										<a href="#" class="btn btn-success btn-sm" id="validasi_biodata" onclick="return validasi()">Validasi Sekarang</a>
 									<?php }else{ ?>
-										<a href="#" class="btn btn-success btn-sm" id="validasi_biodata"><i class="fa fa-check"></i>Data Tervalidasi</a>
+										<a href="#" class="btn btn-success btn-sm btn-disabled" id="validasi_biodata"><i class="fa fa-check"></i>Data Tervalidasi</a>
+										<p class="mt-2 bg-success text-white">No. Pendaftaran : <?= $nopen ?></p>
 									<?php } ?>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-3 mb-3">
-							<div class="card bg-primary">
+							<div class="card <?=(empty($nopen))?"bg-secondary":"bg-primary"?>">
 								<div class="card-header">
 									3. Pembayaran Pendaftaran
+									<hr>
 								</div>
 								<div class="card-block">
 									<p>Melakukan pembayaran pendaftaran melalui VA yang didapatkan setelah peserta melakukan validasi data</p>
@@ -71,16 +82,15 @@
 							</div>
 						</div>
 						<div class="col-md-3 mb-3">
-							<div class="card bg-primary">
+							<div class="card <?=(empty($nopen))?"bg-secondary":"bg-primary"?>">
 								<div class="card-header">
 									4. Pengumuman
+									<hr>
 								</div>
 								<div class="card-block">
 									<p>Melihat hasil pengumuman peserta yang dinyatakan lolos seleksi oleh pihak Admisi STIFAR</p>
 									
 									<?php
-										$id = $this->session->userdata("id_user");
-										$nopen = (!empty($this->db->get_where("user_guest",array("id"=>$id))->row()->no_pendaftaran))?$this->db->get_where("user_guest",array("id"=>$id))->row()->no_pendaftaran:"";
 										if(empty($nopen)){
 									?>
 											<a href="#" class="btn btn-danger btn-sm btn-disabled">
@@ -99,67 +109,19 @@
 								</div>
 							</div>
 						</div>
+						<div class="col-md-12 mb-3">
+							<div class="card bg-success">
+								<div class="card-header">
+									<h2>Syarat Pendaftaran <?= $gelombang->nama_gel ?></h2>
+								</div>
+								<div class="card-block">
+									<?= nl2br($gelombang->nama_gel_long) ?>	
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<!-- <div class="card">
-				<div class="card-header">
-					
-				</div>
-				<div class="card-block">
-					<table class="table table-styling">
-						<thead>
-							<tr class="table-primary">
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>1. Mengisi <a href="<?php echo base_url()?>formulir/info" class="btn btn-primary btn-sm">Info Pribadi</a>,<a href="<?php echo base_url()?>formulir/penpres" class="btn btn-primary btn-sm">Nilai Rapor dan Prestasi</a> dan <a href="<?php echo base_url()?>formulir/upload_foto" class="btn btn-primary btn-sm">Upload Foto</a>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									2. Validasi Data Silahkan <a href="#" class="btn btn-primary btn-sm" id="validasi_biodata" onclick="return validasi()">Klik Disini Untuk Validasi</a>
-								</td>
-							</tr>
-							<tr>
-								<td>3. Cetak Formulir Pendaftaran 
-									<?php
-										$id = $this->session->userdata("id_user");
-										$nopen = (!empty($this->db->get_where("user_guest",array("id"=>$id))->row()->no_pendaftaran))?$this->db->get_where("user_guest",array("id"=>$id))->row()->no_pendaftaran:"";
-										if(empty($nopen)){
-									?>
-											<a href="#" <?php (empty($nopen))?"disabled":""?> class="btn btn-danger btn-sm">
-												Validasi Data Terlebih Dahulu
-											</a>
-									<?php
-										}else{
-									?>
-										<a href="<?php echo base_url();?>formulir/cetak_formulir/<?php echo $nopen ?>" <?php (empty($nopen))?"disabled":""?>  class="btn btn-primary btn-sm">
-											<span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
-											<span class="pcoded-mtext">Klik Disini</span>
-										</a>
-									<?php
-										}
-									?>
-								</td>
-							</tr>
-							<tr>
-								<td>4. Lakukan Pembayaran pendaftaran. klik <a href="<?php echo base_url()?>formulir/upload_bukti" class="btn btn-primary btn-sm"> Upload Bukti Pembayaran</a> untuk mengetahui detailnya</td>
-							</tr>
-							<tr>
-								<td>5. <a href="<?php echo base_url()?>formulir/jadwal_ujian" class="btn btn-primary btn-sm"> Lihat Jadwal Ujian</a></td>
-							</tr>
-							<tr>
-								<td>6. <a href="<?php echo base_url()?>formulir/pengumuman_ujian" class="btn btn-primary btn-sm"> Pengumuman Ujian</a></td>
-							</tr>
-							
-						</tbody>
-					</table>
-				</div>
-				
-			</div> -->
 		</div>
 	</div>
 </div>

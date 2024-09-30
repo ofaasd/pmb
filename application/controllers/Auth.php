@@ -35,7 +35,8 @@
 										'nama' => $rs->nama,
 										'nim' => $rs->email,
 										'id_user' => $rs->id,
-										'status' => 'login_camaba'
+										'status' => 'login_camaba',
+										'gelombang' => $this->input->post('gelombang')
 									  );
 					$this->session->set_userdata($data_sess);
 					redirect('dashboard');

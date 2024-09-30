@@ -272,6 +272,124 @@
 		</div>
 	</div>
 </div>
+<div class="bu-add-cmhs">
+	<!-- <p><select name="asal_sekolah" id="asal_sekolah" class="form-control js-example-basic-single" required="">
+									</select></p> -->
+									<!-- <div id="tambah-sekolah"></div>
+									<div class="modal fade" id="modal_tambah_sekolah" tabindex="-1" role="dialog">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title">Tambah Sekolah</h4>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<div class="form-group">
+														<label for="Nama Sekolah">Nama Sekolah</label>
+														<input type="text" id="nama_sekolah" class="form-control">
+														<input type="hidden" id="add_sekolah_provinsi" >
+														<input type="hidden" id="add_sekolah_kota" >
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+													<button id="simpan_sekolah" type="button" class="btn btn-primary waves-effect waves-light ">Save changes</button> 
+												</div>
+											</div>
+										</div>
+									</div> -->
+	<!-- <h3>Nilai Raport</h3>
+									NILAI RATA - RATA SEMESTER 1<span class="text-danger">*</span> :
+									<p><input type="number" value="<?php echo (!empty($rapor->nilai_smt1))?$rapor->nilai_smt1:""?>" placeholder="NILAI RATA - RATA SEMESTER 1" name="smt1" required="" class="form-control"></p> -->
+									<!-- BERKAS RAPOR SEMESTER 1<span class="text-danger">*</span> :
+									<p>
+										<input type="file" name="file_smt1"  class="form-control" required=""><small>* File Max 1MB</small>
+										<?php 
+											if(!empty($rapor->file_smt1)){
+												echo "<a href='" . base_url() . "assets/rapor/" . $rapor->file_smt1 . "' target='_blank' class='btn btn-primary btn-mini'>Lihat FIle</a>";
+											}
+										?>
+									</p> -->
+									<!-- NILAI RATA - RATA SEMESTER 2<span class="text-danger">*</span> :
+									<p><input type="number" value="<?php echo (!empty($rapor->nilai_smt2))?$rapor->nilai_smt2:""?>" placeholder="NILAI RATA - RATA SEMESTER 2" name="smt2" required="" class="form-control"></p> -->
+									<!-- BERKAS RAPOR SEMESTER 2<span class="text-danger">*</span> :
+									<p>
+										<input type="file" name="file_smt2"  class="form-control" required=""><small>* File Max 1MB</small>
+										<?php 
+											if(!empty($rapor->file_smt2)){
+												echo "<a href='" . base_url() . "assets/rapor/" . $rapor->file_smt2 . "' target='_blank' class='btn btn-primary btn-mini'>Lihat FIle</a>";
+											}
+										?>
+										
+									</p> -->
+									<!-- NILAI RATA - RATA SEMESTER 3<span class="text-danger">*</span> :
+									<p><input type="number" value="<?php echo (!empty($rapor->nilai_smt3))?$rapor->nilai_smt3:""?>" placeholder="NILAI RATA - RATA SEMESTER 3" name="smt3" required="" class="form-control"></p> -->
+									<!-- BERKAS RAPOR SEMESTER 3 :
+									<p>
+										<input type="file" name="file_smt3"  class="form-control" required=""><small>* File Max 1MB</small>
+										<?php 
+											if(!empty($rapor->file_smt3)){
+												echo "<a href='" . base_url() . "assets/rapor/" . $rapor->file_smt3 . "' target='_blank' class='btn btn-primary btn-mini'>Lihat FIle</a>";
+											}
+										?>
+									</p> -->
+									<!-- NILAI RATA - RATA SEMESTER 4<span class="text-danger">*</span> :
+									<p><input type="number" value="<?php echo (!empty($rapor->nilai_smt4))?$rapor->nilai_smt4:""?>" placeholder="NILAI RATA - RATA SEMESTER 4" name="smt4" required="" class="form-control"></p> -->
+									<!-- BERKAS RAPOR SEMESTER 4 :
+									<p>
+										<input type="file" name="file_smt4"  class="form-control" required=""><small>* File Max 1MB</small>
+										<?php 
+											if(!empty($rapor->file_smt4)){
+												echo "<a href='" . base_url() . "assets/rapor/" . $rapor->file_smt4 . "' target='_blank' class='btn btn-primary btn-mini'>Lihat FIle</a>";
+											}
+										?>
+									</p> -->
+									<!-- NILAI RATA - RATA SEMESTER 5 (Jika Sudah Ada, Jika balum harap diisi dengan angka 0)<span class="text-danger">*</span> :
+									<p><input type="number" value="<?php echo (!empty($rapor->nilai_smt5))?$rapor->nilai_smt5:""?>" placeholder="NILAI RATA - RATA SEMESTER 5" name="smt5" required="" class="form-control"></p> -->
+									<!-- BERKAS RAPOR SEMESTER 5 (Jika Sudah Ada):
+									<p>
+										<input type="file" name="file_smt5"  class="form-control" required=""><small>* File Max 1MB</small>
+										<?php 
+											if(!empty($rapor->file_smt5)){
+												echo "<a href='" . base_url() . "assets/rapor/" . $rapor->file_smt5 . "' target='_blank' class='btn btn-primary btn-mini'>Lihat FIle</a>";
+											}
+										?>
+									</p> -->
+									<!-- <div id="sertifikat_juara">
+									SERTIFIKAT JUARA :
+									<p><input type="file" name="file1"  class="form-control"></p>
+									<p><input type="text" name="ket1" placeholder="Keterangan Sertifikat" class="form-control" value="<?php echo (!empty($piagam->ket1))?$piagam->ket1:""?>"></p>
+									<p>
+										<?php 
+											if(!empty($piagam->file1)){
+												echo "<a href='" . base_url() . "assets/sertifikat/" . $piagam->file1 . "' target='_blank' class='btn btn-primary btn-mini'>Lihat FIle</a>";
+											}
+										?>
+									</p>
+									SERTIFIKAT JUARA :
+									<p><input type="file" name="file2" class="form-control"></p>
+									<p><input type="text" name="ket2" placeholder="Keterangan Sertifikat" class="form-control" value="<?php echo (!empty($piagam->ket2))?$piagam->ket2:""?>"></p>
+									<p>
+										<?php 
+											if(!empty($piagam->file2)){
+												echo "<a href='" . base_url() . "assets/sertifikat/" . $piagam->file2 . "' target='_blank' class='btn btn-primary btn-mini'>Lihat FIle</a>";
+											}
+										?>
+									</p>
+									SERTIFIKAT JUARA :
+									<p><input type="file" name="file3" class="form-control"></p>
+									<p><input type="text" name="ket3" placeholder="Keterangan Sertifikat" class="form-control" value="<?php echo (!empty($piagam->ket3))?$piagam->ket3:""?>"></p>
+									<p>
+										<?php 
+											if(!empty($piagam->file3)){
+												echo "<a href='" . base_url() . "assets/sertifikat/" . $piagam->file3 . "' target='_blank' class='btn btn-primary btn-mini'>Lihat FIle</a>";
+											}
+										?>
+									</p>
+									</div> -->
+</div>
 <script type="text/javascript">
 function readURL(input) {
 	if (input.files && input.files[0]) {

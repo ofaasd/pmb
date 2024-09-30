@@ -28,7 +28,7 @@
 			// $where = "PMDP";
 			// $this->db->where('nama_gel !=', $where);
 			$date = date('Y-m-d');
-			$q = $this->db->order_by("id","desc")->limit("1")->where("pmb_online",1)->where('tgl_akhir >=', $date)->get($table);
+			$q = $this->db->order_by("id","desc")->where("pmb_online",1)->where('tgl_akhir >=', $date)->get($table);
 			return $q;
 		}
 		function detail_($id){
@@ -393,11 +393,12 @@
 		}
 		function validasi_biodata(){
 			$user_id = $this->session->userdata("id_user");
+			$gelombang = $this->session->userdata("gelombang");
 			$qr = $this->db->get_where('bukti_registrasi', ['user_id' => $user_id]);
 			
-			$pmb_online = $this->db->get_where("pmb_peserta_online",array("user_id"=>$user_id))->row();
+			$pmb_online = $this->db->get_where("pmb_peserta_online",array("user_id"=>$user_id,'gelombang'=>$gelombang))->row();
 			
-			$gelombang = $this->db->get_where('pmb_gelombang',array('id'=>$pmb_online->gelombang))->row();
+			$gelombang = $this->db->get_where('pmb_gelombang',array('id'=>$gelombang))->row();
 			$kode_jalur = $this->db->get_where('pmb_jalur',array('id'=>$gelombang->id_jalur))->row()->kode;
 			$user = $this->db->get_where("user_guest",array("id"=>$user_id))->row();
 			$jalur = $pmb_online->jalur_pendaftaran;
@@ -441,14 +442,16 @@
 				}
 				$ta = substr($gelombang->ta_awal, 2,2);
 				$new_id = 0;
-				if(strlen($pmb_online->id) == 1){
-					$new_id = "00" . $pmb_online->id;					
-				}elseif(strlen($pmb_online->id) == 2){
-					$new_id = "0" . $pmb_online->id;					
+				$cek_record = $this->db->where('gelombang',$pmb_online->gelombang)->where('nopen is not null')->get('pmb_peserta_online')->num_rows();
+				$num = ($cek_record + 1);
+				if(strlen($num) == 1){
+					$new_id = "00" . $num;					
+				}elseif(strlen($num) == 2){
+					$new_id = "0" . $num;					
 				}else{
-					$new_id = $pmb_online->id;
+					$new_id = $num;
 				}
-				$set_nopen = $no . "." . $prodi->kode . $ta . $kode_jalur . $gelombang->no_gel . $new_id;
+				$set_nopen = $prodi->kode . $ta . $kode_jalur . $gelombang->no_gel . $new_id;
 				
 				$data = array(
 						'nopen' => $set_nopen,
@@ -464,8 +467,13 @@
 				$r3 = $this->db->update("bukti_registrasi",$data_user2,array("user_id"=>$user_id));
 				
 				//$del = $this->db->delete("pmb_peserta_online",array("user_id"=>$user_id));
+				if($r){
+					$r = 1;
+				}else{
+					$r = 0;
+				}
 				
-				return $r;
+				return $set_nopen;
 		}
 		function tambah_bukti(){
 			$nopen = $this->input->post("nopen");
