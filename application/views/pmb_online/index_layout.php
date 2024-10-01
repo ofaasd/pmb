@@ -150,11 +150,32 @@
 								</a>
 							</li>
 							
-							<!-- <li class="pcoded-hasmenu">
+							<li class="pcoded-hasmenu">
+								<a href="<?php echo base_url();?>formulir/upload_bukti">
+									<span class="pcoded-micon"><i class="feather icon-upload"></i></span>
+									<span class="pcoded-mtext">Pembayaran Pendaftaran</span>
+								</a>
+							</li>
+							<li class="pcoded-hasmenu">
+								<a href="<?php echo base_url();?>formulir/upload_foto">
+									<span class="pcoded-micon"><i class="feather icon-upload"></i></span>
+									<span class="pcoded-mtext">Upload Pas Foto</span>
+								</a>
+							</li>
+							<li class="pcoded-hasmenu">
 								<?php
 									$id = $this->session->userdata("id_user");
-									$nopen = (!empty($this->db->get_where("user_guest",array("id"=>$id))->row()->no_pendaftaran))?$this->db->get_where("user_guest",array("id"=>$id))->row()->no_pendaftaran:"";
-									if(empty($nopen)){
+									$gelombang = $this->session->userdata("gelombang");
+									$nopen = (!empty($this->db->get_where("pmb_peserta_online",array("user_id"=>$id,'gelombang'=>$gelombang))->row()->nopen))?$this->db->get_where("pmb_peserta_online",array("user_id"=>$id,'gelombang'=>$gelombang))->row()->nopen:"";
+									$cek_verif = $this->db->get_where("bukti_registrasi",array("nopen"=>$nopen))->row();
+									if(empty($nopen) || empty($cek_verif)){
+								?>
+									<a href="<?php echo base_url();?>formulir/cetak_formulir/0" <?php (empty($nopen))?"disabled":""?>>
+										<span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
+										<span class="pcoded-mtext">Cetak Formulir Pendaftaran</span>
+									</a>
+								<?php
+									}elseif(!empty($cek_verif) && $cek_verif->verifikasi == 0){
 								?>
 									<a href="<?php echo base_url();?>formulir/cetak_formulir/0" <?php (empty($nopen))?"disabled":""?>>
 										<span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
@@ -171,15 +192,7 @@
 									}
 								?>
 								
-							</li> -->
-							
-							<li class="pcoded-hasmenu">
-								<a href="<?php echo base_url();?>formulir/upload_bukti">
-									<span class="pcoded-micon"><i class="feather icon-upload"></i></span>
-									<span class="pcoded-mtext">Pembayaran Pendaftaran</span>
-								</a>
 							</li>
-							
 							<li class="pcoded-hasmenu">
 								<a href="<?php echo base_url();?>formulir/jadwal_ujian">
 									<span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
@@ -193,7 +206,7 @@
 								</a>
 							</li>
 							<li class="pcoded-hasmenu">
-								<a href="<?php echo base_url()?>user/ganti_password">
+								<a href="<?php echo base_url()?>formulir/ganti_password">
 									<span class="pcoded-micon"><i class="feather icon-settings"></i></span>
 									<span class="pcoded-mtext">Ganti Password</span>
 								</a>

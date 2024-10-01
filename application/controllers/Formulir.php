@@ -280,7 +280,7 @@
 			$mpdf = new \Mpdf\Mpdf();
 			$data['title'] = "Dashboard - Calon Mahasiswa Baru";	
 			if($nopen == 0){
-				$hasil['msg'] = "Harap Verifikasi Data Terlebih Dahuli";
+				$hasil['msg'] = "Data pembayaran belum terverifikasi";
 				$data['content'] = $this->load->view('no_gelombang',$hasil,true);
 				$this->load->view('pmb_online/index_layout',$data);
 				//$hasil['pmb_peserta'] = $this->db->get_where("pmb_peserta_online",array("user_id"=>$id))->row();
@@ -299,9 +299,11 @@
 			$id = $this->session->userdata("id_user");
 			$gelombang = $this->session->userdata("gelombang");
 			$data['title'] = "Dashboard - Calon Mahasiswa Baru";			
-			$hasil['rekening'] = $this->db->get("master_rekening")->result();
-			$hasil['peserta'] = $this->db->get_where("pmb_peserta_online",array("user_id"=>$id,"gelombang"=>$gelombang))->row();
+			//$hasil['rekening'] = $this->db->get("master_rekening")->result();
 			
+			$hasil['peserta'] = $this->db->get_where("pmb_peserta_online",array("user_id"=>$id,"gelombang"=>$gelombang))->row();
+			$hasil['biaya_pendaftaran'] = $this->db->get_where('biaya_pendaftaran',['id_prodi'=>$hasil['peserta']->pilihan1,'rpl'=>0])->row();
+			$hasil['bukti_registrasi'] = $this->db->get_where('bukti_registrasi',['nopen'=>$hasil['peserta']->nopen])->num_rows();
 			if(empty($hasil['peserta']->nopen)){
 				$hasil['msg'] = "Harap Verifikasi Data Terlebih Dahuli";
 				$data['content'] = $this->load->view('no_gelombang',$hasil,true);
@@ -313,35 +315,36 @@
 		}
 		function upload_foto(){
 			$id = $this->session->userdata("id_user");
-			$query = $this->db->where(array("user_id"=>$id))->get("pmb_peserta_online");
+			$gelombang = $this->session->userdata("gelombang");
+			$query = $this->db->where(array("user_id"=>$id,'gelombang'=>$gelombang))->get("pmb_peserta_online");
 			if($query->num_rows() == 0){
 				redirect('formulir/info');
 			}
 			$data['title'] = "Dashboard - Calon Mahasiswa Baru";			
-			$hasil['nopen'] = $this->db->get_where("user_guest",array("id"=>$id))->row()->no_pendaftaran;
-			if(empty($hasil['nopen'])){
-				$hasil['pmb_peserta'] = $this->db->get_where("pmb_peserta_online",array("user_id"=>$id))->row();
-			}else{
-				$hasil['pmb_peserta'] = $this->db->get_where("pmb_peserta",array("nopen"=>$hasil['nopen']))->row();
-			}
+			$hasil['nopen'] = $query->row()->nopen;
+			$hasil['pmb_peserta'] = $query->row();
+
 			$data['content'] = $this->load->view('formulir/upload_foto',$hasil,true);
 			$this->load->view('pmb_online/index_layout',$data);
 		}
 		function jadwal_ujian(){
 			$id = $this->session->userdata("id_user");
-			$data['title'] = "Dashboard - Calon Mahasiswa Baru";			
-			$hasil['nopen'] = $this->db->get_where("user_guest",array("id"=>$id))->row()->no_pendaftaran;
+			$gelombang = $this->session->userdata("gelombang");
+			$data['title'] = "Dashboard - Calon Mahasiswa Baru";		
+			$peserta = 	$this->db->get_where("pmb_peserta_online",array("user_id"=>$id,'gelombang'=>$gelombang))->row();
+			$hasil['nopen'] = $peserta->nopen;
 			
 			$query2 = $this->db->where(array("id"=>$id))->get("user_guest");
 			
 			if(empty($hasil['nopen'])){
 				$hasil['msg'] = "Harap Verifikasi Data Terlebih Dahuli";
 				$data['content'] = $this->load->view('no_gelombang',$hasil,true);
-				//$hasil['pmb_peserta'] = $this->db->get_where("pmb_peserta_online",array("user_id"=>$id))->row();
+				$hasil['pmb_peserta'] = $peserta;
 			}else{
-				//$cek_verif = $this->db->get_where("bukti_registrasi",array("nopen"=>$hasil['nopen']))->row()->verifikasi;
-				$hasil['pmb_peserta'] = $this->db->get_where("pmb_peserta",array("nopen"=>$hasil['nopen']))->row();
-				$cek_verif = $hasil['pmb_peserta']->registrasi_pendaftaran;
+				$cek_verif = $this->db->get_where("bukti_registrasi",array("nopen"=>$hasil['nopen']))->row()->verifikasi ?? 0;
+				$hasil['pmb_peserta'] = $peserta;
+				//$hasil['pmb_peserta'] = $this->db->get_where("pmb_peserta",array("nopen"=>$hasil['nopen']))->row();
+				//$cek_verif = $hasil['pmb_peserta']->is_bayar;
 				if($cek_verif == 0){
 					$hasil['msg'] = "Biaya Pendaftaran belum di verifikasi";
 					
@@ -361,8 +364,10 @@
 		}
 		function pengumuman_ujian(){
 			$id = $this->session->userdata("id_user");
-			$data['title'] = "Dashboard - Calon Mahasiswa Baru";			
-			$hasil['nopen'] = $this->db->get_where("user_guest",array("id"=>$id))->row()->no_pendaftaran;
+			$gelombang = $this->session->userdata("gelombang");
+			$data['title'] = "Dashboard - Calon Mahasiswa Baru";
+			$peserta = $this->db->get_where("pmb_peserta_online",array("user_id"=>$id,"gelombang"=>$gelombang))->row();			
+			$hasil['nopen'] = $peserta->nopen;
 			
 			
 			if(empty($hasil['nopen'])){
@@ -370,8 +375,8 @@
 				$data['content'] = $this->load->view('no_gelombang',$hasil,true);
 				//$hasil['pmb_peserta'] = $this->db->get_where("pmb_peserta_online",array("user_id"=>$id))->row();
 			}else{
-				$hasil['pmb_peserta'] = $this->db->get_where("pmb_peserta",array("nopen"=>$hasil['nopen']))->row();
-				$hasil['jadwal'] = $this->db->get_where("pmb_gelombang",array("nama_gel"=>$hasil['pmb_peserta']->gelombang))->row();
+				$hasil['pmb_peserta'] = $peserta;
+				$hasil['jadwal'] = $this->db->get_where("pmb_gelombang",array("id"=>$gelombang))->row();
 				$hasil['pengumuman'] = $this->db->get_where("pmb_online_pengumuman",array("id_gelombang"=>$hasil['jadwal']->id))->result();
 				if(empty($hasil['pengumuman'])){
 					$hasil['msg'] = "Belum Ada Pengumuman";
@@ -486,12 +491,12 @@
 				$this->session->set_userdata('status_update', '<div class="alert alert-success">
                                                       <strong>Berhasil!</strong> Data Berhasil di Perbarui.
                                                     </div>');
-				//redirect('formulir/upload_bukti');
+				redirect('formulir/upload_bukti');
 			}else{
 				$this->session->set_userdata('status', '<div class="alert alert-danger">
                                                       <strong>Gagal!</strong> Gagal memperbarui data mohon periksa kembali.
                                                     </div>');
-				//redirect('formulir/upload_bukti');
+				redirect('formulir/upload_bukti');
 			}
 		}
 		function cmhs_upload_foto(){
@@ -508,6 +513,28 @@
                                                       <strong>Gagal!</strong> Gagal memperbarui data mohon periksa kembali.
                                                     </div>');
 				redirect('formulir/upload_foto');
+			}
+		}
+		function cmhs_ganti_password(){	
+			$r = $this->Model_online->ganti_password();
+			// // echo $r;
+			if ($r == 2) {
+				# code...
+				$this->session->set_userdata('status_update', '<div class="alert alert-success">
+                                                      <strong>Berhasil!</strong> Password Berhasil di Perbarui.
+                                                    </div>');
+				redirect('formulir/ganti_password');
+			}elseif($r == 1){
+				$this->session->set_userdata('status_update', '<div class="alert alert-danger">
+                                                      <strong>Gagal!</strong> Password dengan konfirmasi password tidak sama
+                                                    </div>');
+				redirect('formulir/ganti_password');
+				
+			}else{
+				$this->session->set_userdata('status_update', '<div class="alert alert-danger">
+                                                      <strong>Gagal!</strong> Password lama salah
+                                                    </div>');
+				redirect('formulir/ganti_password');
 			}
 		}
 		function get_gelombang(){
@@ -532,5 +559,20 @@
 			}
 			echo json_encode($data);
 		}
+		function ganti_password(){
+			$id = $this->session->userdata("id_user");
+			$gelombang = $this->session->userdata("gelombang");
+			$query = $this->db->where(array("user_id"=>$id,'gelombang'=>$gelombang))->get("pmb_peserta_online");
+			if($query->num_rows() == 0){
+				redirect('formulir/info');
+			}
+			$data['title'] = "Dashboard - Calon Mahasiswa Baru";			
+			$hasil['nopen'] = $query->row()->nopen;
+			$hasil['pmb_peserta'] = $query->row();
+
+			$data['content'] = $this->load->view('formulir/ganti_password',$hasil,true);
+			$this->load->view('pmb_online/index_layout',$data);
+		}
+		
 	}
 ?>

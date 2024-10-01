@@ -247,12 +247,31 @@
 			);
 			$nopen = $this->input->post('nopen');
 			$user_id = $this->session->userdata("id_user");
-			if(empty($nopen)){
-				$r = $this->db->update('pmb_peserta_online', $data, array('id' => $user_id));
-			}else{
-				$r = $this->db->update('pmb_peserta', $data, array('nopen' => $nopen));
-			}
+			$gelombang = $this->session->userdata("gelombang");
+			$r = $this->db->update('pmb_peserta_online', $data, array('user_id' => $user_id,'gelombang'=>$gelombang));
+			
 			return $r;
+		}
+		function ganti_password(){
+			$password = $this->input->post('password');
+			$password_lama = $this->input->post('password_lama');
+			$confirm_password = $this->input->post('confirm_password');
+			if($password != $confirm_password){
+				return 1;
+			}else{
+				$enc = md5($password_lama);
+				$id = $id = $this->session->userdata("id_user");
+				$user = $this->db->get_where('user_guest',['id'=>$id,'password'=>$enc]);
+				if($user->num_rows() == 0){
+					return 0;
+				}else{
+					$data = [
+						'password' => md5($password)
+					];
+					$this->db->update('user_guest', $data, array('id' => $id));
+					return 2;
+				}
+			}
 		}
 		function simpan_penpres(){
 			$id = $this->session->userdata("id_user");
@@ -489,10 +508,7 @@
 			if($this->upload->do_upload('bukti')){ 
 			  $bukti = $config['file_name'].$config['file_ext'];
 			  $data = array(
-				'id_rekening'=>$this->input->post("id_rekening"),
 				'nopen'=>$this->input->post("nopen"),
-				'norek_pengirim'=>$this->input->post("norek"),
-				'an_pengirim'=>$this->input->post("an_rekening"),
 				'tgl_tf'=>$this->input->post("tgl_tf"),
 				'bukti'=>$bukti,
 			   );
@@ -511,7 +527,7 @@
 			$jalur = $this->input->post('jalur');
 			
 			
-			// echo $set_nopen."<br>".$pmdp."<br>".$is_kerjasama."<br>".$is_mou."<br>".$gelombang;
+			// echo $set_nopen."<br>".$pmdtambah_fotop."<br>".$is_kerjasama."<br>".$is_mou."<br>".$gelombang;
 
 			$config['upload_path'] = './assets/file_pmb/';
 		    $config['allowed_types'] = 'pdf';

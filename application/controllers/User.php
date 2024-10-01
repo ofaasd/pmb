@@ -25,5 +25,6 @@
 			$this->load->view('index',$data);
 		}
 		
+		
 	}
 ?>
