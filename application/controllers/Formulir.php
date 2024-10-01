@@ -297,11 +297,12 @@
 		function upload_bukti()
 		{
 			$id = $this->session->userdata("id_user");
+			$gelombang = $this->session->userdata("gelombang");
 			$data['title'] = "Dashboard - Calon Mahasiswa Baru";			
 			$hasil['rekening'] = $this->db->get("master_rekening")->result();
-			$hasil['nopen'] = $this->db->get_where("user_guest",array("id"=>$id))->row()->no_pendaftaran;
+			$hasil['peserta'] = $this->db->get_where("pmb_peserta_online",array("user_id"=>$id,"gelombang"=>$gelombang))->row();
 			
-			if(empty($hasil['nopen'])){
+			if(empty($hasil['peserta']->nopen)){
 				$hasil['msg'] = "Harap Verifikasi Data Terlebih Dahuli";
 				$data['content'] = $this->load->view('no_gelombang',$hasil,true);
 				//$hasil['pmb_peserta'] = $this->db->get_where("pmb_peserta_online",array("user_id"=>$id))->row();

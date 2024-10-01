@@ -81,6 +81,9 @@
 <div class="page-body">
 	<div class="row">
 		<div class="col-sm-12">
+			<?php
+				if($peserta->is_verifikasi == 1){
+			?>
 			<div class="card">
 				<div class="card-header">
 					<?php echo $this->session->userdata('status_update'); 
@@ -107,7 +110,7 @@
 					  <!-- One "tab" for each step in the form: --> 
 						<div class="row">
 							<div class="col-sm-6">
-								<input type="hidden" name="nopen" value="<?php echo $nopen ?>">
+								<input type="hidden" name="nopen" value="<?php echo $peserta->nopen ?>">
 								No Rekening Pengirim :
 								<p><input type="text" class="form-control" placeholder="Nomor Rekening" oninput="this.className = ''" name="norek" required=""></p>
 								Atas Nama Rekening Pengirim :
@@ -138,6 +141,13 @@
 			  </div>
 			 </div>
 			</div>
+			<?php }else{ ?>
+				<div class="card">
+					<div class="card-body">
+						<img src="<?= base_url() ?>/assets/images/wait.gif" width="100%">
+					</div>
+				</div>
+			<?php } ?>
 		  </div>
 		</div>
 	</div>
