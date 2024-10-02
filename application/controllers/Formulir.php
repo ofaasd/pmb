@@ -342,10 +342,10 @@
 				$data['content'] = $this->load->view('no_gelombang',$hasil,true);
 				$hasil['pmb_peserta'] = $peserta;
 			}else{
-				$cek_verif = $this->db->get_where("bukti_registrasi",array("nopen"=>$hasil['nopen']))->row()->verifikasi ?? 0;
+				//$cek_verif = $this->db->get_where("bukti_registrasi",array("nopen"=>$hasil['nopen']))->row()->verifikasi ?? 0;
 				$hasil['pmb_peserta'] = $peserta;
 				//$hasil['pmb_peserta'] = $this->db->get_where("pmb_peserta",array("nopen"=>$hasil['nopen']))->row();
-				//$cek_verif = $hasil['pmb_peserta']->is_bayar;
+				$cek_verif = $hasil['pmb_peserta']->is_bayar;
 				if($cek_verif == 0){
 					$hasil['msg'] = "Biaya Pendaftaran belum di verifikasi";
 					
