@@ -7,146 +7,144 @@
 		<td colspan="4"><img src="<?php echo base_url('assets/images/line.jpg')?>"></td>
 	</tr>
 </table>
-<table width="80%">
+<table width="100%" >
 <?php foreach($cetak as $c){?>
 	<tr>
-		<td colspan="3"><h4>&emsp;A. Data Pribadi</h4></td>
-	</tr>
-	<tr>
-		<td>&emsp;&emsp;&emsp;Gelombang Pedaftaran</td>
-		<td> : </td>
-		<td> <?php echo $data['gelombang']; ?> </td>
-	</tr>
-	<tr>
-		<td>&emsp;&emsp;&emsp;Nomor Pedaftaran</td>
+		<td>Nomor Pedaftaran</td>
 		<td> : </td>
 		<td> <?php echo $c->nopen ?> </td>
 	</tr>
 	<tr>
-		<td>&emsp;&emsp;&emsp;Nomor KTP</td>
+		<td>Jalur / Gelombang Pendaftaran</td>
 		<td> : </td>
-		<td> <?php echo $c->noktp ?> </td>
+		<td> <?php echo $data['gelombang']; ?> </td>
 	</tr>
 	<tr>
-		<td>&emsp;&emsp;&emsp;NISN</td>
-		<td> : </td>
-		<td> <?php echo $c->nisn ?> </td>
-	</tr>
-	<tr>
-		<td>&emsp;&emsp;&emsp;Nama Lengkap</td>
+		<td>Nama Lengkap</td>
 		<td> : </td>
 		<td> <?php echo $c->nama ?> </td>
 	</tr>
 	<tr>
-		<td>&emsp;&emsp;&emsp;Jenis Kelamin</td>
+		<td>Nomor KTP</td>
 		<td> : </td>
-		<td> <?php if($c->jk == 1){echo "Laki - Laki";}else{echo "Perempuan";} ?> </td>
+		<td> <?php echo $c->noktp ?> </td>
 	</tr>
 	<tr>
-		<td>&emsp;&emsp;&emsp;Agama</td>
+		<td>Jenis Kelamin</td>
 		<td> : </td>
-		<td> <?php if($c->agama == 1){echo "Islam";}else if($c->agama == 2){echo "Kristen";}else if($c->agama == 3){echo "Katolik"; }else if($c->agama == 4){echo "Hindu";}else if($c->agama == 5){echo "Budha";}else if($c->agama == 6){echo "Konghucu";}else if($c->agama == 99){echo "Lainnya"; } ?> </td>
+		<td> <?php echo ($c->jk == 1)?"Laki-laki":"Perempuan" ?> </td>
 	</tr>
 	<tr>
-		<td>&emsp;&emsp;&emsp;Nama Ibu</td>
-		<td> : </td>
-		<td> <?php echo $c->nama_ibu ?> </td>
-	</tr>
-	<tr>
-		<td>&emsp;&emsp;&emsp;Nama Ayah</td>
-		<td> : </td>
-		<td> <?php echo $c->nama_ayah ?> </td>
-	</tr>
-	<tr>
-		<td>&emsp;&emsp;&emsp;Tinggi Badan</td>
-		<td> : </td>
-		<td> <?php echo $c->tinggi_badan ?> CM </td>
-	</tr>
-	<tr>
-		<td>&emsp;&emsp;&emsp;Berat Badan</td>
-		<td> : </td>
-		<td> <?php echo $c->berat_badan ?> KG</td>
-	</tr>
-	<tr>
-		<td>&emsp;&emsp;&emsp;Tempat & Tanggal Lahir</td>
+		<td>Tempat & Tanggal Lahir</td>
 		<td> : </td>
 		<td> <?php echo $c->tempat_lahir ?>, <?php $tgl = date_create($c->tanggal_lahir); echo date_format($tgl, "d-m-Y"); ?> </td>
 	</tr>
 	<tr>
-		<td>&emsp;&emsp;&emsp;Nomor Telpon</td>
+		<td>Nomor Telpon / HP</td>
 		<td> : </td>
-		<td> <?php echo $c->telpon ?></td>
+		<td> <?php echo $c->telpon ?> / <?php echo $c->hp ?></td>
 	</tr>
 	<tr>
-		<td>&emsp;&emsp;&emsp;Nomor HP</td>
-		<td> : </td>
-		<td> <?php echo $c->hp ?></td>
-	</tr>
-	<tr>
-		<td>&emsp;&emsp;&emsp;Alamat</td>
+		<td>Alamat</td>
 		<td> : </td>
 		<td> <?php echo $c->alamat ?>,&emsp;&emsp;RT : <?php echo $c->rt ?>&emsp; RW : <?php echo $c->rw ?></td>
 	</tr>
 	<tr>
-		<td>&emsp;&emsp;&emsp;Kelurahan</td>
+		<td>Kelurahan</td>
 		<td> : </td>
 		<td> <?php echo $c->kelurahan ?></td>
 	</tr>
 	<tr>
-		<td>&emsp;&emsp;&emsp;Kecamatan</td>
+		<td>Kecamatan</td>
 		<td> : </td>
 		<td> <?php echo $data['nm_kec']; ?></td>
 	</tr>
 	<tr>
-		<td>&emsp;&emsp;&emsp;Kota / Kabupaten</td>
+		<td>Kota / Kabupaten</td>
 		<td> : </td>
 		<td> <?php echo $data['nm_kab']; ?></td>
 	</tr>
 	<tr>
-		<td>&emsp;&emsp;&emsp;Provinsi</td>
+		<td>Provinsi</td>
 		<td> : </td>
 		<td> <?php echo $data['nm_prop']; ?></td>
 	</tr>
 	<tr>
-		<td>&emsp;&emsp;&emsp;Warga Negara</td>
+		<td>Warga Negara</td>
 		<td> : </td>
 		<td> <?php echo $data['nama_negara']; ?></td>
 	</tr>
 	<tr>
-		<td>&emsp;&emsp;&emsp;Kode POS</td>
+		<td>Kode POS</td>
 		<td> : </td>
 		<td> <?php echo $c->kodepos ?></td>
 	</tr>
 	<tr>
-		<td colspan="3"><br><h4>&emsp;B. Pendidikan Terakhir</h4></td>
-	</tr>
-	<tr>
-		<td>&emsp;&emsp;&emsp;Asal Sekolah</td>
+		<td>Agama</td>
 		<td> : </td>
-		<td> <?php echo $data['nm_sekolah']; ?> </td>
+		<td> <?php if($c->agama == 1){echo "Islam";}else if($c->agama == 2){echo "Kristen";}else if($c->agama == 3){echo "Katolik"; }else if($c->agama == 4){echo "Hindu";}else if($c->agama == 5){echo "Budha";}else if($c->agama == 6){echo "Konghucu";}else if($c->agama == 99){echo "Lainnya"; } ?> </td>
 	</tr>
 	<tr>
-		<td>&emsp;&emsp;&emsp;Kelas Dipilih</td>
+		<td colspan="3"><hr></td>
+	</tr>
+	<tr>
+		<td>Pendidikan Terakhir</td>
+		<td> : </td>
+		<td> <?php echo $data['sekolah']['pendidikan_terakhir']; ?> </td>
+	</tr>
+	<tr>
+		<td>Asal Sekolah</td>
+		<td> : </td>
+		<td> <?php echo $data['sekolah']['asal_sekolah']; ?> </td>
+	</tr>
+	<tr>
+		<td>Jurusan / Akreditasi</td>
+		<td> : </td>
+		<td> <?php echo $data['sekolah']['jurusan']; ?> / <?php echo $data['sekolah']['akreditasi']; ?> </td>
+	</tr>
+	<tr>
+		<td>Alamat Sekolah</td>
+		<td> : </td>
+		<td> <?php echo $data['sekolah']['alamat']; ?> </td>
+	</tr>
+	<tr>
+		<td>Kota / Provinsi</td>
+		<td> : </td>
+		<td> <?php echo $data['nm_kab_asal']; ?> / <?php echo $data['nm_prop_asal']; ?></td>
+	</tr>
+	<tr>
+		<td>Nama Ayah</td>
+		<td> : </td>
+		<td> <?php echo $c->nama_ayah ?> </td>
+	</tr>
+	<tr>
+		<td>Nama Ibu</td>
+		<td> : </td>
+		<td> <?php echo $c->nama_ibu ?> </td>
+	</tr>
+	<tr>
+		<td>Pilihan Pertama</td>
+		<td> : </td>
+		<td> <?php echo  $data['jurusan1'] ?? "-"; ?> </td>
+	</tr>
+	<tr>
+		<td>Pilihan Kedua</td>
+		<td> : </td>
+		<td> <?php echo $data['jurusan2'] ?? "-"; ?> </td>
+	</tr>
+	<!-- <tr>
+		<td>Kelas Dipilih</td>
 		<td> : </td>
 		<td> <?php if($c->kelas == 1){echo "Reguler";}else if($c->kelas == 2){echo "Karyawan";}else if($c->kelas == 3){echo "RPL";}else if($c->kelas == 4){echo "Kimia Farma";} ?></td>
 	</tr>
 	<tr>
-		<td>&emsp;&emsp;&emsp;Jenis Pendaftaran</td>
+		<td>Jenis Pendaftaran</td>
 		<td> : </td>
 		<td> <?php if($c->jenis_pendaftaran == 1){echo "Peserta Didik Baru";}else if($c->jenis_pendaftaran == 2){echo "Pindahan";}else if($c->jenis_pendaftaran == 11){echo "Alih Jenjang";}else if($c->jenis_pendaftaran == 12){echo "Lintas Jalur";} ?></td>
-	</tr>
+	</tr> -->
+	
 	<tr>
-		<td>&emsp;&emsp;&emsp;Pilihan Pertama</td>
-		<td> : </td>
-		<td> <?php echo $this->bantuan->pilihan_prodi($c->pilihan1); ?> </td>
-	</tr>
-	<tr>
-		<td>&emsp;&emsp;&emsp;Pilihan Kedua</td>
-		<td> : </td>
-		<td> <?php echo $this->bantuan->pilihan_prodi($c->pilihan2); ?> </td>
-	</tr>
-	<tr>
-		<td colspan="3"><br><br>&emsp;&emsp;&emsp;<img src="<?php echo base_url().'assets/foto_pmb_peserta/'.$c->foto_peserta;?>" style="width:125px;height:180px;border: 5px;" ></td>
+		<td colspan="3"><br><br><img src="<?php echo base_url().'assets/foto_pmb_peserta/'.$c->foto_peserta;?>" style="width:125px;height:180px;border: 5px;" ></td>
 	</tr>
 <?php }?>
 </table>

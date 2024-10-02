@@ -86,25 +86,29 @@
 
 		function detail_cetak($nopen){
 			error_reporting(0);
-			$data_mhs = $this->db->get_where('pmb_peserta', array('nopen' => $nopen));
+			$data_mhs = $this->db->get_where('pmb_peserta_online', array('nopen' => $nopen));
 			$data_negara = $data_mhs->result_array();
 			$nama_negara = $this->db->get_where('negara', array('id_negara' => $data_negara[0]['warga_negara']))->result_array();
 			$nm_negara   = $nama_negara[0]['nm_negara'];
 			$data_prop = $this->db->get_where('wilayah', array('id_wil' => $data_negara[0]['provinsi']))->result_array();
 			$data_kab = $this->db->get_where('wilayah', array('id_wil' => $data_negara[0]['kotakab']))->result_array();
 			$data_kec = $this->db->get_where('wilayah', array('id_wil' => $data_negara[0]['kecamatan']))->result_array();
-			$data_sekolah = $this->db->get_where('pmb_schools', array('id' => $data_negara[0]['asal_sekolah']))->result_array();
-			$gelombang = $this->db->get_where('pmb_gelombang', array('nama_gel' => $data_negara[0]['gelombang']))->result_array();
-			$jurusan1 = $this->db->get_where('program_studi', array('kode' => $data_negara[0]['pilihan1']))->result_array();
-			$jurusan2 = $this->db->get_where('program_studi', array('kode' => $data_negara[0]['pilihan2']))->result_array();
+			$pmb_asal_sekolah = $this->db->get_where('pmb_asal_sekolah', array('id_peserta' => $data_negara[0]['id']))->result_array();
+			$data_prop_asal = $this->db->get_where('wilayah', array('id_wil' => $pmb_asal_sekolah[0]['provinsi_id']))->result_array();
+			$data_kab_asal = $this->db->get_where('wilayah', array('id_wil' => $pmb_asal_sekolah[0]['kota_id']))->result_array();
+			$gelombang = $this->db->get_where('pmb_gelombang', array('id' => $data_negara[0]['gelombang']))->result_array();
+			$jurusan1 = $this->db->get_where('program_studi', array('id' => $data_negara[0]['pilihan1']))->result_array();
+			$jurusan2 = $this->db->get_where('program_studi', array('id' => $data_negara[0]['pilihan2']))->result_array();
 			$data = array('nama_negara' => $nm_negara,
 						  'nm_prop' => $data_prop[0]['nm_wil'],
 						  'nm_kab' => $data_kab[0]['nm_wil'],
 						  'nm_kec' => $data_kec[0]['nm_wil'],
-						  'nm_sekolah' => $data_sekolah[0]['nama'],
-						  'gelombang' => $gelombang[0]['nama_gel_long'],
-						  'jurusan1' => $jurusan1[0]['nama_jurusan'],
-						  'jurusan2' => $jurusan2[0]['nama_jurusan']
+						  'sekolah' => $pmb_asal_sekolah[0],
+						  'nm_prop_asal' => $data_prop_asal[0]['nm_wil'],
+						  'nm_kab_asal' => $data_kab_asal[0]['nm_wil'],
+						  'gelombang' => $gelombang[0]['nama_gel'],
+						  'jurusan1' => $jurusan1[0]['nama_prodi'],
+						  'jurusan2' => $jurusan2[0]['nama_prodi']
 						  );
 			return $data;
 		}
@@ -349,7 +353,7 @@
 			return $r->result();
 		}
 		function cetak_where($nopen){
-			$r = $this->db->get_where('pmb_peserta', array('nopen' => $nopen));
+			$r = $this->db->get_where('pmb_peserta_online', array('nopen' => $nopen));
 			return $r->result();
 		}
 		function export_mhs(){

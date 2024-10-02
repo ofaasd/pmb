@@ -597,6 +597,7 @@
 			  $id_peserta = $this->db->insert_id();
 			  $data2 = [
 				'id_peserta' => $id_peserta,
+				'pendidikan_terakhir' => $this->input->post('pendidikan_terakhir'),	 
 				'asal_sekolah' => $this->input->post('asal_sekolah'),
 				'jurusan' => $this->input->post('jurusan'),
 				'akreditasi' => $this->input->post('akreditasi'),

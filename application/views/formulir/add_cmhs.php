@@ -266,6 +266,15 @@
 											
 									</div>
 									<h3>Asal Sekolah</h3>
+									<span id="judul_asal">Pendidikan Terakhir</span> <span class="text-danger">*</span> :
+									<p>
+										<select name="pendidikan_terakhir" id="asal_sekolah" class="form-control">
+											<?php $pendidikan = array('SMA/SMK/Sederajat','Diploma (D1 - D2 - D3)','Sarjana (S1 / D4)');
+											foreach($pendidikan as $value) {?>
+											<option value="<?=$value?>" <?= ($asal_sekolah->pendidikan_terakhir == $value)?"selected":'' ?>><?=$value?></option>
+											<?php }?>
+										</select>
+									</p>
 									<span id="judul_asal">Nama Sekolah / Kampus</span> <span class="text-danger">*</span> :
 									<p><input type="text" name="asal_sekolah" id="asal_sekolah"></p>
 									<span id="judul_jurusan">Jurusan / Program Studi</span> <span class="text-danger">*</span> :

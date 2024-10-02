@@ -45,9 +45,6 @@
 				$pmb['kelas'] = $this->db->get_where('pmb_kelas', array('is_active' => 1))->result();
 				$pmb['wilayah'] = $this->db->get_where('wilayah', array('id_induk_wilayah' => '000000'))->result();
 				$pmb['data'] = $this->Model_online->detail_($id);
-				$pmb['jalur'] = $this->db->get('pmb_jalur')->result();
-				$pmb['curr_gelombang'] = $this->db->get_where('pmb_gelombang',['id'=>$pmb['detail_cmhs2']->gelombang])->row();
-				$pmb['curr_jalur'] = $this->db->get_where('pmb_jalur',['id'=>$pmb['detail_cmhs2']->jalur_pendaftaran])->row();
 				$pmb['content2'] = $this->load->view('formulir/info_pribadi',$pmb,true);
 				$data['content'] = $this->load->view('formulir/update_cmhs',$pmb,true);
 				
@@ -105,7 +102,8 @@
 		function jalur_pendaftaran(){
 			$data['title'] = "Formulir Mahasiswa - Academic Portal";	
 			$id = $this->session->userdata("id_user");
-			$pmb['detail_cmhs2'] = $this->db->get_where('pmb_peserta_online', array('user_id' => $id))->row();
+			$gelombang = $this->session->userdata("gelombang");
+			$pmb['detail_cmhs2'] = $this->db->get_where('pmb_peserta_online', array('user_id' => $id,'gelombang'=>$gelombang))->row();
 			$pmb['jalur'] = $this->db->get('pmb_jalur')->result();
 			$pmb['curr_gelombang'] = $this->db->get_where('pmb_gelombang',['id'=>$pmb['detail_cmhs2']->gelombang])->row();
 			$pmb['curr_jalur'] = $this->db->get_where('pmb_jalur',['id'=>$pmb['detail_cmhs2']->jalur_pendaftaran])->row();
@@ -135,7 +133,8 @@
 		function asal_sekolah(){
 			$data['title'] = "Formulir Mahasiswa - Academic Portal";	
 			$id = $this->session->userdata("id_user");
-			$pmb['detail_cmhs2'] = $this->db->get_where('pmb_peserta_online', array('user_id' => $id))->row();
+			$gelombang = $this->session->userdata("gelombang");
+			$pmb['detail_cmhs2'] = $this->db->get_where('pmb_peserta_online', array('user_id' => $id,'gelombang'=>$gelombang))->row();
 			$pmb['jalur'] = $this->db->get('pmb_jalur')->result();
 			$pmb['curr_gelombang'] = $this->db->get_where('pmb_gelombang',['id'=>$pmb['detail_cmhs2']->gelombang])->row();
 			$pmb['curr_jalur'] = $this->db->get_where('pmb_jalur',['id'=>$pmb['detail_cmhs2']->jalur_pendaftaran])->row();
@@ -168,6 +167,7 @@
 			$hasil = $this->db->update('pmb_peserta_online',$data,['id'=>$id_peserta]);
 
 			$data2 = [
+				'pendidikan_terakhir' => $this->input->post('pendidikan_terakhir'),
 				'asal_sekolah' => $this->input->post('asal_sekolah'),
 				'jurusan' => $this->input->post('jurusan'),
 				'akreditasi' => $this->input->post('akreditasi'),
@@ -205,7 +205,8 @@
 		function file_pendukung(){
 			$data['title'] = "Formulir Mahasiswa - Academic Portal";	
 			$id = $this->session->userdata("id_user");
-			$pmb['detail_cmhs2'] = $this->db->get_where('pmb_peserta_online', array('user_id' => $id))->row();
+			$gelombang = $this->session->userdata("gelombang");
+			$pmb['detail_cmhs2'] = $this->db->get_where('pmb_peserta_online', array('user_id' => $id,'gelombang'=>$gelombang))->row();
 			$pmb['jalur'] = $this->db->get('pmb_jalur')->result();
 			$pmb['curr_gelombang'] = $this->db->get_where('pmb_gelombang',['id'=>$pmb['detail_cmhs2']->gelombang])->row();
 			$pmb['curr_jalur'] = $this->db->get_where('pmb_jalur',['id'=>$pmb['detail_cmhs2']->jalur_pendaftaran])->row();
@@ -291,7 +292,7 @@
 				$pdfFilePath ="Formulir Pendaftaran -".$nopen.".pdf"; 
 				$mpdf->WriteHTML($data);
 				$mpdf->Output($pdfFilePath, "D");
-				exit;
+				
 			}
 		}
 		function upload_bukti()

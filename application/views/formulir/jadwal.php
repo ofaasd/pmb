@@ -91,7 +91,7 @@
 					<ol start=1>
 						<li>Ujian PMB dapat dilakukan setiap pada hari Senin - Jum'at Pukul 08.00 - 14.00 </li>
 						<li>Lokasi Ujian dilakukan pada kampus Stifar <a href="https://maps.app.goo.gl/L8GWvsPqgEKnQLPq8" target="_blank" class="btn btn-primary btn-sm">Lihat Lokasi</a></li>
-						<li>Harap mengupload pas photo calon mahasiswa baru melalui menu <a href="#" class="btn btn-primary btn-sm">Upload Foto</a> dan Mencetak berkas pendaftaran melalui halaman <a href="#" class="btn btn-primary btn-sm">cetak berkas</a> </li>
+						<li>Harap mengupload pas photo calon mahasiswa baru melalui menu <a href="<?php echo base_url();?>formulir/upload_foto" class="btn btn-primary btn-sm">Upload Foto</a> dan Mencetak berkas pendaftaran melalui halaman <a href="<?php echo base_url();?>formulir/cetak_formulir/<?php echo $nopen ?>" class="btn btn-primary btn-sm">cetak berkas</a> </li>
 						<li>Jika terdapat kendala atau pertanyaan dapat menghubungi panitia PMB di nomor (+62 813-9311-1171 / (024) 6706147)</li>
 					</ol>
 					<!-- <table class="table table-stripped">
