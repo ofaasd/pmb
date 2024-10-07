@@ -124,12 +124,12 @@
 		}
 		function daftar_kotakab($id){
 			$where = array('id_induk_wilayah' => $id);
-			$r = $this->db->get_where('wilayah', $where);
+			$r = $this->db->order_by('nm_wil','asc')->get_where('wilayah', $where);
 			return $r->result();
 		}
 		function daftar_kec($id){
 			$where = array('id_induk_wilayah' => $id);
-			$r = $this->db->get_where('wilayah', $where);
+			$r = $this->db->order_by('nm_wil','asc')->get_where('wilayah', $where);
 			return $r->result();
 		}
 		function daftar_sekolah($get_name_kab, $get_name_prov){

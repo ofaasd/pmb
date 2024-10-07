@@ -43,7 +43,7 @@
 				$pmb['prodi'] = $this->Model_pmb->prodi();
 				$pmb['gelombang'] = $this->Model_pmb->get_gelombang('pmb_gelombang')->result();
 				$pmb['kelas'] = $this->db->get_where('pmb_kelas', array('is_active' => 1))->result();
-				$pmb['wilayah'] = $this->db->get_where('wilayah', array('id_induk_wilayah' => '000000'))->result();
+				$pmb['wilayah'] = $this->db->order_by('nm_wil','asc')->get_where('wilayah', array('id_induk_wilayah' => '000000'))->result();
 				$pmb['data'] = $this->Model_online->detail_($id);
 				$pmb['content2'] = $this->load->view('formulir/info_pribadi',$pmb,true);
 				$data['content'] = $this->load->view('formulir/update_cmhs',$pmb,true);
@@ -56,7 +56,7 @@
 				$pmb['detail'] = $this->db->get_where('pmb_peserta_online', array('id' => $id))->row();
 				//$pmb['gelombang'] = $this->Model_online->get_gelombang('pmb_gelombang')->row();
 				$pmb['jalur'] = $this->db->where('deleted_at',NULL)->get('pmb_jalur')->result();
-				$pmb['wilayah'] = $this->db->get_where('wilayah', array('id_induk_wilayah' => '000000'))->result();
+				$pmb['wilayah'] = $this->db->order_by('nm_wil','asc')->get_where('wilayah', array('id_induk_wilayah' => '000000'))->result();
 				$pmb['mapel'] = ['mtk'=>'Matematika','bing'=>'B. Inggris','kimia'=>'Kimia','biologi'=>'Biologi','fisika'=>'Fisika'];
 				$data['content'] = $this->load->view('formulir/add_cmhs',$pmb,true);
 				// ini salah logic harus di ganti relasi ke table pmb peserta
@@ -73,7 +73,7 @@
 				// 	$pmb['piagam'] = $this->db->get_where('piagam_pmb',array('id_peserta'=>$cek_nopen->id))->row();
 				// 	//$pmb['gelombang'] = $this->Model_online->get_gelombang('pmb_gelombang')->row();
 				// 	$pmb['jalur'] = $this->db->where('deleted_at',NULL)->get('pmb_jalur')->result();
-				// 	$pmb['wilayah'] = $this->db->get_where('wilayah', array('id_induk_wilayah' => '000000'))->result();
+				// 	$pmb['wilayah'] = $this->db->order_by('nm_wil','asc')->get_where('wilayah', array('id_induk_wilayah' => '000000'))->result();
 				// 	$pmb['mapel'] = ['mtk'=>'Matematika','bing'=>'B. Inggris','kimia'=>'Kimia','biologi'=>'Biologi','fisika'=>'Fisika'];
 				// 	$data['content'] = $this->load->view('formulir/add_cmhs',$pmb,true);
 				// }else{
@@ -85,7 +85,7 @@
 				// 	$pmb['prodi'] = $this->Model_pmb->prodi();
 				// 	$pmb['gelombang'] = $this->Model_pmb->get_gelombang('pmb_gelombang')->result();
 				// 	$pmb['kelas'] = $this->db->get_where('pmb_kelas', array('is_active' => 1))->result();
-				// 	$pmb['wilayah'] = $this->db->get_where('wilayah', array('id_induk_wilayah' => '000000'))->result();
+				// 	$pmb['wilayah'] = $this->db->order_by('nm_wil','asc')->get_where('wilayah', array('id_induk_wilayah' => '000000'))->result();
 				// 	$pmb['data'] = $this->Model_online->detail_($id);
 				// 	$pmb['jalur'] = $this->db->get('pmb_jalur')->result();
 				// 	$pmb['curr_gelombang'] = $this->db->get_where('pmb_gelombang',['id'=>$pmb['detail_cmhs2']->gelombang])->row();
@@ -140,7 +140,7 @@
 			$pmb['curr_jalur'] = $this->db->get_where('pmb_jalur',['id'=>$pmb['detail_cmhs2']->jalur_pendaftaran])->row();
 			$pmb['rapor'] = $this->db->get_where('pmb_nilai_rapor',['id_peserta'=>$pmb['detail_cmhs2']->id])->row_array();
 			$pmb['asal_sekolah'] = $this->db->get_where('pmb_asal_sekolah',['id_peserta'=>$pmb['detail_cmhs2']->id])->row();
-			$pmb['wilayah'] = $this->db->get_where('wilayah', array('id_induk_wilayah' => '000000'))->result();
+			$pmb['wilayah'] = $this->db->order_by('nm_wil','asc')->get_where('wilayah', array('id_induk_wilayah' => '000000'))->result();
 			$pmb['kota']=$this->Model_pmb->daftar_kotakab($pmb['asal_sekolah']->provinsi_id);
 			$pmb['curr_wil'] = $this->db->get_where('wilayah',['id_wil'=>$pmb['asal_sekolah']->provinsi_id])->row();
 			$pmb['curr_kota'] = $this->db->get_where('wilayah',['id_wil'=>$pmb['asal_sekolah']->kota_id])->row();
