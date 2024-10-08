@@ -461,8 +461,12 @@
 				}
 				$ta = substr($gelombang->ta_awal, 2,2);
 				$new_id = 0;
-				$cek_record = $this->db->where('gelombang',$pmb_online->gelombang)->where('nopen is not null')->get('pmb_peserta_online')->num_rows();
-				$num = ($cek_record + 1);
+				$cek_record = $this->db->order_by('id','desc')->where('gelombang',$pmb_online->gelombang)->where('nopen is not null')->limit(1)->get('pmb_peserta_online')->row();
+				$last_nopen = 0;
+				if($cek_record){
+					$last_nopen = substr($cek_record->nopen, -3);
+				}
+				$num = ((int)$last_nopen + 1);
 				if(strlen($num) == 1){
 					$new_id = "00" . $num;					
 				}elseif(strlen($num) == 2){
@@ -492,7 +496,7 @@
 					$r = 0;
 				}
 				
-				return $set_nopen;
+				return $r;
 		}
 		function tambah_bukti(){
 			$nopen = $this->input->post("nopen");
@@ -545,10 +549,11 @@
 		      $nama_foto = $config['file_name'].$config['file_ext'];
 		    }
 			$gelombang = $this->input->post('gelombang');
+			$nisn = (!empty($this->input->post('nisn')))?$this->input->post('nisn'):"0000000000";
 		    $data = array(
 							//'nopen' => $set_nopen, tidak ada karena blm verifikasi
 							'user_id' => $user_id,
-							'nisn' => '',
+							'nisn' => $nisn,
 							'gelombang' => $gelombang,
 							'noktp' => $this->input->post('ktp'),
 							'nama' => $this->input->post('nama'),

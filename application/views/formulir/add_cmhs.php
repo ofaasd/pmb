@@ -112,9 +112,9 @@
 								<div class="col-sm-6">
 									Nomor KTP <span class="text-danger">*</span> :
 									<p><input type="text" class="form-control" placeholder="Nomor KTP" oninput="this.className = ''" name="ktp" required=""></p>
-									<!-- NISN <span class="text-danger">*</span> : -->
-									<input type="hidden" class="form-control" placeholder="NISN" oninput="this.className = ''" name="nisn" required="" value=" ">
-									<!-- Tidak Tahu NISN anda? <a href="https://nisn.data.kemdikbud.go.id/page/data" target="_blank">cek DISINI</a></p> -->
+									NISN :
+									<input type="text" class="form-control" placeholder="NISN" name="nisn">
+									Tidak Tahu NISN anda? <a href="https://nisn.data.kemdikbud.go.id/index.php/Cindex/formcaribynama" target="_blank">cek DISINI</a></p>
 									Nama Lengkap <span class="text-danger">*</span> :
 									<p><input type="text" class="form-control" placeholder="Nama Lengkap" oninput="this.className = ''" name="nama" required=""></p>
 									<div class="row">
@@ -271,7 +271,7 @@
 										<select name="pendidikan_terakhir" id="asal_sekolah" class="form-control">
 											<?php $pendidikan = array('SMA/SMK/Sederajat','Diploma (D1 - D2 - D3)','Sarjana (S1 / D4)');
 											foreach($pendidikan as $value) {?>
-											<option value="<?=$value?>" <?= ($asal_sekolah->pendidikan_terakhir == $value)?"selected":'' ?>><?=$value?></option>
+											<option value="<?=$value?>"><?=$value?></option>
 											<?php }?>
 										</select>
 									</p>

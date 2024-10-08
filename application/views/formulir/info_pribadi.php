@@ -25,6 +25,11 @@
 			<div class="col-sm-12">
 				<input type="number" class="form-control" name="noktp" value="<?php echo $detail_cmhs->noktp ?>" maxlength="16">
 			</div>
+			<div class="col-sm-12">
+				NISN :
+				<input type="text" class="form-control" placeholder="NISN" name="nisn" value="<?php echo $detail_cmhs->nisn ?>">
+				Tidak Tahu NISN anda? <a href="https://nisn.data.kemdikbud.go.id/index.php/Cindex/formcaribynama" target="_blank">cek DISINI</a></p>
+			</div>
 			<label class="col-sm-12 col-form-label">Nama Lengkap : </label>
 			<div class="col-sm-12">
 				<input type="text" class="form-control" name="nama" value="<?php echo $detail_cmhs->nama ?>" >

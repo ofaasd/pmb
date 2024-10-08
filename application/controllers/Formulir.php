@@ -449,7 +449,7 @@
 		}
 		function validasi_biodata(){
 			$r = $this->Model_online->validasi_biodata();
-			// echo $r;
+			//echo $r;
 			if ($r == 1) {
 				# code...
 				$this->session->set_userdata('status_update', '<div class="alert alert-success">
