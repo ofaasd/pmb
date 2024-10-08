@@ -2,10 +2,10 @@
 
 $config = array(
     'protocol' => 'smtp', // 'mail', 'sendmail', or 'smtp'
-    'smtp_host' => 'pmb.sinba.id', 
+    'smtp_host' => 'stifar.ac.id', 
     'smtp_port' => 465,
-    'smtp_user' => 'info@sinba.id',
-    'smtp_pass' => 'stifar*123#',
+    'smtp_user' => 'admisi.stifar@stifar.ac.id',
+    'smtp_pass' => 'Pharmasi@dmisi2024',
     'smtp_crypto' => 'ssl', //can be 'ssl' or 'tls' for example
     'mailtype' => 'text', //plaintext 'text' mails or 'html'
     'smtp_timeout' => '4', //in seconds
