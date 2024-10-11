@@ -425,7 +425,7 @@
                                                     </div>');
 				redirect('formulir/info');
 			}else{
-				$this->session->set_userdata('status', '<div class="alert alert-danger">
+				$this->session->set_userdata('status_update', '<div class="alert alert-danger">
                                                       <strong>Gagal!</strong> Gagal memperbarui data mohon periksa kembali.
                                                     </div>');
 				redirect('formulir/info');
@@ -441,7 +441,7 @@
                                                     </div>');
 				redirect('formulir/penpres');
 			}else{
-				$this->session->set_userdata('status', '<div class="alert alert-danger">
+				$this->session->set_userdata('status_update', '<div class="alert alert-danger">
                                                       <strong>Gagal!</strong> Gagal memperbarui data mohon periksa kembali.
                                                     </div>');
 				redirect('formulir/penpres');
@@ -512,7 +512,7 @@
                                                     </div>');
 				redirect('formulir/upload_foto');
 			}else{
-				$this->session->set_userdata('status', '<div class="alert alert-danger">
+				$this->session->set_userdata('status_update', '<div class="alert alert-danger">
                                                       <strong>Gagal!</strong> Gagal memperbarui data mohon periksa kembali.
                                                     </div>');
 				redirect('formulir/upload_foto');
