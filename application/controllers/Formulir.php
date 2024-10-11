@@ -486,7 +486,7 @@
 		}
 		function cmhs_tambah_bukti(){
 			$r = $this->Model_online->tambah_bukti();
-			echo $r;
+			var_dump( $r);
 			if ($r == 1) {
 				# code...
 				$this->session->set_userdata('status_update', '<div class="alert alert-success">
