@@ -406,7 +406,7 @@
 											alert("Data Calon Mahasiswa Berhasil di tambahkan."); 
 										</script>');
 				}else{
-					$this->session->set_userdata('status', '<div class="alert alert-danger">
+					$this->session->set_userdata('error', '<div class="alert alert-danger">
 														  <strong>Gagal!</strong> Gagal memperbarui data mohon periksa kembali.
 														</div>');
 				}
@@ -462,7 +462,7 @@
                                                     </div>');
 				redirect('dashboard');
 			}else{
-				$this->session->set_userdata('status', '<div class="alert alert-danger">
+				$this->session->set_userdata('status_update', '<div class="alert alert-danger">
                                                       <strong>Gagal!</strong> Gagal memperbarui data mohon periksa kembali.
                                                     </div>');
 				redirect('dashboard');
@@ -486,19 +486,20 @@
 		}
 		function cmhs_tambah_bukti(){
 			$r = $this->Model_online->tambah_bukti();
-			var_dump( $r);
-			if ($r == 1) {
+			//var_dump( $r);
+			if ($r == 0) {
 				# code...
+				$this->session->set_userdata('status_update', '<div class="alert alert-danger">
+                                                      <strong>Gagal!</strong> Gagal memperbarui data mohon periksa kembali ekstensi file.
+                                                    </div>');
+				
+				
+				redirect('formulir/upload_bukti');
+			}else{
 				$this->session->set_userdata('status_update', '<div class="alert alert-success">
                                                       <strong>Berhasil!</strong> Data Berhasil di Perbarui.
                                                     </div>');
-				
-				//redirect('formulir/upload_bukti');
-			}else{
-				$this->session->set_userdata('status', '<div class="alert alert-danger">
-                                                      <strong>Gagal!</strong> Gagal memperbarui data mohon periksa kembali ekstensi file.
-                                                    </div>');
-				//redirect('formulir/upload_bukti');
+				redirect('formulir/upload_bukti');
 			}
 		}
 		function cmhs_upload_foto(){
