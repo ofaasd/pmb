@@ -486,12 +486,13 @@
 		}
 		function cmhs_tambah_bukti(){
 			$r = $this->Model_online->tambah_bukti();
-			// echo $r;
+			echo $r;
 			if ($r == 1) {
 				# code...
 				$this->session->set_userdata('status_update', '<div class="alert alert-success">
                                                       <strong>Berhasil!</strong> Data Berhasil di Perbarui.
                                                     </div>');
+				
 				//redirect('formulir/upload_bukti');
 			}else{
 				$this->session->set_userdata('status', '<div class="alert alert-danger">
