@@ -166,6 +166,8 @@
 								<?php
 									$id = $this->session->userdata("id_user");
 									$gelombang = $this->session->userdata("gelombang");
+                                    $qgelombang = $this->db->get_where('pmb_gelombang',array('id'=>$gelombang))->row();
+                                    $curr_jalur = $this->db->get_where('pmb_jalur',array('id'=>$qgelombang->id_jalur))->row();
 									$nopen = (!empty($this->db->get_where("pmb_peserta_online",array("user_id"=>$id,'gelombang'=>$gelombang))->row()->nopen))?$this->db->get_where("pmb_peserta_online",array("user_id"=>$id,'gelombang'=>$gelombang))->row()->nopen:"";
 									$cek_verif = $this->db->get_where("bukti_registrasi",array("nopen"=>$nopen))->row();
 									if(empty($nopen) || empty($cek_verif)){
@@ -193,16 +195,18 @@
 								?>
 								
 							</li>
+                            <?php if($curr_jalur !== 1){?>
 							<li class="pcoded-hasmenu">
 								<a href="<?php echo base_url();?>formulir/jadwal_ujian">
 									<span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
 									<span class="pcoded-mtext">Jadwal Ujian</span>
 								</a>
 							</li>
+                            <?php } ?>
 							<li class="pcoded-hasmenu">
 								<a href="<?php echo base_url();?>formulir/pengumuman_ujian">
 									<span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
-									<span class="pcoded-mtext">Pengumuman Ujian</span>
+									<span class="pcoded-mtext">Pengumuman</span>
 								</a>
 							</li>
 							<li class="pcoded-hasmenu">

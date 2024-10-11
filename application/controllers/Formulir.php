@@ -495,7 +495,7 @@
 				redirect('formulir/upload_bukti');
 			}else{
 				$this->session->set_userdata('status', '<div class="alert alert-danger">
-                                                      <strong>Gagal!</strong> Gagal memperbarui data mohon periksa kembali.
+                                                      <strong>Gagal!</strong> Gagal memperbarui data mohon periksa kembali ekstensi file.
                                                     </div>');
 				redirect('formulir/upload_bukti');
 			}

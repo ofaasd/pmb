@@ -39,7 +39,7 @@
 										<p><input type="date" class="form-control" placeholder="Tanggal Transfer" oninput="this.className = ''" name="tgl_tf" required=""></p>
 										
 										Bukti Transfer :
-										<p><input type="file" class="form-control" placeholder="Bukti Pembayaran" oninput="this.className = ''" name="bukti" required=""> <small>* Max 5MB </small></p>
+										<p><input type="file" class="form-control" placeholder="Bukti Pembayaran" oninput="this.className = ''" name="bukti" required=""> <small>*  Format file berupa pdf,png, dan jpg. Max file 5MB.</small></p>
 										
 									</div>
 									<div class="col-sm-6">

@@ -37,7 +37,7 @@
 					<?php $active = 0;
 						foreach($slide as $row){?>
 					<div class="carousel-item <?php echo ($active == 0)?"active":""; $active = 1 ?>">
-						<img class="d-block w-100" src="https://siakad.sinba.id/assets/slideshow/<?php echo $row->gambar ?>" alt="<?php echo $row->caption ?>">
+						<img class="d-block w-100" src="https://stifar.id/assets/images/slideshow/<?php echo $row->gambar ?>" alt="<?php echo $row->caption ?>">
 					</div>
 					<?php } ?>
 				</div>

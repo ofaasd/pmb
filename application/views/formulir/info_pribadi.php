@@ -3,6 +3,11 @@
 				
 	<h4>Data Pribadi</h4>
 	<hr />
+	<?php
+		if($detail_cmhs->file_pendukung == 'default.png'){
+			echo '<div class="alert alert-danger">Berkas file pendukung yang anda upload tidak valid. Harap upload ulang file pendukung anda</div>'
+		}
+	?>
 	<div class="form-group row">
 		
 		<div class="col-sm-6">

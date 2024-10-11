@@ -416,6 +416,9 @@
 			$qr = $this->db->get_where('bukti_registrasi', ['user_id' => $user_id]);
 			
 			$pmb_online = $this->db->get_where("pmb_peserta_online",array("user_id"=>$user_id,'gelombang'=>$gelombang))->row();
+			if($pmb_online->file_pendukung == 'default.png'){
+				return $r = 0;
+			}
 			
 			$gelombang = $this->db->get_where('pmb_gelombang',array('id'=>$gelombang))->row();
 			$kode_jalur = $this->db->get_where('pmb_jalur',array('id'=>$gelombang->id_jalur))->row()->kode;
@@ -508,6 +511,7 @@
 			
 			$config['file_ext'] = '.'.pathinfo($_FILES['bukti']['name'], PATHINFO_EXTENSION);
 			$config['remove_space'] = TRUE;
+			$r = 0;
 			$this->load->library('upload', $config);
 			if($this->upload->do_upload('bukti')){ 
 			  $bukti = $config['file_name'].$config['file_ext'];
@@ -516,13 +520,12 @@
 				'tgl_tf'=>$this->input->post("tgl_tf"),
 				'bukti'=>$bukti,
 			   );
-			   $r = $this->db->insert('bukti_registrasi', $data);
-				
-			   return $r;
-			}else{
-				return false;
+			   $hasil = $this->db->insert('bukti_registrasi', $data);
+				if($hasil){
+					$r = 1;
+				}
 			}
-			
+			return $r;
 			
 		}
 		function simpan_cmhs(){
