@@ -511,7 +511,7 @@
 			
 			$config['file_ext'] = '.'.pathinfo($_FILES['bukti']['name'], PATHINFO_EXTENSION);
 			$config['remove_space'] = TRUE;
-			$r = 0;
+			$r = 2;
 			$this->load->library('upload', $config);
 			if($this->upload->do_upload('bukti')){ 
 			  $bukti = $config['file_name'].$config['file_ext'];
