@@ -195,7 +195,7 @@
 								?>
 								
 							</li>
-                            <?php if($curr_jalur !== 1){?>
+                            <?php if($curr_jalur->id !== 1){?>
 							<li class="pcoded-hasmenu">
 								<a href="<?php echo base_url();?>formulir/jadwal_ujian">
 									<span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>

@@ -511,16 +511,20 @@
 			
 			$config['file_ext'] = '.'.pathinfo($_FILES['bukti']['name'], PATHINFO_EXTENSION);
 			$config['remove_space'] = TRUE;
-			$r = 2;
+			$r = 0;
 			$this->load->library('upload', $config);
+			$bukti = '';
 			if($this->upload->do_upload('bukti')){ 
 			  $bukti = $config['file_name'].$config['file_ext'];
-			  $data = array(
-				'nopen'=>$this->input->post("nopen"),
-				'tgl_tf'=>$this->input->post("tgl_tf"),
-				'bukti'=>$bukti,
-			   );
-			   $hasil = $this->db->insert('bukti_registrasi', $data);
+			}
+
+			if(!empty($bukti)){
+				$data = array(
+					'nopen'=>$this->input->post("nopen"),
+					'tgl_tf'=>$this->input->post("tgl_tf"),
+					'bukti'=>$bukti,
+				);
+				$hasil = $this->db->insert('bukti_registrasi', $data);
 				if($hasil){
 					$r = 1;
 				}
