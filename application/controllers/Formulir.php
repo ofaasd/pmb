@@ -368,7 +368,7 @@
 			$gelombang = $this->session->userdata("gelombang");
 			$data['title'] = "Dashboard - Calon Mahasiswa Baru";
 			$peserta = $this->db->get_where("pmb_peserta_online",array("user_id"=>$id,"gelombang"=>$gelombang))->row();			
-			$hasil['nopen'] = $peserta->nopen;
+			$hasil['nopen'] = $peserta->nopen ?? '';
 			
 			
 			if(empty($hasil['nopen'])){
