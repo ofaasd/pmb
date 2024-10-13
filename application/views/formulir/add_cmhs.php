@@ -376,7 +376,7 @@
 										  </select>
 									  </p>
 									  Upload File Pendukung :
-									  <p><input type='file' name="foto" onchange="readURL(this);" required="" />
+									  <p><input type='file' name="foto" onchange="readURL(this);" />
 										Maksimal 5 MB dengan format pdf.</p>
 									  
 									  <br><br><br>	
