@@ -88,11 +88,15 @@
 					<h4>PENGUMUMAN CALON MAHASISWA BARU</h4>
 				</div>
 				<div class="card-block">
-					<p>Silahkan Download Berkas Pengumuman di Bawah ini</p>
-					<?php foreach($pengumuman as $row){
-						echo "<a href='" . base_url() . "assets/pengumuman/" . $row->file ."'><span class=\"pcoded-micon\"><i class=\"feather icon-pdf\"></i> " . $row->file . "</span></a>";
-					}
+					<?php
+						if($pengumuman == 1){
 					?>
+					<p>Selamat Anda dinyatakan <b>LOLOS</b> pendaftaran mahasiswa baru STIFAR</p>
+					<?php
+						}else{
+					?>
+					<p>Maaf anda Tidak LOLOS pendaftaran mahasiswa baru STIFAR</p>
+					<?php } ?>
 				</div>
 			</div>
 		</div>

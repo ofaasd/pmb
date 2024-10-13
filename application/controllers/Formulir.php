@@ -378,7 +378,8 @@
 			}else{
 				$hasil['pmb_peserta'] = $peserta;
 				$hasil['jadwal'] = $this->db->get_where("pmb_gelombang",array("id"=>$gelombang))->row();
-				$hasil['pengumuman'] = $this->db->get_where("pmb_online_pengumuman",array("id_gelombang"=>$hasil['jadwal']->id))->result();
+				//$hasil['pengumuman'] = $this->db->get_where("pmb_online_pengumuman",array("id_gelombang"=>$hasil['jadwal']->id))->result();
+				$hasil['pengumuman'] = $this->db->get_where("pmb_peserta_online",array("user_id"=>$id,'gelombang'=>$gelombang))->row()->is_lolos;
 				if(empty($hasil['pengumuman'])){
 					$hasil['msg'] = "Belum Ada Pengumuman";
 					$data['content'] = $this->load->view('no_gelombang',$hasil,true);
