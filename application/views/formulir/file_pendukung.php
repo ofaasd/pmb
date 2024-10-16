@@ -1,3 +1,12 @@
+<style>
+.alert-info{
+	border:1px solid #2980b9;
+	background:#3498db;
+	color:#fff;
+	font-size:12pt;
+	margin-top:10px;
+}
+</style>
 <form action="<?php echo base_url()?>formulir/update_file_pendukung" method="post" enctype="multipart/form-data">		
 	<input type="hidden" name="id" value="<?php echo $detail_cmhs2->id ?>">
 	<h4>File Pendukung</h4>
@@ -53,6 +62,13 @@
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 								</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="info_gelombang">
+									<div class="alert alert-info"><?= nl2br($curr_gelombang->nama_gel_long) ?></div>
 								</div>
 							</div>
 						</div>

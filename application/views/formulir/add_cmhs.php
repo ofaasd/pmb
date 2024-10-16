@@ -375,10 +375,14 @@
 											<option value="XXXL">XXXL</option>
 										  </select>
 									  </p>
-									  Upload File Pendukung :
+									  Upload File Syarat Pendaftaran :
 									  <p><input type='file' name="foto" onchange="readURL(this);" />
 										Maksimal 5 MB dengan format pdf.</p>
-									  
+										<div class="col-md-12">
+											<div class="info_gelombang">
+												<div class="alert alert-info"><?= nl2br($gelombang->nama_gel_long) ?></div>
+											</div>
+										</div>
 									  <br><br><br>	
 									
 									<!--<div class="col-sm-2">
