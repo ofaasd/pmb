@@ -171,7 +171,8 @@
 									$nopen = (!empty($this->db->get_where("pmb_peserta_online",array("user_id"=>$id,'gelombang'=>$gelombang))->row()->nopen))?$this->db->get_where("pmb_peserta_online",array("user_id"=>$id,'gelombang'=>$gelombang))->row():"";
 									//$cek_verif = $this->db->get_where("bukti_registrasi",array("nopen"=>$nopen))->row();
                                     $cek_verif = $nopen->is_bayar ?? '';
-									if(empty($nopen->nopen) || empty($cek_verif)){
+                                    $nopen = $nopen->nopen;
+									if(empty($nopen) || empty($cek_verif)){
 								?>
 									<a href="<?php echo base_url();?>formulir/cetak_formulir/0" <?php (empty($nopen))?"disabled":""?>>
 										<span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
