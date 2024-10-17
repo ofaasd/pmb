@@ -477,7 +477,7 @@
 				}else{
 					$new_id = $num;
 				}
-				$set_nopen = $prodi->kode . $ta . $kode_jalur . $gelombang->no_gel . $new_id;
+				$set_nopen = $prodi->kode . $ta . $gelombang->no_gel . $new_id;
 				
 				$data = array(
 						'nopen' => $set_nopen,
