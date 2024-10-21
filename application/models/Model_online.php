@@ -425,7 +425,7 @@
 			$user = $this->db->get_where("user_guest",array("id"=>$user_id))->row();
 			$jalur = $pmb_online->jalur_pendaftaran;
 			$gel_ta = $this->db->get_where('pmb_ta', ['is_active'=>1])->row();
-			$cek_nopen = $this->db->order_by('id','DESC')->get_where('pmb_peserta', array('angkatan' => $gel_ta->awal));
+			$cek_nopen = $this->db->order_by('id','DESC')->get_where('pmb_peserta_online', array('gelombang' => $gelombang->id));
 			$prodi = $this->db->get_where('program_studi',array('id'=>$pmb_online->pilihan1))->row();
 			
 			$count_nopen = $cek_nopen->num_rows();
@@ -434,6 +434,7 @@
 			$get_nopen = $cek_nopen->result_array();
 			if ($count_nopen > 0) {
 				# code...
+				
 				$set_nopen = $get_nopen[0]['nopen'] + 1;
 			}else{
 				/* if ($jalur == 1) {
@@ -464,7 +465,7 @@
 				}
 				$ta = substr($gelombang->ta_awal, 2,2);
 				$new_id = 0;
-				$cek_record = $this->db->order_by('id','desc')->where('gelombang',$pmb_online->gelombang)->where('nopen is not null')->limit(1)->get('pmb_peserta_online')->row();
+				$cek_record = $this->db->order_by('nopen','desc')->where('gelombang',$pmb_online->gelombang)->where('nopen is not null')->limit(1)->get('pmb_peserta_online')->row();
 				$last_nopen = 0;
 				if($cek_record){
 					$last_nopen = substr($cek_record->nopen, -3);
@@ -478,7 +479,6 @@
 					$new_id = $num;
 				}
 				$set_nopen = $prodi->kode . $ta . $gelombang->no_gel . $new_id;
-				
 				$data = array(
 						'nopen' => $set_nopen,
 					 );
