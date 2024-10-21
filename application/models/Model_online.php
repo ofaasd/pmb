@@ -533,18 +533,18 @@
 			
 		}
 		function simpan_cmhs(){
-			$user_id = $this->session->userdata("id_user");
 			// error_reporting(0);
+			$user_id = $this->session->userdata("id_user");
 			$jalur = $this->input->post('jalur');
-			
+			$tanggal = date('YmdHis');
 			
 			// echo $set_nopen."<br>".$pmdtambah_fotop."<br>".$is_kerjasama."<br>".$is_mou."<br>".$gelombang;
 
 			$config['upload_path'] = './assets/file_pmb/';
 		    $config['allowed_types'] = 'pdf';
 		    $config['max_size']  = '5240';
-		    $config['overwrite'] = TRUE;
-			$config['file_name'] = 'pmb_peserta_online_'.$user_id;
+		    $config['overwrite'] = FALSE;
+			$config['file_name'] = 'pmb_peserta_online_'.$tanggal.$user_id;
 			
 			$config['file_ext'] = '.'.pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
 		    $config['remove_space'] = TRUE;
