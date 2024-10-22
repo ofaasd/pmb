@@ -174,6 +174,7 @@
 		}
 		function update_cmhs(){
 			$user_id = $this->session->userdata("id_user");
+			$gelombang = $this->session->userdata("gelombang");
 			// $pmdp = $this->input->post('pmdp1').",".$this->input->post('pmdp2').",".$this->input->post('pmdp3').",".$this->input->post('pmdp4');
 			$jalur = $this->input->post('jalur');
 			/* $config['upload_path'] = './assets/foto_pmb_peserta/';
@@ -189,41 +190,51 @@
 		    if($this->upload->do_upload('foto')){ 
 		      $nama_foto = $config['file_name'].$config['file_ext'];  
 			} */
-			$data = array(
-							'nisn' => $this->input->post('nisn'),
-							'noktp' => $this->input->post('noktp'),
-							'nama' => $this->input->post('nama'),
-							'jk' => $this->input->post('jk'),
-							'agama' => $this->input->post('agama'),
-							'nama_ibu' => $this->input->post('nama_ibu'),
-							'nama_ayah' => $this->input->post('nama_ayah'),
-							'tinggi_badan' => $this->input->post('tinggi_badan'),
-							'berat_badan' => $this->input->post('berat_badan'),
-							'tempat_lahir' => $this->input->post('tempat_lahir'),
-							'tanggal_lahir' => $this->input->post('tanggal_lahir'),
-							'alamat' => $this->input->post('alamat'),
-							'rt' => $this->input->post('rt'),
-							'rw' => $this->input->post('rw'),
-							'kelurahan' => $this->input->post('kelurahan'),
-							'kecamatan' => $this->input->post('kecamatan'),
-							'kotakab' => $this->input->post('kotakab'),
-							'provinsi' => $this->input->post('provinsi'),
-							'kodepos' => $this->input->post('kode_pos'),
-							'telpon' => $this->input->post('telpon'),
-							'hp' => $this->input->post('hp'),
-							'warga_negara' => $this->input->post('warga_negara'),
-							// 'peringkat_pmdp' => $pmdp,
-							// 'kelas' => $this->input->post('kelas'),
-							// 'jenis_pendaftaran' => $this->input->post('pendaftaran'),
-							'is_bayar' => '0',
-							'is_online' => '1',
-							'admin_input' => $this->session->userdata("user_id"),
-							// 'admin_input' => '1',
-							'is_delete' => '0',
-							'is_mundur' => '0',
-							'admin_input_date' => date('Y-m-d H:i:s')
-						 );
-				$r = $this->db->update('pmb_peserta_online', $data, array('user_id' => $user_id));
+			$cek_validasi = $this->db->get_where('pmb_peserta_online',['user_id'=>$user_id,'gelombang'=>$gelombang])->row();
+			if(empty($cek_validasi->nopen)){
+				$data = array(
+					'nisn' => $this->input->post('nisn'),
+					'noktp' => $this->input->post('noktp'),
+					'nama' => $this->input->post('nama'),
+					'jk' => $this->input->post('jk'),
+					'agama' => $this->input->post('agama'),
+					'nama_ibu' => $this->input->post('nama_ibu'),
+					'nama_ayah' => $this->input->post('nama_ayah'),
+					'tinggi_badan' => $this->input->post('tinggi_badan'),
+					'berat_badan' => $this->input->post('berat_badan'),
+					'tempat_lahir' => $this->input->post('tempat_lahir'),
+					'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+					'alamat' => $this->input->post('alamat'),
+					'rt' => $this->input->post('rt'),
+					'rw' => $this->input->post('rw'),
+					'kelurahan' => $this->input->post('kelurahan'),
+					'kecamatan' => $this->input->post('kecamatan'),
+					'kotakab' => $this->input->post('kotakab'),
+					'provinsi' => $this->input->post('provinsi'),
+					'kodepos' => $this->input->post('kode_pos'),
+					'telpon' => $this->input->post('telpon'),
+					'hp' => $this->input->post('hp'),
+					'warga_negara' => $this->input->post('warga_negara'),
+					// 'peringkat_pmdp' => $pmdp,
+					// 'kelas' => $this->input->post('kelas'),
+					// 'jenis_pendaftaran' => $this->input->post('pendaftaran'),
+					'is_bayar' => '0',
+					'is_online' => '1',
+					'admin_input' => $this->session->userdata("user_id"),
+					// 'admin_input' => '1',
+					'is_delete' => '0',
+					'is_mundur' => '0',
+					'admin_input_date' => date('Y-m-d H:i:s')
+				);
+				$r = $this->db->update('pmb_peserta_online', $data, array('user_id' => $user_id,'gelombang'=>$gelombang));
+				if($r){
+					$r = 1;
+				}else{
+					$r = 0;
+				}
+			}else{
+				$r = 2;
+			}
 			return $r;
 		}
 		function tambah_foto(){

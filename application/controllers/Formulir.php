@@ -427,6 +427,11 @@
                                                       <strong>Berhasil!</strong> Data Berhasil di Perbarui.
                                                     </div>');
 				redirect('formulir/info');
+			}elseif($r == 2){
+				$this->session->set_userdata('status_update', '<div class="alert alert-danger">
+                                                      <strong>Gagal!</strong> Data Tidak dapat diubah karena sudah di validasi.
+                                                    </div>');
+				redirect('formulir/info');
 			}else{
 				$this->session->set_userdata('status_update', '<div class="alert alert-danger">
                                                       <strong>Gagal!</strong> Gagal memperbarui data mohon periksa kembali.
