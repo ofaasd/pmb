@@ -371,10 +371,12 @@
 			$data['title'] = "Dashboard - Calon Mahasiswa Baru";
 			$peserta = $this->db->get_where("pmb_peserta_online",array("user_id"=>$id,"gelombang"=>$gelombang))->row();			
 			$hasil['nopen'] = $peserta->nopen ?? '';
+			$data_gelombang = $this->db->get_where('pmb_gelombang',['id'=>$gelombang])->row();
+
 			
 			
 			if(empty($hasil['nopen'])){
-				$hasil['msg'] = "Harap Verifikasi Data Terlebih Dahuli";
+				$hasil['msg'] = "Harap Verifikasi Data Terlebih Dahulu";
 				$data['content'] = $this->load->view('no_gelombang',$hasil,true);
 				//$hasil['pmb_peserta'] = $this->db->get_where("pmb_peserta_online",array("user_id"=>$id))->row();
 			}else{
@@ -386,7 +388,12 @@
 					$hasil['msg'] = "Belum Ada Pengumuman";
 					$data['content'] = $this->load->view('no_gelombang',$hasil,true);
 				}else{
-					$data['content'] = $this->load->view('formulir/pengumuman',$hasil,true);
+					//cek idjalur = 6 berarti profesi apoteker
+					if($data_gelombang->id_jalur == 6){
+						$data['content'] = $this->load->view('formulir/pengumuman_apoteker',$hasil,true);
+					}else{
+						$data['content'] = $this->load->view('formulir/pengumuman',$hasil,true);
+					}
 				}
 				
 			}
