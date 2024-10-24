@@ -88,12 +88,12 @@
 				</div>
 				<div class="card-block">
                     <H3 class="text-center">Untuk informasi tahap selanjutnya Calon Mahasiswa Baru Profesi Apoteker harap bergabung dengan group whatsapp kami dengan mengklik tombol di bawah ini : </h3>
-                    <div class="row">
+                    <div class="row m-3" style="margin-top:50px;">
                         <div class="col-md-6 bg-primary text-center p-5">
-                            <a href="https://chat.whatsapp.com/GjxDhXE0TxXB2vzZVKLu9Y" class="btn btn-secondary">Klik Disini untuk Link Group Alumni STIFAR</a>
+                            <a href="https://chat.whatsapp.com/GjxDhXE0TxXB2vzZVKLu9Y" target="_blank" class="btn btn-secondary">Klik Disini untuk Link Group Alumni STIFAR</a>
                         </div>
                         <div class="col-md-6 bg-secondary text-center p-5">
-                            <a href="https://chat.whatsapp.com/EhURV1zeluJ37HBcThjUDC" class="btn btn-success">Klik Disini untuk Link Group Non Alumni STIFAR</a>
+                            <a href="https://chat.whatsapp.com/EhURV1zeluJ37HBcThjUDC" target="_blank" class="btn btn-primary">Klik Disini untuk Link Group Non Alumni STIFAR</a>
                         </div>
                     </div>
 				</div>
