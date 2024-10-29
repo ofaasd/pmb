@@ -391,6 +391,8 @@
 					//cek idjalur = 6 berarti profesi apoteker
 					if($data_gelombang->id_jalur == 6){
 						$data['content'] = $this->load->view('formulir/pengumuman_apoteker',$hasil,true);
+					}elseif($data_gelombang->id_jalur == 5){
+						$data['content'] = $this->load->view('formulir/pengumuman_magister',$hasil,true);
 					}else{
 						$data['content'] = $this->load->view('formulir/pengumuman',$hasil,true);
 					}
