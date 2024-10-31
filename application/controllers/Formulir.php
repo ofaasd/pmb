@@ -305,8 +305,8 @@
 			//$hasil['rekening'] = $this->db->get("master_rekening")->result();
 			
 			$hasil['peserta'] = $this->db->get_where("pmb_peserta_online",array("user_id"=>$id,"gelombang"=>$gelombang))->row();
-			$hasil['biaya_pendaftaran'] = $this->db->get_where('biaya_pendaftaran',['id_prodi'=>$hasil['peserta']->pilihan1,'rpl'=>0])->row();
-			$hasil['bukti_registrasi'] = $this->db->get_where('bukti_registrasi',['nopen'=>$hasil['peserta']->nopen])->num_rows();
+			$hasil['biaya_pendaftaran'] = $this->db->get_where('biaya_pendaftaran',['id_prodi'=>($hasil['peserta']->pilihan1 ?? 0),'rpl'=>0])->row();
+			$hasil['bukti_registrasi'] = $this->db->get_where('bukti_registrasi',['nopen'=>($hasil['peserta']->nopen ?? 99999999999)])->num_rows();
 			if(empty($hasil['peserta']->nopen)){
 				$hasil['msg'] = "Harap Verifikasi Data Terlebih Dahuli";
 				$data['content'] = $this->load->view('no_gelombang',$hasil,true);
@@ -335,7 +335,7 @@
 			$gelombang = $this->session->userdata("gelombang");
 			$data['title'] = "Dashboard - Calon Mahasiswa Baru";		
 			$peserta = 	$this->db->get_where("pmb_peserta_online",array("user_id"=>$id,'gelombang'=>$gelombang))->row();
-			$hasil['nopen'] = $peserta->nopen;
+			$hasil['nopen'] = $peserta->nopen ?? '';
 			
 			$query2 = $this->db->where(array("id"=>$id))->get("user_guest");
 			
