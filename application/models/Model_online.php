@@ -481,8 +481,6 @@
 				}else{
 					$cek_record = $this->db->order_by('nopen','desc')->where('gelombang',$pmb_online->gelombang)->where('nopen is not null')->limit(1)->get('pmb_peserta_online')->row();
 				}
-				echo $this->db->last_query();
-				exit;
 				$last_nopen = 0;
 				if($cek_record){
 					$last_nopen = substr($cek_record->nopen, -3);
