@@ -477,7 +477,7 @@
 				$ta = substr($gelombang->ta_awal, 2,2);
 				$new_id = 0;
 				if($gelombang->id == 4 || $gelombang->id == 14){
-					$cek_record = $this->db->order_by('nopen','desc')->orWhere(['gelombang'=>4, 'gelombang'=>14])->where('nopen is not null')->limit(1)->get('pmb_peserta_online')->row();
+					$cek_record = $this->db->order_by('nopen','desc')->or_where(['gelombang'=>4, 'gelombang'=>14])->where('nopen is not null')->limit(1)->get('pmb_peserta_online')->row();
 				}else{
 					$cek_record = $this->db->order_by('nopen','desc')->where('gelombang',$pmb_online->gelombang)->where('nopen is not null')->limit(1)->get('pmb_peserta_online')->row();
 				}
