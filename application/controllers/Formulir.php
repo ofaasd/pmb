@@ -303,9 +303,18 @@
 			$gelombang = $this->session->userdata("gelombang");
 			$data['title'] = "Dashboard - Calon Mahasiswa Baru";			
 			//$hasil['rekening'] = $this->db->get("master_rekening")->result();
-			
+			$cek_gelombang_rpl = $this->db->like('nama_gel','RPL')->get('pmb_gelombang')->result();
+			$list_gel = [];
+			foreach($cek_gelombang_rpl as $row){
+				$list_gel[] = $row->id;
+			}
 			$hasil['peserta'] = $this->db->get_where("pmb_peserta_online",array("user_id"=>$id,"gelombang"=>$gelombang))->row();
-			$hasil['biaya_pendaftaran'] = $this->db->get_where('biaya_pendaftaran',['id_prodi'=>($hasil['peserta']->pilihan1 ?? 0),'rpl'=>0])->row();
+			
+			if(in_array($hasil['peserta']->gelombang,$list_gel)){
+				$hasil['biaya_pendaftaran'] = $this->db->get_where('biaya_pendaftaran',['id_prodi'=>($hasil['peserta']->pilihan1 ?? 0),'rpl'=>1])->row();
+			}else{
+				$hasil['biaya_pendaftaran'] = $this->db->get_where('biaya_pendaftaran',['id_prodi'=>($hasil['peserta']->pilihan1 ?? 0),'rpl'=>0])->row();
+			}
 			$hasil['bukti_registrasi'] = $this->db->get_where('bukti_registrasi',['nopen'=>($hasil['peserta']->nopen ?? 99999999999)])->num_rows();
 			if(empty($hasil['peserta']->nopen)){
 				$hasil['msg'] = "Harap Verifikasi Data Terlebih Dahuli";
