@@ -71,7 +71,7 @@
 							<?php if(!empty($this->session->flashdata('berhasil'))){
 								echo '<div class="alert alert-success border-success">
 								
-									' . $this->session->flashdata('berhasil') . '
+									<h4>' . $this->session->flashdata('berhasil') . '</h4>
 								</div>';
 							}?>
 							<!-- start login -->

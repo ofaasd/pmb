@@ -95,7 +95,7 @@
 					$this->email->message($message);
 
 					if ($this->email->send()) {
-						$this->session->set_flashdata('berhasil', 'Akun berhasil dibuat, silahkan cek email anda dan silahkan login kembali');
+						$this->session->set_flashdata('berhasil', 'AKUN BERHASIL DIBUAT, SILAHKAN CEK EMAIL ANDA UNTUK MELIHAT PASSWORD YANG TELAH DIKIRIMKAN KE EMAIL ANDA');
 						redirect("welcome/new_login");
 					} else {
 						$this->session->set_flashdata('gagal', show_error($this->email->print_debugger()));
