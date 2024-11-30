@@ -95,7 +95,7 @@
 				
 					$subject = "Penerimaan Mahasiswa Baru STIFAR";
 					
-					$message = "Halo, " . $nama . ". Pendaftaran berhasil, Anda sudah tergabung sebagai Calon Mahasiswa di Sekolah Tinggi Ilmu Farmasi  \n Berikut Username dan Password anda adalah : \n username : " . $new_email  . "\n Password : " . $tanggal . "\n\n Terimakasih, \n Admin PMB STIFAR";
+					$message = "Halo, " . $nama . ". Pendaftaran berhasil, Anda sudah tergabung sebagai Calon Mahasiswa di Sekolah Tinggi Ilmu Farmasi  \n Berikut Username dan Password anda adalah : \n username : " . $new_email  . "\n Password : " . $tanggal . "\n Silahkan Login kembali melalui link berikut \n https://pendaftaran.stifar.ac.id/welcome/new_login \n\n jika terdapat kendala dapat menghubungi no. 081393111171 \n sebagai media center PMB STIFAR 2025 \n\n Terimakasih, \n Admin PMB STIFAR";
 					if(!empty($email)){
 						$this->email->set_newline("\r\n");
 						$this->email->from($from);
