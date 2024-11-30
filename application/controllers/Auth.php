@@ -61,6 +61,7 @@
 			$from = $this->config->item('smtp_user');
 			$email = $this->input->post('email');
 			$nama = $this->input->post('nama');
+			$no_wa = $this->input->post('no_wa');
 			$tgl_lahir = $this->input->post('tgl_lahir');
 			$tanggal = date("Ymd",strtotime($tgl_lahir));
 			if($this->input->post("g-recaptcha-response") == false){
@@ -74,10 +75,18 @@
 				$this->session->set_flashdata('gagal', 'Akun sudah pernah terdaftar harap hubungi pihak Admisi STIFAR');
 				redirect("welcome/register");
 			}else{
-				
+				$new_email = '';
+				if(empty($email)){
+					$pecah = explode(" ",$nama);
+					$nama = $pecah[0];
+					$last_id = $this->db->order_by('id','desc')->limit(1)->get('pmb_peserta_online')->row();
+					$new_email = $nama . ($last_id->id+1) . "@2025.psb.stifar.id";
+				}else{
+					$new_email = $email;
+				}
 				$user_guest = array(
 					"nama" => $nama,
-					"email" => $email,
+					"email" => $new_email,
 					"tgl_lahir" => date('Y-m-d',strtotime($tgl_lahir)),
 					"password" => md5($tanggal),
 				);
@@ -86,21 +95,49 @@
 				
 					$subject = "Penerimaan Mahasiswa Baru STIFAR";
 					
-					$message = "Selamat kepada " . $nama . ". Anda sudah tergabung sebagai Calon Mahasiswa di Sekolah Tinggi Ilmu Farmasi  \n Berikut Username dan Password anda adalah : \n username : " . $email  . "\n Password : " . $tanggal . "\n\n Terimakasih, \n Admin PMB STIFAR";
+					$message = "Halo, " . $nama . ". Pendaftaran berhasil, Anda sudah tergabung sebagai Calon Mahasiswa di Sekolah Tinggi Ilmu Farmasi  \n Berikut Username dan Password anda adalah : \n username : " . $new_email  . "\n Password : " . $tanggal . "\n\n Terimakasih, \n Admin PMB STIFAR";
+					if(!empty($email)){
+						$this->email->set_newline("\r\n");
+						$this->email->from($from);
+						$this->email->to($email);
+						$this->email->subject($subject);
+						$this->email->message($message);
 
-					$this->email->set_newline("\r\n");
-					$this->email->from($from);
-					$this->email->to($email);
-					$this->email->subject($subject);
-					$this->email->message($message);
-
-					if ($this->email->send()) {
-						$this->session->set_flashdata('berhasil', 'AKUN BERHASIL DIBUAT, SILAHKAN CEK EMAIL ANDA UNTUK MELIHAT PASSWORD YANG TELAH DIKIRIMKAN KE EMAIL ANDA');
-						redirect("welcome/new_login");
-					} else {
-						$this->session->set_flashdata('gagal', show_error($this->email->print_debugger()));
-						redirect("welcome/register");
+						if ($this->email->send()) {
+							$this->session->set_flashdata('berhasil', 'AKUN BERHASIL DIBUAT, SILAHKAN CEK EMAIL / NO WA ANDA UNTUK MELIHAT PASSWORD YANG TELAH DIKIRIMKAN KE EMAIL ANDA');
+							redirect("welcome/new_login");
+						} else {
+							$this->session->set_flashdata('gagal', show_error($this->email->print_debugger()));
+							redirect("welcome/register");
+						}
 					}
+
+					$dataSending = Array();
+					$dataSending["api_key"] = "X2Y7UZOZT0WVQVTG";
+					$dataSending["number_key"] = "l4y8vs7e3Cig7Ty3";
+					$dataSending["phone_no"] = $no_wa;
+					$dataSending["message"] = $message;
+
+					$curl = curl_init();
+
+					curl_setopt_array($curl, array(
+						CURLOPT_URL => 'https://api.watzap.id/v1/send_message',
+						CURLOPT_RETURNTRANSFER => true,
+						CURLOPT_ENCODING => '',
+						CURLOPT_MAXREDIRS => 10,
+						CURLOPT_TIMEOUT => 0,
+						CURLOPT_FOLLOWLOCATION => true,
+						CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+						CURLOPT_CUSTOMREQUEST => 'POST',
+						CURLOPT_POSTFIELDS => json_encode($dataSending),
+						CURLOPT_HTTPHEADER => array(
+						  'Content-Type: application/json'
+						),
+					  ));
+
+					  $response = curl_exec($curl);
+					  $this->session->set_flashdata('berhasil', 'AKUN BERHASIL DIBUAT, SILAHKAN CEK NO WA ANDA UNTUK MELIHAT PASSWORD YANG TELAH DIKIRIMKAN');
+					  redirect("welcome/new_login");
 				}else{
 					$this->session->set_flashdata('gagal', 'Akun gagal insert ke DB');
 					redirect("welcome/register");

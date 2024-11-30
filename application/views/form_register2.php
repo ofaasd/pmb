@@ -81,7 +81,15 @@
 										<label class="j-icon-right" for="email">
 											<i class="icofont icofont-ui-email"></i>
 										</label>
-										<input type="email" id="email" name="email" placeholder="Email..." required>
+										<input type="email" id="email" name="email" placeholder="Email...">
+									</div>
+								</div>
+								<div class="j-unit">
+									<div class="j-input">
+										<label class="j-icon-right" for="No. WA">
+											<i class="icofont icofont-ui-phone"></i>
+										</label>
+										<input type="text" id="no_wa" name="no_wa" placeholder="EG : 082XXXXXXXXX" required>
 									</div>
 								</div>
 								<!-- end login -->
