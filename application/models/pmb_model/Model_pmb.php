@@ -86,7 +86,7 @@
 
 		function detail_cetak($nopen){
 			error_reporting(0);
-			$data_mhs = $this->db->get_where('pmb_peserta_online', array('nopen' => $nopen));
+			$data_mhs = $this->db->get_where('pmb_peserta_online', array('nopen' => $nopen, 'is_verifikasi' => 1));
 			$data_negara = $data_mhs->result_array();
 			$nama_negara = $this->db->get_where('negara', array('id_negara' => $data_negara[0]['warga_negara']))->result_array();
 			$nm_negara   = $nama_negara[0]['nm_negara'];
