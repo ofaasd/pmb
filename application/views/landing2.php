@@ -99,7 +99,8 @@
 							<div class="j-unit">
 								<div class="j-input">
 									<p><label for="gelombang"><b>Gelombang Pendaftaran</b></label></p>
-									<select name="gelombang" class="form-control" style="font-size:14px;height:50px;">
+									<select name="gelombang" class="form-control" style="font-size:14px;height:50px;" required>
+										<option value="">Pilih Gelombang</option>
 										<?php foreach($gelombang as $row_gel){?>		
 											<option value="<?=$row_gel->id?>" <?=($id == $row_gel->id)?"selected":""?>><?= $row_gel->nama_gel?> (TA <?=$row_gel->ta_awal?>/<?=$row_gel->ta_akhir?>)</option>
 										<?php } ?>
