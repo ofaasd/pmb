@@ -28,9 +28,9 @@ class Welcome extends CI_Controller {
 			$hasil['slide'] = $this->db->limit(5)->order_by("id","desc")->get("master_slide")->result();
 			$hasil['id'] = $id;
 			$tanggal = date('Y-m-d');
-			$hasil['gelombang'] = $this->db->select('pmb_gelombang.*,pmb_jalur.nama as nama_jalur')->join('pmb_jalur','pmb_jalur.id = pmb_gelombang.id_jalur','inner')->where('tgl_mulai <=',$tanggal)->where('tgl_akhir >=', $tanggal)->get('pmb_gelombang')->result();
-			$data['content'] = $this->load->view('landing_new',$hasil,true);
-			$this->load->view('index_login',$data);
+			$hasil['gelombang'] = $this->db->select('pmb_gelombang.*,pmb_jalur.nama as nama_jalur')->join('pmb_jalur','pmb_jalur.id = pmb_gelombang.id_jalur','inner')->where('tgl_mulai <=',$tanggal)->where('tgl_akhir >=', $tanggal)->order_by('urutan','asc')->get('pmb_gelombang')->result();
+			$data['content'] = $this->load->view('landing_new2',$hasil,true);
+			$this->load->view('index_login_new',$data);
 	}
 	public function new_login($id = 0)
 	{
