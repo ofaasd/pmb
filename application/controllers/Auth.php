@@ -21,7 +21,7 @@
 			$cek_user = $this->db->get_where('user_guest', array('email' => $email));
 			if($this->input->post("g-recaptcha-response") == false){
 				$this->session->set_flashdata('gagal', 'Harap Mengisi captcha');
-				redirect("welcome");
+				redirect("welcome/new_login/" . $gelombang);
 			}
 			if ($cek_user->num_rows() > 0) {
 				# code...
@@ -42,12 +42,12 @@
 					redirect('dashboard');
 				}else{
 					$this->session->set_flashdata('gagal', 'Password Salah');
-					redirect('welcome');
+					redirect('welcome/new_login/' . $gelombang);
 				}
 			}else{
 				//echo "gagal_login";
 				$this->session->set_flashdata('gagal', 'Email Tidak Terdaftar');
-				redirect("welcome");
+				redirect("welcome/new_login/" . $gelombang);
 			}
 			// $pass = $bcrypt->create("admin");
 			//echo "gagal login";
@@ -67,14 +67,14 @@
 			$tanggal = date("Ymd",strtotime($tgl_lahir));
 			if($this->input->post("g-recaptcha-response") == false){
 				$this->session->set_flashdata('gagal', 'Harap Mengisi captcha');
-				redirect("welcome/register");
+				redirect("welcome/register/" . $gelombang);
 			}
 			$cek = $this->db->get_where('user_guest', array('email' => $email));
 			
 			
 			if($cek->num_rows() > 0 ){
 				$this->session->set_flashdata('gagal', 'Akun sudah pernah terdaftar harap hubungi pihak Admisi STIFAR');
-				redirect("welcome/register");
+				redirect("welcome/register/" . $gelombang);
 			}else{
 				$new_email = '';
 				if(empty($email)){
@@ -106,10 +106,10 @@
 
 						if ($this->email->send()) {
 							$this->session->set_flashdata('berhasil', 'AKUN BERHASIL DIBUAT, SILAHKAN CEK EMAIL / NO WA ANDA UNTUK MELIHAT PASSWORD YANG TELAH DIKIRIMKAN KE EMAIL ANDA');
-							redirect("welcome/new_login");
+							redirect("welcome/new_login/" . $gelombang);
 						} else {
 							$this->session->set_flashdata('gagal', show_error($this->email->print_debugger()));
-							redirect("welcome/register");
+							redirect("welcome/register/" . $gelombang);
 						}
 					}
 
@@ -139,10 +139,10 @@
 
 					  $response = curl_exec($curl);
 					  $this->session->set_flashdata('berhasil', 'AKUN BERHASIL DIBUAT, SILAHKAN CEK NO WA ANDA UNTUK MELIHAT PASSWORD YANG TELAH DIKIRIMKAN');
-					  redirect("welcome/new_login");
+					  redirect("welcome/new_login/" . $gelombang);
 				}else{
 					$this->session->set_flashdata('gagal', 'Akun gagal insert ke DB');
-					redirect("welcome/register");
+					redirect("welcome/register/" . $gelombang);
 				}
 			}
 		}
