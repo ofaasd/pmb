@@ -60,8 +60,15 @@
 								<center><img class="img-fluid" src="<?php echo $this->config->item('logo_url')?>" alt="Dijawa Logo" style="height:80px;margin:20px;"></center>
 								<center><p><b>Sekolah Tinggi Ilmu Farmasi</b></p></center>
 								<hr>
-								<center><h5>Daftar</h5></center>
+								<center><h5>Pendaftaran <?= $curr_gelombang->nama_gel ?? '' ?></h5></center>
 								<br />
+								<?php
+									if(empty($curr_gelombang)){
+								?>
+										<div class="alert alert-danger" style="background:rgba(231, 76, 60,1.0); border:1px solid rgba(192, 57, 43,1.0); color:#fff">
+											Gelombang Tidak Ditemukan <a href="<?=base_url()?>" class="btn btn-primary btn-sm">Klik Disini</a> untuk melihat List Gelombang
+										</div>
+								<?php } ?>
 								<?php if(!empty($this->session->flashdata('gagal'))){
 									echo '<div class="alert alert-danger border-danger">
 									
@@ -105,6 +112,21 @@
 										
 									</div>
 								</div>
+								<div class="j-unit">
+								<input type="hidden" name="gelombang" value="<?=$id?>">
+								<div class="j-input">
+									<p><label for="gelombang_choice"><b>Gelombang Pendaftaran</b></label></p>
+									<select name="gelombang_choice" class="form-control" style="font-size:14px;height:50px;" required readonly disabled>
+										<option value="">Pilih Gelombang</option>
+										<?php foreach($gelombang as $row_gel){?>		
+											<option value="<?=$row_gel->id?>" <?=($id == $row_gel->id)?"selected":""?>><?= $row_gel->nama_gel?> (TA <?=$row_gel->ta_awal?>/<?=$row_gel->ta_akhir?>)</option>
+										<?php } ?>
+									</select>
+									<div class="alert alert-warning border-warning">
+										Pastikan Gelombang pendaftaran sesuai dengan data pendaftaran anda
+									</div>
+								</div>
+							</div>
 							<!-- end password -->
 							<!-- start reCaptcha -->
 							<div class="j-unit">
@@ -120,7 +142,7 @@
 							<div class="j-unit">
 								<center><button type="submit" class="btn btn-primary btn-block" style="float:none">Daftar</button> <br /><br />ATAU <br /><br />
 								<small><b>Jika Sudah punya Akun silahkan harap lakukan login dengan klik tombol di bawah ini</b></small><br /><br />
-								<a href="<?php echo base_url() ?>" class="btn btn-success btn-block">Masuk</a></center>
+								<a href="<?php echo base_url() ?>/new_login/<?=$id?>" class="btn btn-success btn-block">Masuk</a></center>
 							</div>
 						</div>
 					</form>	

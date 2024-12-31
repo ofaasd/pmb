@@ -83,7 +83,7 @@ class Welcome extends CI_Controller {
 		$data['content'] = $this->load->view('landing',$hasil,true);
 		$this->load->view('index_login',$data);
 	}
-	public function register()
+	public function register($id = 0)
 	{
 		$data['title'] = "Register - STIFAR";
 			//$data['menu'] = $this->Model_simpeg->getMenu($this->authact->getSimpegRole());
@@ -91,7 +91,10 @@ class Welcome extends CI_Controller {
 
 			$hasil['slide'] = $this->db->limit(5)->order_by("id","desc")->get("master_slide")->result();
 			$hasil['query'] = $this->Model_pegawai->get_all();
-
+			$tanggal = date('Y-m-d');
+			$hasil['gelombang'] = $this->db->select('pmb_gelombang.*,pmb_jalur.nama as nama_jalur')->join('pmb_jalur','pmb_jalur.id = pmb_gelombang.id_jalur','inner')->where('tgl_mulai <=',$tanggal)->where('tgl_akhir >=', $tanggal)->get('pmb_gelombang')->result();
+			$hasil['curr_gelombang'] = $this->db->select('pmb_gelombang.*')->join('pmb_jalur','pmb_jalur.id = pmb_gelombang.id_jalur','inner')->where('pmb_gelombang.id',$id)->get('pmb_gelombang')->row();
+			$hasil['id'] = $id;
 			$data['content'] = $this->load->view('form_register2',$hasil,true);
 			$this->load->view('index_login',$data);
 	}

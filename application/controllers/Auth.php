@@ -62,6 +62,7 @@
 			$email = $this->input->post('email');
 			$nama = $this->input->post('nama');
 			$no_wa = $this->input->post('no_wa');
+			$gelombang = $this->input->post('gelombang');
 			$tgl_lahir = $this->input->post('tgl_lahir');
 			$tanggal = date("Ymd",strtotime($tgl_lahir));
 			if($this->input->post("g-recaptcha-response") == false){
