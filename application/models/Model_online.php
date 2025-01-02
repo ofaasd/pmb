@@ -535,7 +535,10 @@
 
 			if(!empty($bukti)){
 				$data = array(
+					'id_rekening'=>$this->input->post("id_rekening"),
 					'nopen'=>$this->input->post("nopen"),
+					'norek_pengirim'=>$this->input->post("norek"),
+					'an_pengirim'=>$this->input->post("an_rekening"),
 					'tgl_tf'=>$this->input->post("tgl_tf"),
 					'bukti'=>$bukti,
 				);

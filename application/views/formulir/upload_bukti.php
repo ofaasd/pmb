@@ -31,25 +31,37 @@
 						</ol>
 						<hr>
 						<form id="" action="<?php echo base_url()?>formulir/cmhs_tambah_bukti" method="post" enctype="multipart/form-data">
-							<!-- One "tab" for each step in the form: --> 
-								<div class="row">
-									<div class="col-sm-6">
-										<input type="hidden" name="nopen" value="<?php echo $peserta->nopen ?>">
-										Tanggal Transfer :
-										<p><input type="date" class="form-control" placeholder="Tanggal Transfer" oninput="this.className = ''" name="tgl_tf" required=""></p>
-										
-										Bukti Transfer :
-										<p><input type="file" class="form-control" placeholder="Bukti Pembayaran" oninput="this.className = ''" name="bukti" required=""> <small>*  Format file berupa pdf,png, dan jpg. Max file 5MB.</small></p>
-										
-									</div>
-									<div class="col-sm-6">
-										
-									</div>
-									<div class="col-sm-12">
-										<input type="submit" value="simpan" class="btn btn-primary">
-									</div>
+							<!-- One "tab" for each step in the form:  -->
+							<div class="row">
+								<div class="col-sm-6">
+									<input type="hidden" name="nopen" value="<?php echo $nopen ?>">
+									No Rekening Pengirim :
+									<p><input type="text" class="form-control" placeholder="Nomor Rekening" oninput="this.className = ''" name="norek" required=""></p>
+									Atas Nama Rekening Pengirim :
+									<p><input type="text" class="form-control" placeholder="Atas Nama" oninput="this.className = ''" name="an_rekening" required=""></p>
+									Tanggal Transfer :
+									<p><input type="date" class="form-control" placeholder="Tanggal Transfer" oninput="this.className = ''" name="tgl_tf" required=""></p>
+									Rekening Tujuan :
+									<p>
+										<select name="id_rekening" class="form-control" oninput="this.className = ''" required="">
+											<?php foreach($rekening as $row){
+												echo "<option value='" . $row->id . "'>" . $row->nama_bank . " : " . $row->norek . " (AN. " . $row->atas_nama . ")</option>";
+											}
+											?>
+										</select>
+									</p>
+									Bukti Transfer :
+									<p><input type="file" class="form-control" placeholder="Bukti Pembayaran" oninput="this.className = ''" name="bukti" required=""> <small>* Max 1MB </small></p>
+									
 								</div>
-							</form>
+								<div class="col-sm-6">
+									
+								</div>
+								<div class="col-sm-12">
+									<input type="submit" value="simpan" class="btn btn-primary">
+								</div>
+							</div>
+						</form>
 						</div>
 					</div>
 				</div>
