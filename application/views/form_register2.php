@@ -66,7 +66,7 @@
 									if(empty($curr_gelombang)){
 								?>
 										<div class="alert alert-danger" style="background:rgba(231, 76, 60,1.0); border:1px solid rgba(192, 57, 43,1.0); color:#fff">
-											Gelombang Tidak Ditemukan <a href="<?=base_url()?>" class="btn btn-primary btn-sm">Klik Disini</a> untuk melihat List Gelombang
+											Gelombang pendaftaran tidak ditemukan <a href="<?=base_url()?>" class="btn btn-primary btn-sm">Klik Disini</a> untuk melihat daftar Gelombang Pendaftaran
 										</div>
 								<?php } ?>
 								<?php if(!empty($this->session->flashdata('gagal'))){
@@ -142,7 +142,7 @@
 							<div class="j-unit">
 								<center><button type="submit" class="btn btn-primary btn-block" style="float:none">Daftar</button> <br /><br />ATAU <br /><br />
 								<small><b>Jika Sudah punya Akun silahkan harap lakukan login dengan klik tombol di bawah ini</b></small><br /><br />
-								<a href="<?php echo base_url() ?>/new_login/<?=$id?>" class="btn btn-success btn-block">Masuk</a></center>
+								<a href="<?php echo base_url() ?>welcome/new_login/<?=$id?>" class="btn btn-success btn-block">Masuk</a></center>
 							</div>
 						</div>
 					</form>	

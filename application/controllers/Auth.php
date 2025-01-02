@@ -16,6 +16,7 @@
 		{
 			$email = $this->input->post("email");
 			$p = $this->input->post("password");
+			$gelombang = $this->input->post('gelombang');
 
 			$bcrypt = new Bcrypt();
 			$cek_user = $this->db->get_where('user_guest', array('email' => $email));
@@ -36,7 +37,7 @@
 										'nim' => $rs->email,
 										'id_user' => $rs->id,
 										'status' => 'login_camaba',
-										'gelombang' => $this->input->post('gelombang')
+										'gelombang' => $gelombang
 									  );
 					$this->session->set_userdata($data_sess);
 					redirect('dashboard');
@@ -76,6 +77,10 @@
 				$this->session->set_flashdata('gagal', 'Akun sudah pernah terdaftar harap hubungi pihak Admisi STIFAR');
 				redirect("welcome/register/" . $gelombang);
 			}else{
+				if(empty($gelombang) || $gelombang == 0){
+					$this->session->set_flashdata('gagal', 'Gelombang Pendaftaran Tidak Ditemukan');
+					redirect("welcome/register/" . $gelombang);
+				}
 				$new_email = '';
 				if(empty($email)){
 					$pecah = explode(" ",$nama);

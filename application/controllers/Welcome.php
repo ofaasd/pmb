@@ -47,6 +47,7 @@ class Welcome extends CI_Controller {
 			$hasil['id'] = $id;
 			$tanggal = date('Y-m-d');
 			$hasil['gelombang'] = $this->db->select('pmb_gelombang.*,pmb_jalur.nama as nama_jalur')->order_by('urutan','asc')->join('pmb_jalur','pmb_jalur.id = pmb_gelombang.id_jalur','inner')->where('tgl_mulai <=',$tanggal)->where('tgl_akhir >=', $tanggal)->get('pmb_gelombang')->result();
+			$hasil['curr_gelombang'] = $this->db->select('pmb_gelombang.*')->join('pmb_jalur','pmb_jalur.id = pmb_gelombang.id_jalur','inner')->where('pmb_gelombang.id',$id)->get('pmb_gelombang')->row();
 			$data['content'] = $this->load->view('landing2',$hasil,true);
 			$this->load->view('index_login',$data);
 	}
@@ -65,6 +66,7 @@ class Welcome extends CI_Controller {
 			$hasil['id'] = $id;
 			$tanggal = date('Y-m-d');
 			$hasil['gelombang'] = $this->db->select('pmb_gelombang.*,pmb_jalur.nama as nama_jalur')->join('pmb_jalur','pmb_jalur.id = pmb_gelombang.id_jalur','inner')->where('tgl_mulai <=',$tanggal)->where('tgl_akhir >=', $tanggal)->get('pmb_gelombang')->result();
+			$hasil['curr_gelombang'] = $this->db->select('pmb_gelombang.*')->join('pmb_jalur','pmb_jalur.id = pmb_gelombang.id_jalur','inner')->where('pmb_gelombang.id',$id)->get('pmb_gelombang')->row();
 			$data['content'] = $this->load->view('landing2',$hasil,true);
 			$this->load->view('index_login',$data);
 	}

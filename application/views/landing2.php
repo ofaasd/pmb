@@ -60,7 +60,13 @@
 								<center><img class="img-fluid" src="<?php echo $this->config->item('logo_url')?>" alt="Dijawa Logo" style="height:70px;margin-bottom:10px;"></center>
 								<center><p><b>Sekolah Tinggi Ilmu Farmasi</b></p></center>
 								<center><h5 style="margin-bottom:10px">Login</h5></center>
-								
+							<?php
+								if(empty($curr_gelombang)){
+							?>
+									<div class="alert alert-danger" style="background:rgba(231, 76, 60,1.0); border:1px solid rgba(192, 57, 43,1.0); color:#fff">
+										Gelombang pendaftaran tidak ditemukan <a href="<?=base_url()?>" class="btn btn-primary btn-sm">Klik Disini</a> untuk melihat daftar Gelombang Pendaftaran
+									</div>
+							<?php } ?>	
 							<?php if(!empty($this->session->flashdata('gagal'))){
 								echo '<div class="alert alert-danger border-danger">
 								
@@ -98,8 +104,9 @@
 							</div>
 							<div class="j-unit">
 								<div class="j-input">
-									<p><label for="gelombang"><b>Gelombang Pendaftaran</b></label></p>
-									<select name="gelombang" class="form-control" style="font-size:14px;height:50px;" required>
+									<input type="hidden" name="gelombang" value="<?=$id?>">
+									<p><label for="gelombang_choice"><b>Gelombang Pendaftaran</b></label></p>
+									<select name="gelombang_choice" class="form-control" style="font-size:14px;height:50px;" required disabled>
 										<option value="">Pilih Gelombang</option>
 										<?php foreach($gelombang as $row_gel){?>		
 											<option value="<?=$row_gel->id?>" <?=($id == $row_gel->id)?"selected":""?>><?= $row_gel->nama_gel?> (TA <?=$row_gel->ta_awal?>/<?=$row_gel->ta_akhir?>)</option>
@@ -125,7 +132,7 @@
 							<div class="j-unit">
 								<center><button type="submit" class="btn btn-primary btn-block" style="float:none">Masuk</button> <br /><br />ATAU <br /><br />
 								<small><b>Bagi yang belum memiliki akun silahkan lakukan pendaftaran </b></small><br /><br />
-							<a href="<?php echo base_url() ?>welcome/register" class="btn btn-success btn-block">Daftar Disini</a></center>
+							<a href="<?php echo base_url() ?>welcome/register/<?=$id?>" class="btn btn-success btn-block">Daftar Disini</a></center>
 							</div>
 						</div>
 					</form>	

@@ -309,11 +309,12 @@
 				$list_gel[] = $row->id;
 			}
 			$hasil['peserta'] = $this->db->get_where("pmb_peserta_online",array("user_id"=>$id,"gelombang"=>$gelombang))->row();
-			
-			if(in_array($hasil['peserta']->gelombang,$list_gel)){
-				$hasil['biaya_pendaftaran'] = $this->db->get_where('biaya_pendaftaran',['id_prodi'=>($hasil['peserta']->pilihan1 ?? 0),'rpl'=>1])->row();
-			}else{
-				$hasil['biaya_pendaftaran'] = $this->db->get_where('biaya_pendaftaran',['id_prodi'=>($hasil['peserta']->pilihan1 ?? 0),'rpl'=>0])->row();
+			if(!empty($hasil['peserta'])){
+				if(in_array($hasil['peserta']->gelombang,$list_gel)){
+					$hasil['biaya_pendaftaran'] = $this->db->get_where('biaya_pendaftaran',['id_prodi'=>($hasil['peserta']->pilihan1 ?? 0),'rpl'=>1])->row();
+				}else{
+					$hasil['biaya_pendaftaran'] = $this->db->get_where('biaya_pendaftaran',['id_prodi'=>($hasil['peserta']->pilihan1 ?? 0),'rpl'=>0])->row();
+				}
 			}
 			$hasil['bukti_registrasi'] = $this->db->get_where('bukti_registrasi',['nopen'=>($hasil['peserta']->nopen ?? 99999999999)])->num_rows();
 			if(empty($hasil['peserta']->nopen)){
