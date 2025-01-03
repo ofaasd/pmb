@@ -25,7 +25,7 @@
 							<li>Biaya Registrasi Pendaftaran Mahasiswa Baru Sebesar <b>Rp. <?= number_format($biaya_pendaftaran->jumlah,0,",",".")?></b></li>
 							<li>
 								Uang Pendaftaran dapat di transferkan melalui rekening kami yaitu <br />
-								CIMB Niaga dengan VA : <b>91291<?=$peserta->nopen?>01</b>
+								BRI dengan No. Rekening : <b>0435.01.057580.561</b>
 							</li>
 							<li>Setelah melakukan transfer harap mengisi form dibawah ini atau  menghubungi Admin PMB (+62 813-9311-1171 / (024) 6706147)</li>
 						</ol>
