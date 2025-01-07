@@ -34,7 +34,7 @@
 							<!-- One "tab" for each step in the form:  -->
 							<div class="row">
 								<div class="col-sm-6">
-									<input type="hidden" name="nopen" value="<?php echo $nopen ?>">
+									<input type="hidden" name="nopen" value="<?php echo $peserta->nopen ?>">
 									No Rekening Pengirim :
 									<p><input type="text" class="form-control" placeholder="Nomor Rekening" oninput="this.className = ''" name="norek" required=""></p>
 									Atas Nama Rekening Pengirim :
