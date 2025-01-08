@@ -302,7 +302,7 @@
 			$id = $this->session->userdata("id_user");
 			$gelombang = $this->session->userdata("gelombang");
 			$data['title'] = "Dashboard - Calon Mahasiswa Baru";			
-			//$hasil['rekening'] = $this->db->get("master_rekening")->result();
+			$hasil['rekening'] = $this->db->get("master_rekening")->result();
 			$cek_gelombang_rpl = $this->db->like('nama_gel','RPL')->get('pmb_gelombang')->result();
 			$list_gel = [];
 			foreach($cek_gelombang_rpl as $row){
