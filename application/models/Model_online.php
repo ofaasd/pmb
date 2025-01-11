@@ -494,9 +494,6 @@
 					$new_id = $num;
 				}
 				$set_nopen = $prodi->kode . $ta . $gelombang->no_gel . $new_id;
-				echo $set_nopen;
-				echo "asdasdasd";
-				exit;
 				$data = array(
 						'nopen' => $set_nopen,
 					 );
