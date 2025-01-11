@@ -475,7 +475,8 @@
 			}
 		}
 		function validasi_biodata(){
-			$r = $this->Model_online->validasi_biodata();
+			//$r = $this->Model_online->validasi_biodata();
+			$this->Model_online->validasi_biodata();
 			//echo $r;
 			if ($r == 1) {
 				# code...
@@ -492,8 +493,8 @@
 				$this->session->set_userdata('status_update', '<div class="alert alert-danger">
                                                       <strong>Gagal!</strong> Gagal memperbarui data mohon periksa kembali.
                                                     </div>');
-				echo $r;
-				//redirect('dashboard');
+				// echo $r;
+				redirect('dashboard');
 			}
 		}
 		function simpan_sekolah(){
