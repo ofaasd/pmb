@@ -492,7 +492,7 @@
 				$this->session->set_userdata('status_update', '<div class="alert alert-danger">
                                                       <strong>Gagal!</strong> Gagal memperbarui data mohon periksa kembali.
                                                     </div>');
-				redirect('dashboard');
+				//redirect('dashboard');
 			}
 		}
 		function simpan_sekolah(){
