@@ -621,7 +621,8 @@
 							'tahun_ajaran' => $ta->id,
 							'is_delete' => '0',
 							'is_mundur' => '0',
-							'admin_input_date' => date('Y-m-d H:i:s')
+							'admin_input_date' => date('Y-m-d H:i:s'),
+							'wizard' => 1
 						 );
 		      $r = $this->db->insert('pmb_peserta_online', $data);
 			  $id_peserta = $this->db->insert_id();
