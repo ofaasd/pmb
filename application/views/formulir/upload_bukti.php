@@ -3,15 +3,7 @@
 <div class="page-body">
 	<div class="row">
 		<div class="col-sm-12">
-			<?php
-				if($peserta->is_verifikasi == 0){
-			?>
-				<div class="card">
-					<div class="card-body">
-						<img src="<?= base_url() ?>/assets/images/wait.gif" width="100%">
-					</div>
-				</div>
-			<?php }elseif($peserta->is_verifikasi == 1 && $bukti_registrasi == 0){ ?>
+			<?php if($peserta->is_verifikasi == 1 && $bukti_registrasi == 0){ ?>
 				<div class="card">
 					<div class="card-header">
 						<?php echo $this->session->userdata('status_update'); 

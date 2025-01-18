@@ -496,6 +496,7 @@
 				$set_nopen = $prodi->kode . $ta . $gelombang->no_gel . $new_id;
 				$data = array(
 						'nopen' => $set_nopen,
+						'is_verifikasi' => 1,
 					 );
 				$r = $this->db->update('pmb_peserta_online', $data, ['id'=>$pmb_online->id]);
 				$data_user = array(
