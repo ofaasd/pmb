@@ -6,12 +6,10 @@
 <div class="accordion" id="accordionExample" style="background:#fff">
 	<?php foreach($gelombang as $row){ ?>
 		<div class="card" style="margin-bottom:0">
-			<div class="card-header" id="headingOne">
-			<h2 class="mb-0">
-				<button class="btn btn-link btn-block text-left btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample1<?=$row->id?>" aria-expanded="true" aria-controls="multiCollapseExample1">
-				<h5 class="text-white text-capitalize"><?= strtoupper($row->nama_gel) ?></h5>
+			<div class="card-header" id="headingOne" style="word-wrap: break-word;">
+				<button class="btn btn-link btn-block text-left btn-primary" type="button" style="word-wrap: break-word;" data-toggle="collapse" data-target="#multiCollapseExample1<?=$row->id?>" aria-expanded="true" aria-controls="multiCollapseExample1">
+					<h5 class="text-white text-capitalize" style="word-wrap: break-word; white-space: normal; " ><?= strtoupper($row->nama_gel) ?></h5>
 				</button>
-			</h2>
 			</div>
 
 			<div id="multiCollapseExample1<?=$row->id?>" class="collapse show multi-collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
