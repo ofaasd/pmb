@@ -12,7 +12,7 @@
 				</button>
 			</div>
 
-			<div id="multiCollapseExample1<?=$row->id?>" class="collapse show multi-collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+			<div id="multiCollapseExample1<?=$row->id?>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
 				<div class="card-body">
 					<?= nl2br($row->nama_gel_long) ?>
 				</div>
