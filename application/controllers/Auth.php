@@ -111,7 +111,7 @@
 
 						if ($this->email->send()) {
 							$this->session->set_flashdata('berhasil', 'AKUN BERHASIL DIBUAT, SILAHKAN CEK EMAIL / NO WA ANDA UNTUK MELIHAT PASSWORD YANG TELAH DIKIRIMKAN KE EMAIL ANDA');
-							redirect("welcome/new_login/" . $gelombang);
+							//redirect("welcome/new_login/" . $gelombang);
 						} else {
 							$this->session->set_flashdata('gagal', show_error($this->email->print_debugger()));
 							redirect("welcome/register/" . $gelombang);
