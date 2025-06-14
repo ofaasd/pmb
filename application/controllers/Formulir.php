@@ -476,7 +476,7 @@
 		}
 		function validasi_biodata(){
 			//$r = $this->Model_online->validasi_biodata();
-			$this->Model_online->validasi_biodata();
+			$r = $this->Model_online->validasi_biodata();
 			//echo $r;
 			if ($r == 1) {
 				# code...
