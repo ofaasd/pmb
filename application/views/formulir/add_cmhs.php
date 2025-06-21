@@ -116,7 +116,7 @@
 									<input type="text" class="form-control" placeholder="NISN" name="nisn">
 									Tidak Tahu NISN anda? <a href="https://nisn.data.kemdikbud.go.id/index.php/Cindex/formcaribynama" target="_blank">cek DISINI</a></p>
 									Nama Lengkap <span class="text-danger">*</span> :
-									<p><input type="text" class="form-control" placeholder="Nama Lengkap" oninput="this.className = ''" name="nama" required=""></p>
+									<p><input type="text" class="form-control" placeholder="Nama Lengkap" oninput="this.className = ''" name="nama" required="" value="<?= $users->nama ?>"></p>
 									<div class="row">
 										<div class="col-md-6">
 											Tempat Lahir <span class="text-danger">*</span> :
@@ -124,7 +124,7 @@
 										</div>
 										<div class="col-md-6">
 											Tanggal Lahir <span class="text-danger">*</span> :
-											<p><input type="date" class="form-control" oninput="this.className = ''" name="tgl" required=""></p>
+											<p><input type="date" class="form-control" oninput="this.className = ''" name="tgl" required="" value="<?= $users->tgl_lahir ?>"></p>
 										</div>
 										<div class="col-md-6">
 											Jenis Kelamin <span class="text-danger">*</span> :
@@ -170,9 +170,9 @@
 										
 									</div>
 									Nomor Handphone <span class="text-danger">*</span> :
-									<p><input type="text" class="form-control" placeholder="No Handphone" oninput="this.className = ''" name="hp" required=""></p>
+									<p><input type="text" class="form-control" placeholder="No Handphone" oninput="this.className = ''" name="hp" required="" value="<?= $users->no_wa ?>"></p>
 									Nomor WA Aktif <span class="text-danger">*</span>:
-									<p><input type="text" class="form-control" placeholder="Nomor Telepon" oninput="this.className = ''" name="telepon" required=""></p>
+									<p><input type="text" class="form-control" placeholder="Nomor Telepon" oninput="this.className = ''" name="telepon" required="" value="<?= $users->no_wa ?>"></p>
 								</div>
 								<div class="col-sm-6">
 									

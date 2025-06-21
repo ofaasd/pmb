@@ -2,7 +2,7 @@
 <center><img class="img-fluid" src="<?php echo $this->config->item('logo_url')?>" alt="Stifar Logo" style="height:80px;margin:20px;"></center>
 <center><p><b>Sekolah Tinggi Ilmu Farmasi</b></p></center>
 <h3 class="text-center">Pendaftaran Mahasiswa Baru STIFAR 2025/2026</h3>
-<p class="mt-3 mb-3" style="font-size:15pt;">Gelombang Pendaftaran : </p>
+<p class="mt-3 mb-3" style="font-size:15pt;">Pilih Jenis Pendaftaran : </p>
 <div class="accordion" id="accordionExample" style="background:#fff">
 	<?php foreach($gelombang as $row){ ?>
 		<div class="card" style="margin-bottom:0">
@@ -18,7 +18,7 @@
 				</div>
 				<div class="card-footer">
 					<a href="<?php echo base_url() ?>welcome/register/<?=$row->id?>" class="btn btn-primary">Daftar</a>
-					<a href="<?php echo base_url() ?>welcome/new_login/<?=$row->id?>" class="btn btn-success">Login</a> 
+					<a href="<?php echo base_url() ?>welcome/new_login/<?=$row->id?>" class="btn btn-success">Masuk</a> 
 				</div>
 			</div>
 		</div>

@@ -11,6 +11,9 @@
 		font-weight: 100;
 		font-style: normal;
 	}
+	.j-pro .j-content {
+    	padding: 30px 35px 0;
+}
 </style>
 
 <!--<div class="row">
@@ -24,7 +27,7 @@
 
 <div class="card-block" style="padding:0;">
 	<div class="row">
-		<div class="col-md-8" >
+		<div class="col-md-6" >
 			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="position:fixed;">
 				<ol class="carousel-indicators">
 					<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -51,7 +54,7 @@
 			</a>
 		</div>
 		</div>
-		<div class="col-md-4" >
+		<div class="col-md-6" >
 			<div class="row">
 				<div class="col-md-12" >
 					<form action="<?php echo base_url()?>auth" method="post" class="j-pro" id="j-pro" style="border:0;height:100%;position:fixed;overflow-y:scroll;opacity:0.95">

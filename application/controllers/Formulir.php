@@ -56,6 +56,8 @@
 				$pmb['detail'] = $this->db->get_where('pmb_peserta_online', array('id' => $id))->row();
 				//$pmb['gelombang'] = $this->Model_online->get_gelombang('pmb_gelombang')->row();
 				$pmb['jalur'] = $this->db->where('deleted_at',NULL)->get('pmb_jalur')->result();
+				$pmb['users'] = $this->db->get_where('user_guest', array('id' => $id))->row();
+				
 				$pmb['wilayah'] = $this->db->order_by('nm_wil','asc')->get_where('wilayah', array('id_induk_wilayah' => '000000'))->result();
 				$pmb['mapel'] = ['mtk'=>'Matematika','bing'=>'B. Inggris','kimia'=>'Kimia','biologi'=>'Biologi','fisika'=>'Fisika'];
 				$data['content'] = $this->load->view('formulir/add_cmhs',$pmb,true);
