@@ -165,32 +165,34 @@
 					$response = curl_exec($curl);
 
 					//Kirim pesan wa ke admin 
-					$message2 = "*Notifikasi Sistem, terdapat user pendaftaran baru dengan username dan password sebagai berikut : \n username : " . $new_email  . "\n Password : " . $tanggal . "\n ";
+					$message2 = "*Notifikasi Sistem*,
+terdapat user pendaftaran baru dengan email sebagai berikut : 
+email : " . $new_email  . "";
 					$dataSending = Array();
 					$dataSending["api_key"] = "X2Y7UZOZT0WVQVTG"; // Hardcoded API key
 					$dataSending["number_key"] = "3EYdFkP7uhk5RX6D";
 					
-					$dataSending["phone_no"] = '081393111171';
+					$dataSending["phone_no"] = '082241139843';
 					$dataSending["message"] = $message2;
 
-					// $curl = curl_init();
+					$curl = curl_init();
 
-					// curl_setopt_array($curl, array(
-					// 	CURLOPT_URL => 'https://api.watzap.id/v1/send_message',
-					// 	CURLOPT_RETURNTRANSFER => true,
-					// 	CURLOPT_ENCODING => '',
-					// 	CURLOPT_MAXREDIRS => 10,
-					// 	CURLOPT_TIMEOUT => 0,
-					// 	CURLOPT_FOLLOWLOCATION => true,
-					// 	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-					// 	CURLOPT_CUSTOMREQUEST => 'POST',
-					// 	CURLOPT_POSTFIELDS => json_encode($dataSending),
-					// 	CURLOPT_HTTPHEADER => array(
-					// 	  'Content-Type: application/json'
-					// 	),
-					//   ));
+					curl_setopt_array($curl, array(
+						CURLOPT_URL => 'https://api.watzap.id/v1/send_message',
+						CURLOPT_RETURNTRANSFER => true,
+						CURLOPT_ENCODING => '',
+						CURLOPT_MAXREDIRS => 10,
+						CURLOPT_TIMEOUT => 0,
+						CURLOPT_FOLLOWLOCATION => true,
+						CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+						CURLOPT_CUSTOMREQUEST => 'POST',
+						CURLOPT_POSTFIELDS => json_encode($dataSending),
+						CURLOPT_HTTPHEADER => array(
+						  'Content-Type: application/json'
+						),
+					  ));
 
-					//   $response = curl_exec($curl);
+					  $response = curl_exec($curl);
 					  $this->session->set_flashdata('berhasil', 'AKUN BERHASIL DIBUAT, SILAHKAN CEK NO WA ANDA UNTUK MELIHAT PASSWORD. Berikut username dan password anda username : "' . $new_email  . '" Password : "' . $tanggal . '"');
 					  redirect("welcome/new_login/" . $gelombang);
 				}else{
