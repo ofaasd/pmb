@@ -1,46 +1,68 @@
+<style>
+	.alert-danger{
+		border:1px solid #c0392b;
+		background:#e74c3c;
+		color:#fff;
+		font-size:12pt;
+	}
+	.alert-info{
+		border:1px solid #2980b9;
+		background:#3498db;
+		color:#fff;
+		font-size:12pt;
+	}
+	</style>
 <form action="<?php echo base_url()?>formulir/update_detail" method="post" enctype="multipart/form-data">
 				
-				
-	<h4>Data Pribadi</h4>
+	<div class="row">
+		<div class="col-md-6 text-start">
+			<h4>Data Pribadi</h4>
+		</div>
+		<div class="col-md-6 text-end">
+			<a href="<?= base_url() ?>/formulir/cetak_formulir/<?php echo $detail_cmhs->nopen ?>" class="btn btn-info" style="float:right">Cetak Formulir</a>
+		</div>
+	</div>		
+	
 	<hr />
 	<?php
 		if($detail_cmhs->file_pendukung == 'default.png'){
 			echo '<div class="alert alert-danger">Berkas file pendukung yang anda upload tidak valid. Harap upload ulang file pendukung anda</div>';
+		}else{
+			echo '<div class="alert alert-info">Data anda sudah lengkap silahkan klik tombol cetak formulir untuk mencetak formulir</div>';
 		}
 	?>
 	<div class="form-group row">
 		
 		<div class="col-sm-6">
-			<div class="col-sm-12">
+			<div class="col-sm-12 mb-2">
 				<label>No. Pendaftaran : </label>
 			</div>
-			<div class="col-sm-12">
+			<div class="col-sm-12 mb-2">
 				<input type="text" class="form-control" value="<?php echo $detail_cmhs->id ?>" name="id" hidden="">
 				<input type="text" class="form-control" readonly="" name="nopen" value="<?php echo $detail_cmhs->nopen ?>"  maxlength="16">
 			</div>
-			<br />
-			<div class="col-sm-12">
+			<div class="col-sm-12 mb-2">
 				<?php if(empty($detail_cmhs->nopen)){?>
 				<a href="#" class="btn btn-primary btn-mini" id="validasi_biodata" onclick="return validasi()">Validasi </a> Untuk Mendapatkan No. Pendaftaran</a>
 				<?php } ?>
-			</div><br />
-			<div class="col-sm-12">
+			</div>
+			<div class="col-sm-12 mb-2">
 				<label>Nomor KTP : </label>
 			</div>
-			<div class="col-sm-12">
+			<div class="col-sm-12 mb-2">
 				<input type="number" class="form-control" name="noktp" value="<?php echo $detail_cmhs->noktp ?>" maxlength="16">
 			</div>
-			<div class="col-sm-12">
+			<div class="col-sm-12 mb-2">
 				NISN :
 				<input type="text" class="form-control" placeholder="NISN" name="nisn" value="<?php echo $detail_cmhs->nisn ?>">
 				Tidak Tahu NISN anda? <a href="https://nisn.data.kemdikbud.go.id/index.php/Cindex/formcaribynama" target="_blank">cek DISINI</a></p>
 			</div>
 			<label class="col-sm-12 col-form-label">Nama Lengkap : </label>
-			<div class="col-sm-12">
+			<div class="col-sm-12 mb-2">
 				<input type="text" class="form-control" name="nama" value="<?php echo $detail_cmhs->nama ?>" >
 			</div>
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-6 mb-2">
 					<label class="col-sm-12 col-form-label">Jenis Kelamin : </label>
 					<div class="col-sm-12">
 						<select name="jk" class="form-control" >
@@ -50,7 +72,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-6 mb-2">
 					<label class="col-sm-12 col-form-label">Agama : </label>
 					<div class="col-sm-12">
 						<select name="agama" class="form-control" >
@@ -86,35 +108,35 @@
 			
 			
 			<label class="col-sm-12 col-form-label">Nama Ibu : </label>
-			<div class="col-sm-12">
+			<div class="col-sm-12 mb-2">
 				<input type="text" class="form-control" name="nama_ibu" value="<?php echo $detail_cmhs->nama_ibu ?>" >
 			</div>
 			<label class="col-sm-12 col-form-label">Nama Ayah : </label>
-			<div class="col-sm-12">
+			<div class="col-sm-12 mb-2">
 				<input type="text" class="form-control" name="nama_ayah" value="<?php echo $detail_cmhs->nama_ayah ?>" >
 			</div>
 			
 			
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-6 mb-2">
 					<label class="col-sm-12 col-form-label">Tinggi Badan : </label>
 					<div class="col-sm-12">
 						<input type="number" class="form-control" name="tinggi_badan" value="<?php echo $detail_cmhs->tinggi_badan ?>" >
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-6 mb-2">
 					<label class="col-sm-12 col-form-label">Berat Badan : </label>
 					<div class="col-sm-12">
 						<input type="number" class="form-control" name="berat_badan" value="<?php echo $detail_cmhs->berat_badan ?>" >
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-6 mb-2">
 					<label class="col-sm-12 col-form-label">Tempat Lahir : </label>
 					<div class="col-sm-12">
 						<input type="text" class="form-control" name="tempat_lahir" value="<?php echo $detail_cmhs->tempat_lahir ?>" >
 					</div>			
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-6 mb-2">
 					<label class="col-sm-12 col-form-label">Tanggal Lahir : </label>
 					<div class="col-sm-12">
 						<input type="date" class="form-control" name="tanggal_lahir" value="<?php echo $detail_cmhs->tanggal_lahir ?>" >
@@ -122,13 +144,13 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-6 mb-2">
 					<label class="col-sm-12 col-form-label">No. HP : </label>
 					<div class="col-sm-12">
 						<input type="text" class="form-control" name="hp" value="<?php echo $detail_cmhs->hp ?>" >
 					</div>			
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-6 mb-2">
 					<label class="col-sm-12 col-form-label">No. Telpon :</label>
 					<div class="col-sm-12">
 						<input type="text" class="form-control" name="telpon" value="<?php echo $detail_cmhs->telpon ?>" >
@@ -141,7 +163,7 @@
 		<div class="col-sm-12">
 				<label>Warga Negara : </label>
 			</div>
-				<div class="col-sm-12">
+				<div class="col-sm-12 mb-2">
 				<select name="warga_negara" id="wn" class="form-control" >
 					<option selected="" value="<?php echo $detail_cmhs->warga_negara ?>"><?php echo $data['nama_negara']?></option>
 					<?php foreach($warga_negara as $w){?>
@@ -150,7 +172,7 @@
 				</select>
 			</div>
 			<label class="col-sm-12 col-form-label">Nama Provinsi : </label>
-				<div class="col-sm-12">
+				<div class="col-sm-12 mb-2">
 				<select name="provinsi" id="provinsi" class="form-control" >
 					<option selected="" value="<?php echo $detail_cmhs->provinsi ?>"><?php echo $data['nm_prop']; ?></option>
 					<?php foreach($wilayah as $w){?>
@@ -159,37 +181,37 @@
 				</select>
 			</div>
 			<label class="col-sm-12 col-form-label">Kota / Kabupaten : </label>
-				<div class="col-sm-12">
+				<div class="col-sm-12 mb-2">
 				<select name="kotakab" id="kotakab" class="form-control" > 
 					<option selected="" value="<?php echo $detail_cmhs->kotakab ?>"><?php echo $data['nm_kab']; ?></option>
 				</select>
 			</div>
 			<label class="col-sm-3 col-form-label">Kecamatan : </label>
-			<div class="col-sm-12">
+			<div class="col-sm-12 mb-2">
 				<select name="kecamatan" id="kecamatan" class="form-control" >
 					<option selected="" value="<?php echo $detail_cmhs->kecamatan ?>"><?php echo $data['nm_kec']; ?></option>
 				</select>
 			</div>
 			<label class="col-sm-3 col-form-label">Kode POS : </label>
-			<div class="col-sm-12">
+			<div class="col-sm-12 mb-2">
 				<input type="number" class="form-control" name="kode_pos" value="<?php echo $detail_cmhs->kodepos ?>" >
 			</div>
 			<label class="col-sm-3 col-form-label">Kelurahan : </label>
-			<div class="col-sm-12">
+			<div class="col-sm-12 mb-2">
 				<input type="text" class="form-control" name="kelurahan" value="<?php echo $detail_cmhs->kelurahan ?>" >
 			</div>
 			<label class="col-sm-12 col-form-label">Alamat : </label>
-			<div class="col-sm-12">
+			<div class="col-sm-12 mb-2">
 				<textarea class="form-control" name="alamat" style="resize: none;" ><?php echo $detail_cmhs->alamat ?></textarea>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-6 mb-2">
 					<label class="col-sm-12 col-form-label">RT :</label>
 					<div class="col-md-12">
 						<input type="text" class="form-control" name="rt" value="<?php echo $detail_cmhs->rt ?>" >
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-6 mb-2">
 					<label class="col-sm-12 col-form-label">RW : </label>
 					<div class="col-md-12">
 						<input type="text" class="form-control" name="rw" value="<?php echo $detail_cmhs->rw ?>" >
@@ -206,7 +228,8 @@
 				<div class="form-group row">
 					
 					 <div class="col-sm-12">
-						<input type="submit" value="simpan" class="btn btn-primary" style="width:100%">
+						<input type="submit" value="simpan" class="btn btn-primary">
+						
 					</div>
 				</div>
 			   </form>

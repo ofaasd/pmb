@@ -11,7 +11,7 @@
 						<div id="jurusan">
 							<?php foreach($list_prodi as $key=>$row){?>
 							Program Studi <?= ($key+1)?>
-							<p><select name='prodi[]' class="form-control">
+							<p><select name='prodi[]' class="form-control" readonly disabled>
 								<?php foreach($row as $detail){ 
 									$pilihan = "";
 									if($key == 0){

@@ -103,9 +103,13 @@
 <div class="card-block">
 	<div class="row">
 		<div class="col-md-12">
+			<div class="alert alert-info">
+				<p>Harap lengkapi data pendaftaran untuk mencetak formulir</p>
+			</div>
 			<div id="wizard">
 				<section>
 					<form id="create-pegawai" class="wizard-form" action="<?php echo base_url()?>formulir/cmhs_tambah_aksi" method="post" enctype="multipart/form-data">
+						<input type="hidden" name="nopen" value="<?=$nopen?>">
 						<h3> Informasi Pribadi </h3>
 						<fieldset>
 							<div class="row">
@@ -130,7 +134,7 @@
 											Jenis Kelamin <span class="text-danger">*</span> :
 											<p>
 												<select name="jk" class="form-control" required="">
-													<option selected="" disabled="">Jenis Kelamin</option>
+													<option selected="" value="<?php echo $detail_cmhs->jk ?>"><?php if($detail_cmhs->jk == 1){ echo "Laki - Laki"; }else{ echo "Perempuan"; } ?></option>
 													<option value="1">Laki - Laki</option>
 													<option value="2">Perempuan</option>
 												</select>
@@ -140,7 +144,22 @@
 											Agama <span class="text-danger">*</span> :
 											<p>
 												<select name="agama" class="form-control" required="">
-													<option value="opt1" selected="" disabled="">Pilih Agama</option>
+													<option value="<?php echo $detail_cmhs->agama ?>" selected="" ><?php if($detail_cmhs->agama == 1 ){ 
+															echo "Islam"; 
+														}else if($detail_cmhs->agama == 2){ 
+															echo "Kristen"; 
+														}else if($detail_cmhs->agama == 3){ 
+															echo "Katolik"; 
+														}else if($detail_cmhs->agama == 4){ 
+															echo "Hindu"; 
+														}else if($detail_cmhs->agama == 5){ 
+															echo "Budha"; 
+														}else if($detail_cmhs->agama == 6){ 
+															echo "Konghucu"; 
+														}else{ 
+															echo "Lainnya"; 
+														}
+													?></option>
 													<option value="1">Islam</option>
 													<option value="2">Kristen</option>
 													<option value="3">Katolik</option>
@@ -261,10 +280,7 @@
 						<fieldset>
 							<div class="row">
 								<div class="col-md-6">
-									<h3>Pilihan Program Studi</h3>
-									<div id="jurusan">
-											
-									</div>
+									
 									<h3>Asal Sekolah</h3>
 									<span id="judul_asal">Pendidikan Terakhir</span> <span class="text-danger">*</span> :
 									<p>
@@ -276,7 +292,7 @@
 										</select>
 									</p>
 									<span id="judul_asal">Nama Sekolah / Kampus</span> <span class="text-danger">*</span> :
-									<p><input type="text" name="asal_sekolah" id="asal_sekolah"></p>
+									<p><input type="text" name="asal_sekolah" id="asal_sekolah" value="<?= $asal_sekolah->asal_sekolah?>"></p>
 									<span id="judul_jurusan">Jurusan / Program Studi</span> <span class="text-danger">*</span> :
 									<p><input type="text" name="jurusan" id="jurusan"></p>
 									<span id="judulakreditasi">Akreditasi</span> <span class="text-danger">*</span> :

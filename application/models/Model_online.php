@@ -191,6 +191,60 @@
 		      $nama_foto = $config['file_name'].$config['file_ext'];  
 			} */
 			$cek_validasi = $this->db->get_where('pmb_peserta_online',['user_id'=>$user_id,'gelombang'=>$gelombang])->row();
+			//cek validasi tidak ada
+			//if(empty($cek_validasi->nopen)){
+				$data = array(
+					//tidak bisa diubah karena bisa menimbulkan in
+					//'nisn' => $this->input->post('nisn'),
+					//'noktp' => $this->input->post('noktp'),
+					//'nama' => $this->input->post('nama'),
+					'jk' => $this->input->post('jk'),
+					'agama' => $this->input->post('agama'),
+					'nama_ibu' => $this->input->post('nama_ibu'),
+					'nama_ayah' => $this->input->post('nama_ayah'),
+					'tinggi_badan' => $this->input->post('tinggi_badan'),
+					'berat_badan' => $this->input->post('berat_badan'),
+					'tempat_lahir' => $this->input->post('tempat_lahir'),
+					'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+					'alamat' => $this->input->post('alamat'),
+					'rt' => $this->input->post('rt'),
+					'rw' => $this->input->post('rw'),
+					'kelurahan' => $this->input->post('kelurahan'),
+					'kecamatan' => $this->input->post('kecamatan'),
+					'kotakab' => $this->input->post('kotakab'),
+					'provinsi' => $this->input->post('provinsi'),
+					'kodepos' => $this->input->post('kode_pos'),
+					'telpon' => $this->input->post('telpon'),
+					'hp' => $this->input->post('hp'),
+					'warga_negara' => $this->input->post('warga_negara'),
+					
+					// 'peringkat_pmdp' => $pmdp,
+					// 'kelas' => $this->input->post('kelas'),
+					// 'jenis_pendaftaran' => $this->input->post('pendaftaran'),
+					'is_bayar' => '0',
+					'is_online' => '1',
+					'admin_input' => $this->session->userdata("user_id"),
+					// 'admin_input' => '1',
+					'is_delete' => '0',
+					'is_mundur' => '0',
+					'admin_input_date' => date('Y-m-d H:i:s')
+				);
+				$r = $this->db->update('pmb_peserta_online', $data, array('user_id' => $user_id,'gelombang'=>$gelombang));
+				if($r){
+					$r = 1;
+				}else{
+					$r = 0;
+				}
+			// }else{
+			// 	$r = 2;
+			// }
+			return $r;
+		}
+		function update_cmhs_single(){
+			$user_id = $this->session->userdata("id_user");
+			$gelombang = $this->session->userdata("gelombang");
+			$jalur = $this->input->post('jalur');
+			$cek_validasi = $this->db->get_where('pmb_peserta_online',['id'=>$this->input->post("id")])->row();
 			if(empty($cek_validasi->nopen)){
 				$data = array(
 					'nisn' => $this->input->post('nisn'),
@@ -213,8 +267,10 @@
 					'provinsi' => $this->input->post('provinsi'),
 					'kodepos' => $this->input->post('kode_pos'),
 					'telpon' => $this->input->post('telpon'),
-					'hp' => $this->input->post('hp'),
+					'hp' => $this->input->post('nomor_hp'),
 					'warga_negara' => $this->input->post('warga_negara'),
+					'pilihan1' => $this->input->post('prodi')[0],
+					'pilihan2' => (!empty($this->input->post('prodi')[1]))?$this->input->post('prodi')[1]:'0',
 					// 'peringkat_pmdp' => $pmdp,
 					// 'kelas' => $this->input->post('kelas'),
 					// 'jenis_pendaftaran' => $this->input->post('pendaftaran'),
@@ -422,15 +478,15 @@
 			
 		}
 		function validasi_biodata(){
+			
 			$user_id = $this->session->userdata("id_user");
 			$gelombang = $this->session->userdata("gelombang");
 			$qr = $this->db->get_where('bukti_registrasi', ['user_id' => $user_id]);
 			
 			$pmb_online = $this->db->get_where("pmb_peserta_online",array("user_id"=>$user_id,'gelombang'=>$gelombang))->row();
-			if($pmb_online->file_pendukung == 'default.png'){
-				return $r = 0;
-			}
-			
+			// if($pmb_online->file_pendukung == 'default.png'){
+			// 	return $r = 0;
+			// }
 			$gelombang = $this->db->get_where('pmb_gelombang',array('id'=>$gelombang))->row();
 			$kode_jalur = $this->db->get_where('pmb_jalur',array('id'=>$gelombang->id_jalur))->row()->kode;
 			$user = $this->db->get_where("user_guest",array("id"=>$user_id))->row();
@@ -443,6 +499,7 @@
 			
 			$set_nopen = 0;
 			$get_nopen = $cek_nopen->result_array();
+			
 			if ($count_nopen > 0) {
 				# code...
 				
@@ -465,8 +522,7 @@
 			//echo $gel_ta->kode;
 			//echo substr($gel_ta->kode,2,2);
 			
-			//echo $set_nopen;
-			//exit;
+			
 				$no = "9129.1";
 				if(empty($pmb_online->pilihan1)){
 					echo "Pilihan Prodi belum diisi";
@@ -479,7 +535,7 @@
 				if($gelombang->id == 4 || $gelombang->id == 14){
 					$cek_record = $this->db->order_by('nopen','desc')->or_where(['gelombang'=>4, 'gelombang'=>14])->where('nopen is not null')->limit(1)->get('pmb_peserta_online')->row();
 				}else{
-					$cek_record = $this->db->order_by('nopen','desc')->where('gelombang',$pmb_online->gelombang)->where('nopen is not null')->limit(1)->get('pmb_peserta_online')->row();
+					$cek_record = $this->db->order_by('nopen','desc')->where('gelombang',$pmb_online->gelombang)->where('pilihan1',$pmb_online->pilihan1)->where('nopen is not null')->limit(1)->get('pmb_peserta_online')->row();
 				}
 				$last_nopen = 0;
 				if($cek_record){
@@ -608,37 +664,53 @@
 							//'asal_sekolah' => $this->input->post('asal_sekolah'),
 							'warga_negara' => $this->input->post('warga_negara'),
 							//'peringkat_pmdp' => $pmdp,
-							'jalur_pendaftaran' => $jalur,
 							//'kelas' => $this->input->post('kelas'),
-							'pilihan1' => $this->input->post('prodi')[0],
-							'pilihan2' => (!empty($this->input->post('prodi')[1]))?$this->input->post('prodi')[1]:'0',
 							'info_pmb' => $this->input->post('info_pmb'),
-							'is_bayar' => '0',
-							'is_online' => '1',
 							'admin_input' => $user_id,
 							'angkatan' => $this->input->post('gel_ta'),
 							'ipk' => $this->input->post('ipk') ?? '',
 							'toefl' => $this->input->post('toefl') ?? '',
-							'tahun_ajaran' => $ta->id,
-							'is_delete' => '0',
-							'is_mundur' => '0',
 							'admin_input_date' => date('Y-m-d H:i:s'),
 							'wizard' => 1
 						 );
-		      $r = $this->db->insert('pmb_peserta_online', $data);
-			  $id_peserta = $this->db->insert_id();
-			  $data2 = [
-				'id_peserta' => $id_peserta,
-				'pendidikan_terakhir' => $this->input->post('pendidikan_terakhir'),	 
-				'asal_sekolah' => $this->input->post('asal_sekolah'),
-				'jurusan' => $this->input->post('jurusan'),
-				'akreditasi' => $this->input->post('akreditasi'),
-				'alamat' => $this->input->post('alamat_sekolah'),
-				'provinsi_id' => $this->input->post('provinsi_sekolah'),
-				'kota_id' => $this->input->post('kota_sekolah'),
-				'updated_at' => date('Y-m-d H:i:s'),
-			  ];
-			  $r = $this->db->insert('pmb_asal_sekolah', $data2);
+		      //$r = $this->db->insert('pmb_peserta_online', $data);
+			  $r = $this->db->update('pmb_peserta_online', $data, array('user_id' => $user_id,'gelombang'=>$gelombang));
+			  $id_peserta = $this->db->get_where('pmb_peserta_online',array('user_id' => $user_id,'gelombang' =>$gelombang))->row()->id;
+			  //cek id_peserta
+			  $asal_sekolah = $this->db->get_where('pmb_asal_sekolah',array('id_peserta' => $id_peserta));
+			  
+			  if($asal_sekolah->num_rows() == 0){
+				//create baru
+				$data2 = [
+					'id_peserta' => $id_peserta,
+					'pendidikan_terakhir' => $this->input->post('pendidikan_terakhir'),	 
+					'asal_sekolah' => $this->input->post('asal_sekolah'),
+					'jurusan' => $this->input->post('jurusan'),
+					'akreditasi' => $this->input->post('akreditasi'),
+					'alamat' => $this->input->post('alamat_sekolah'),
+					'provinsi_id' => $this->input->post('provinsi_sekolah'),
+					'kota_id' => $this->input->post('kota_sekolah'),
+					'updated_at' => date('Y-m-d H:i:s'),
+				];
+				$r = $this->db->insert('pmb_asal_sekolah', $data2);
+			  }else{
+				//update data saja
+				$id_asal_sekolah = $asal_sekolah->row()->id;
+				$data2 = [
+					
+					'pendidikan_terakhir' => $this->input->post('pendidikan_terakhir'),	 
+					'asal_sekolah' => $this->input->post('asal_sekolah'),
+					'jurusan' => $this->input->post('jurusan'),
+					'akreditasi' => $this->input->post('akreditasi'),
+					'alamat' => $this->input->post('alamat_sekolah'),
+					'provinsi_id' => $this->input->post('provinsi_sekolah'),
+					'kota_id' => $this->input->post('kota_sekolah'),
+					'updated_at' => date('Y-m-d H:i:s'),
+				];
+				//$r = $this->db->insert('pmb_asal_sekolah', $data2);
+				$r = $this->db->update('pmb_asal_sekolah', $data2, array('id_peserta' => $id_peserta));
+			  }
+			 
 			  if($jalur == 1 || $jalur == 2){
 				$data_nilai = [
 					'id_user' => $user_id,
@@ -657,6 +729,50 @@
 					$r = $this->db->update('pmb_nilai_rapor', $data_nilai, ['id'=>$id_rapor]);
 				}
 			  }
+		    return $r;
+		}
+		function simpan_cmhs_single(){
+			// error_reporting(0);
+			$user_id = $this->session->userdata("id_user");
+			$tanggal = date('YmdHis');
+			
+			// echo $set_nopen."<br>".$pmdtambah_fotop."<br>".$is_kerjasama."<br>".$is_mou."<br>".$gelombang;
+
+			
+		    $data = '';
+		    $ta = $this->db->query("SELECT * FROM `master_tahun_ajaran` where is_aktif = 1")->row();
+		    
+			$gelombang = $this->input->post('gelombang');
+			$nisn = (!empty($this->input->post('nisn')))?$this->input->post('nisn'):"0000000000";
+		    $data = array(
+							//'nopen' => $set_nopen, tidak ada karena blm verifikasi
+							'user_id' => $user_id,
+							'nisn' => $nisn,
+							'gelombang' => $gelombang,
+							'nama' => $this->input->post('nama'),
+							'telpon' => $this->input->post('nomor_hp'),
+							'hp' => $this->input->post('nomor_hp'),
+							'is_bayar' => '0',
+							'is_online' => '1',
+							'asal_kota' => $this->input->post('asal_kota'),
+							'admin_input' => $user_id,
+							'angkatan' => $this->input->post('gel_ta'),
+							'jk' => $this->input->post('jk'),
+							'agama' => $this->input->post('agama'),
+							'pilihan1' => $this->input->post('prodi')[0],
+							'pilihan2' => (!empty($this->input->post('prodi')[1]))?$this->input->post('prodi')[1]:'0',
+							'tahun_ajaran' => $ta->id,
+							'is_delete' => '0',
+							'is_mundur' => '0',
+							'admin_input_date' => date('Y-m-d H:i:s'),
+						 );
+		      $r = $this->db->insert('pmb_peserta_online', $data);
+			  $id_peserta = $this->db->insert_id();
+			  $data2 = [
+				'id_peserta' => $id_peserta,
+				'asal_sekolah' => $this->input->post('asal_sekolah'),
+			  ];
+			  $r = $this->db->insert('pmb_asal_sekolah', $data2);
 		    return $r;
 		}
 		function get_where_reg($id){

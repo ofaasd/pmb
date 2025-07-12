@@ -12,7 +12,7 @@
 			<div class="row">
 				<div class="col-md-3 mb-4">
 					
-					<a href="<?php echo base_url()?>formulir/info" class="btn btn-primary col-md-12 <?= ($this->router->fetch_method() == "info")?"btn-active":""?>" style="padding:10px 0;"> Info Pribadi</a>
+					<a href="<?php echo base_url()?>formulir/update_formulir" class="btn btn-primary col-md-12 <?= ($this->router->fetch_method() == "info")?"btn-active":""?>" style="padding:10px 0;"> Info Pribadi</a>
 				</div>
 				<div class="col-md-3 mb-4">
 					<a href="<?php echo base_url()?>formulir/jalur_pendaftaran" class="btn btn-primary col-md-12 <?= ($this->router->fetch_method() == "jalur_pendaftaran")?"btn-active":""?>" style="padding:10px 0;">Jalur Pendaftaran</a>

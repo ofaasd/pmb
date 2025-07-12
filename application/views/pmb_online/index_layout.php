@@ -188,7 +188,7 @@
 								<?php
 									}else{
 								?>
-									<a href="<?php echo base_url();?>formulir/cetak_formulir/<?php echo $nopen ?>" <?php (empty($nopen))?"disabled":""?> >
+									<a href="<?php echo base_url();?>formulir/update_formulir/<?php echo $nopen ?>" <?php (empty($nopen))?"disabled":""?> >
 										<span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
 										<span class="pcoded-mtext">Cetak Formulir Pendaftaran</span>
 									</a>
