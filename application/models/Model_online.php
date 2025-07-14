@@ -267,6 +267,7 @@
 					'provinsi' => $this->input->post('provinsi'),
 					'kodepos' => $this->input->post('kode_pos'),
 					'telpon' => $this->input->post('telpon'),
+					'asal_kota' => $this->input->post('asal_kota'),
 					'hp' => $this->input->post('nomor_hp'),
 					'warga_negara' => $this->input->post('warga_negara'),
 					'pilihan1' => $this->input->post('prodi')[0],
