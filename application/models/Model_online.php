@@ -285,6 +285,10 @@
 				);
 				$r = $this->db->update('pmb_peserta_online', $data, array('user_id' => $user_id,'gelombang'=>$gelombang));
 				if($r){
+					 $data2 = [
+						'asal_sekolah' => $this->input->post('asal_sekolah'),
+					];
+					$r2 = $this->db->update('pmb_asal_sekolah', $data2, array('id_peserta' =>$this->input->post("id")));
 					$r = 1;
 				}else{
 					$r = 0;
