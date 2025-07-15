@@ -31,9 +31,10 @@
 			$in_gel = [];
 			
 			
-			$query = $this->db->where('gelombang',$pmb['cur_gel'])->where(array("user_id"=>$id,'wizard'=>1))->get("pmb_peserta_online");
+			$query = $this->db->where('gelombang',$pmb['cur_gel'])->where(array("user_id"=>$id))->get("pmb_peserta_online");
 			//$query2 = $this->db->where(array("id"=>$id))->get("user_guest");
-			if($query->num_rows() > 0 && empty($query->row()->no_pendaftaran)){
+			
+			if($query->num_rows() > 0 && empty($query->row()->nopen)){
 				//data ditemukan !!
 				//redirect('formulir/info');
 				$data['title'] = "Formulir Mahasiswa - Academic Portal";
