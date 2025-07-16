@@ -244,6 +244,22 @@
 			$user_id = $this->session->userdata("id_user");
 			$gelombang = $this->session->userdata("gelombang");
 			$jalur = $this->input->post('jalur');
+			if(!empty($_FILES['foto'])){
+				$config['upload_path'] = './assets/file_pmb/';
+				$config['allowed_types'] = 'pdf';
+				$config['max_size']  = '1048';
+				$config['overwrite'] = TRUE;
+				$config['file_name'] = 'pmb_peserta_'.$user_id . '-' . date('YmdHis');
+				$config['file_ext'] = '.'.pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
+				$config['remove_space'] = TRUE;
+			
+				$this->load->library('upload', $config); 
+				$nama_foto = 'default.png';
+				if($this->upload->do_upload('foto')){ 
+					$nama_foto = $config['file_name'].$config['file_ext'];  
+				}
+			}
+
 			$cek_validasi = $this->db->get_where('pmb_peserta_online',['id'=>$this->input->post("id")])->row();
 			if(empty($cek_validasi->nopen)){
 				$data = array(
@@ -283,6 +299,9 @@
 					'is_mundur' => '0',
 					'admin_input_date' => date('Y-m-d H:i:s')
 				);
+				if(!empty($_FILES['foto'])){
+					$data['file_pendukung'] = $nama_foto;
+				}
 				$r = $this->db->update('pmb_peserta_online', $data, array('user_id' => $user_id,'gelombang'=>$gelombang));
 				if($r){
 					 $data2 = [
@@ -489,9 +508,9 @@
 			$qr = $this->db->get_where('bukti_registrasi', ['user_id' => $user_id]);
 			
 			$pmb_online = $this->db->get_where("pmb_peserta_online",array("user_id"=>$user_id,'gelombang'=>$gelombang))->row();
-			// if($pmb_online->file_pendukung == 'default.png'){
-			// 	return $r = 0;
-			// }
+			if($pmb_online->file_pendukung == 'default.png' || empty($pmb_online->file_pendukung)){
+				return $r = 0;
+			}
 			$gelombang = $this->db->get_where('pmb_gelombang',array('id'=>$gelombang))->row();
 			$kode_jalur = $this->db->get_where('pmb_jalur',array('id'=>$gelombang->id_jalur))->row()->kode;
 			$user = $this->db->get_where("user_guest",array("id"=>$user_id))->row();
@@ -742,7 +761,21 @@
 			$tanggal = date('YmdHis');
 			
 			// echo $set_nopen."<br>".$pmdtambah_fotop."<br>".$is_kerjasama."<br>".$is_mou."<br>".$gelombang;
-
+			if(!empty($_FILES['foto'])){
+				$config['upload_path'] = './assets/file_pmb/';
+				$config['allowed_types'] = 'pdf';
+				$config['max_size']  = '1048';
+				$config['overwrite'] = TRUE;
+				$config['file_name'] = 'pmb_peserta_'.$user_id . '-' . date('YmdHis');
+				$config['file_ext'] = '.'.pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
+				$config['remove_space'] = TRUE;
+			
+				$this->load->library('upload', $config); 
+				$nama_foto = 'default.png';
+				if($this->upload->do_upload('foto')){ 
+					$nama_foto = $config['file_name'].$config['file_ext'];  
+				}
+			}
 			
 		    $data = '';
 		    $ta = $this->db->query("SELECT * FROM `master_tahun_ajaran` where is_aktif = 1")->row();
@@ -771,6 +804,9 @@
 							'is_mundur' => '0',
 							'admin_input_date' => date('Y-m-d H:i:s'),
 						 );
+			  if(!empty($_FILES['foto'])){
+					$data['file_pendukung'] = $nama_foto;
+				}
 		      $r = $this->db->insert('pmb_peserta_online', $data);
 			  $id_peserta = $this->db->insert_id();
 			  $data2 = [

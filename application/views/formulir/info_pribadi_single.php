@@ -1,3 +1,11 @@
+<style>
+    .alert-info{
+        border:1px solid #2980b9;
+        background:#3498db;
+        color:#fff;
+        font-size:12pt;
+    }
+</style>
 <div class="card">
     <div class="card-header">
         <?php echo $this->session->userdata('status_update'); 
@@ -96,7 +104,41 @@
 								<?php } ?>
 							</select></p>
 							<?php }	?>
-                            <input type="submit" value="simpan" class="btn btn-primary"> 
+                            Upload File Pendukung :
+                            <p><input type='file' name="foto" onchange="readURL(this);" />
+                            Maksimal 5 MB dengan format pdf.</p>
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#file_detail">
+                                Lihat File
+                            </button>
+                            <div class="modal fade" id="file_detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Detail File</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <embed src="<?php echo base_url()?>assets/file_pmb/<?= $detail_cmhs->file_pendukung ?>" width="100%" height="400" type="application/pdf">	
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3">
+                                <input type="submit" value="simpan" class="btn btn-info"> 
+                            </p>
+                        </div>
+
+                        <div class="col-sm-6">
+                            
+                                <div class="info_gelombang">
+                                    <div class="alert alert-info"><?= nl2br($gelombang->nama_gel_long) ?></div>
+                                </div>
+                            
                         </div>
                     </div>
                 </fieldset>

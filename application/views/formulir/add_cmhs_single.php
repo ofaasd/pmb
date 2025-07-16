@@ -1,3 +1,11 @@
+<style>
+    .alert-info{
+        border:1px solid #2980b9;
+        background:#3498db;
+        color:#fff;
+        font-size:12pt;
+    }
+</style>
 <div class="card">
     <div class="card-header">
         <?php echo $this->session->userdata('status_update'); 
@@ -59,7 +67,18 @@
                             <div id="jurusan">
 											
                             </div>
+                            Upload File Syarat Pendaftaran :
+                            <p><input type='file' name="foto" />
+                            Maksimal 5 MB dengan format pdf.</p> 
+                            
                             <input type="submit" value="simpan" class="btn btn-primary"> 
+                        </div>
+                        <div class="col-sm-6">
+                            
+                                <div class="info_gelombang">
+                                    <div class="alert alert-info"><?= nl2br($gelombang->nama_gel_long) ?></div>
+                                </div>
+                            
                         </div>
                     </div>
                 </fieldset>
