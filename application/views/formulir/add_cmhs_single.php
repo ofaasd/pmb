@@ -39,7 +39,7 @@
                             Jenis Kelamin <span class="text-danger">*</span> :
                             <p>
                                 <select name="jk" class="form-control" required="">
-                                    <option selected="">Jenis Kelamin</option>
+                                    <option selected="" value="">Jenis Kelamin</option>
                                     <option value="1">Laki - Laki</option>
                                     <option value="2">Perempuan</option>
                                 </select>
@@ -48,7 +48,7 @@
                             Agama <span class="text-danger">*</span> :
                             <p>
                                 <select name="agama" class="form-control" required="">
-                                    <option value="opt1" selected="" disabled="">Pilih Agama</option>
+                                    <option value="" selected="" disabled="">Pilih Agama</option>
                                     <option value="1">Islam</option>
                                     <option value="2">Kristen</option>
                                     <option value="3">Katolik</option>
@@ -68,7 +68,7 @@
 											
                             </div>
                             Upload File Syarat Pendaftaran :
-                            <p><input type='file' name="foto" />
+                            <p><input type='file' name="foto" required />
                             Maksimal 5 MB dengan format pdf.</p> 
                             
                             <input type="submit" value="simpan" class="btn btn-primary"> 
