@@ -599,6 +599,7 @@
 			//$r = $this->Model_online->validasi_biodata();
 			$r = $this->Model_online->validasi_biodata();
 			echo $r;
+			//exit;
 			if ($r == 1) {
 				# code...
 				$this->session->set_userdata('status_update', '<div class="alert alert-success">
@@ -608,6 +609,11 @@
 			}elseif($r == 2){
 				$this->session->set_userdata('status_update', '<div class="alert alert-success">
                                                       <strong>Input Data Berhasil!</strong> Harap Melakukan Pembayaran Registrasi Terlebih Dahulu, Silahkan Menghubungi Pihak Kampus STIFAR (+62 813-9311-1171 / (024) 6706147)
+                                                    </div>');
+				redirect('dashboard');
+			}elseif($r == 4){
+				$this->session->set_userdata('status_update', '<div class="alert alert-danger">
+                                                      <strong>Harap upload file pendukung terlebih dahulu</strong>
                                                     </div>');
 				redirect('dashboard');
 			}else{

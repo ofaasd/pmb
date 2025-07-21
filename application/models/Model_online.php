@@ -247,7 +247,7 @@
 			if(!empty($_FILES['foto'])){
 				$config['upload_path'] = './assets/file_pmb/';
 				$config['allowed_types'] = 'pdf';
-				$config['max_size']  = '1048';
+				$config['max_size']  = '10480';
 				$config['overwrite'] = TRUE;
 				$config['file_name'] = 'pmb_peserta_'.$user_id . '-' . date('YmdHis');
 				$config['file_ext'] = '.'.pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
@@ -509,7 +509,7 @@
 			
 			$pmb_online = $this->db->get_where("pmb_peserta_online",array("user_id"=>$user_id,'gelombang'=>$gelombang))->row();
 			if($pmb_online->file_pendukung == 'default.png' || empty($pmb_online->file_pendukung)){
-				return $r = 0;
+				return $r = 4; //file pendukung tidak ada
 			}
 			$gelombang = $this->db->get_where('pmb_gelombang',array('id'=>$gelombang))->row();
 			$kode_jalur = $this->db->get_where('pmb_jalur',array('id'=>$gelombang->id_jalur))->row()->kode;
@@ -764,7 +764,7 @@
 			if(!empty($_FILES['foto'])){
 				$config['upload_path'] = './assets/file_pmb/';
 				$config['allowed_types'] = 'pdf';
-				$config['max_size']  = '1048';
+				$config['max_size']  = '10480';
 				$config['overwrite'] = TRUE;
 				$config['file_name'] = 'pmb_peserta_'.$user_id . '-' . date('YmdHis');
 				$config['file_ext'] = '.'.pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
