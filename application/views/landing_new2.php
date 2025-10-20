@@ -1,7 +1,7 @@
 
 <center><img class="img-fluid" src="<?php echo $this->config->item('logo_url')?>" alt="Stifar Logo" style="height:80px;margin:20px;"></center>
 <center><p><b>Sekolah Tinggi Ilmu Farmasi</b></p></center>
-<h3 class="text-center">Pendaftaran Mahasiswa Baru STIFAR 2025/2026</h3>
+<h3 class="text-center">Pendaftaran Mahasiswa Baru STIFAR 2026/2027</h3>
 <p class="mt-3 mb-3" style="font-size:15pt;">Pilih Jenis Pendaftaran : </p>
 <div class="accordion" id="accordionExample" style="background:#fff">
 	<?php foreach($gelombang as $row){ ?>
