@@ -97,7 +97,7 @@
 					?>
 					<p>Maaf anda Tidak LOLOS pendaftaran mahasiswa baru STIFAR</p>
 					<?php } ?>
-          <p>Harap hubungi admin PMB untuk mendapatkan langkah-langkah beriutnya</p>
+          <p>Harap hubungi admin PMB untuk mendapatkan langkah-langkah berikutnya ke wa</p>
 				</div>
 			</div>
 		</div>

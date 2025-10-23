@@ -26,6 +26,7 @@ class Welcome extends CI_Controller {
 			$hasil['artikel2'] = $this->db->limit(4)->order_by("id","desc")->get_where("master_post",array("kategori"=>2))->result();
 			$hasil['artikel3'] = $this->db->limit(4)->order_by("id","desc")->get_where("master_post",array("kategori"=>3))->result();
 			$hasil['slide'] = $this->db->limit(5)->order_by("id","desc")->get("master_slide")->result();
+			$data['slide'] = $this->db->limit(1)->order_by("id","desc")->get("master_slide")->row();
 			$hasil['id'] = $id;
 			$tanggal = date('Y-m-d');
 			$hasil['gelombang'] = $this->db->select('pmb_gelombang.*,pmb_jalur.nama as nama_jalur')->join('pmb_jalur','pmb_jalur.id = pmb_gelombang.id_jalur','inner')->where('tgl_mulai <=',$tanggal)->where('tgl_akhir >=', $tanggal)->order_by('urutan','asc')->get('pmb_gelombang')->result();

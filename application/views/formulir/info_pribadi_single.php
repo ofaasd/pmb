@@ -83,11 +83,10 @@
                                 <option value="99">Lainnya</option>
                                 </select>
                             </p>
-                            
-                            Asal Sekolah <span class="text-danger">*</span> :
+                            <?php if(stripos($gelombang->nama_gel, 'magister') || stripos($gelombang->nama_gel, 's2') || stripos($gelombang->nama_gel, 'apoteker')) { ?>
+                            Asal Kampus <?php }else{ ?> Asal Sekolah <?php } ?><span class="text-danger">*</span> :
                             <p><input type="text" class="form-control" placeholder="Asal Sekolah" name="asal_sekolah" value="<?= $asal_sekolah->asal_sekolah ?>" required=""></p>
-
-                            Asal Kota <span class="text-danger">*</span> :
+                            Asal Kota<span class="text-danger">*</span> :
                             <p><input type="text" class="form-control" placeholder="Asal Kota" name="asal_kota" value="<?= $detail_cmhs->asal_kota ?>" required=""></p>
                             <?php foreach($list_prodi as $key=>$row){?>
 							Program Studi <?= ($key+1)?>

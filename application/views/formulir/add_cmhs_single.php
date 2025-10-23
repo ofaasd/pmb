@@ -59,8 +59,9 @@
                                 </select>
                             </p>
                             
-                            Asal Sekolah <span class="text-danger">*</span> :
-                            <p><input type="text" class="form-control" placeholder="Asal Sekolah" name="asal_sekolah" required=""></p>
+                            <?php if(stripos($gelombang->nama_gel, 'magister') || stripos($gelombang->nama_gel, 's2') || stripos($gelombang->nama_gel, 'apoteker')) { ?>
+                            Asal Kampus <?php }else{ ?> Asal Sekolah <?php } ?> <span class="text-danger">*</span> :
+                            <p><input type="text" class="form-control" name="asal_sekolah" required=""></p>
 
                             Asal Kota <span class="text-danger">*</span> :
                             <p><input type="text" class="form-control" placeholder="Asal Kota" name="asal_kota" required=""></p>
@@ -106,7 +107,8 @@
 
                 data.forEach((item, index) => {
                     temp += `Program Studi ${index + 1}
-                    <p><select name='prodi[]' class="form-control">`
+                    <p><select name='prodi[]' class="form-control" <?php if(stripos($gelombang->nama_gel, 'magister') || stripos($gelombang->nama_gel, 's2') || stripos($gelombang->nama_gel, 'apoteker')) { ?>
+                            readonly <?php }?> >`
                     item.forEach((item2, index2) => {
                         temp += `<option value='${item2.id_program_studi}'>${item2.nama_prodi} ${item2.keterangan ?? ''}</option>`
                     });

@@ -73,7 +73,7 @@
 </style>
 </head>
 
-<body style="background:url('https://stifar.id/assets/images/slideshow/202408270909slide_32bbcc234a5808d65973b37293dfaae7.jpg'); background-size:100% auto">
+<body style="background:url('https://stifar.id/assets/images/slideshow/<?php echo $slide->gambar ?>'); background-size:100% auto">
 <!-- Pre-loader start -->
 <div class="theme-loader">
     <div class="ball-scale">

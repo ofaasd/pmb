@@ -378,13 +378,14 @@
 			$id = $this->session->userdata("id_user");
 			$gelombang = $this->session->userdata("gelombang");
 			$data['title'] = "Dashboard - Calon Mahasiswa Baru";			
-			$hasil['rekening'] = $this->db->get("master_rekening")->result();
+			$hasil['rekening'] = $this->db->order_by("id","desc")->limit(1)->get("master_rekening")->row();
 			$cek_gelombang_rpl = $this->db->like('nama_gel','RPL')->get('pmb_gelombang')->result();
 			$list_gel = [];
 			foreach($cek_gelombang_rpl as $row){
 				$list_gel[] = $row->id;
 			}
 			$hasil['peserta'] = $this->db->get_where("pmb_peserta_online",array("user_id"=>$id,"gelombang"=>$gelombang))->row();
+			$hasil['gelombang'] = $this->db->get_where("pmb_gelombang",array("id"=>$gelombang))->row();
 			if(!empty($hasil['peserta'])){
 				if(in_array($hasil['peserta']->gelombang,$list_gel)){
 					$hasil['biaya_pendaftaran'] = $this->db->get_where('biaya_pendaftaran',['id_prodi'=>($hasil['peserta']->pilihan1 ?? 0),'rpl'=>1])->row();

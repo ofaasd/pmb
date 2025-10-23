@@ -23,6 +23,7 @@
 				$hasil['pmb_peserta'] = $this->db->where('user_id',$user_id)->where('gelombang',$hasil['cur_gel'])->get('pmb_peserta_online')->row();	
 				$hasil['gelombang'] = $this->db->where('id',$hasil['cur_gel'])->get('pmb_gelombang')->row();
 				$data['content'] = $this->load->view('pmb_online/dashboard',$hasil,true);
+				//echo $hasil['pmb_peserta']->id;
 			}else{
 				$hasil['msg'] = "Belum ada gelombang pendaftaran";
 				$data['title'] = "Formulir Mahasiswa - Academic Portal";

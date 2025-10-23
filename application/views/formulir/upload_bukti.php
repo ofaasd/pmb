@@ -19,13 +19,14 @@
 						<h5>FORM BUKTI PEMBAYARAN CALON MAHASISWA BARU</h5>
 					</div>
 					<div class="card-block">
+					    <?php if(stripos($gelombang->nama_gel, 'magister') || stripos($gelombang->nama_gel, 's2') || stripos($gelombang->nama_gel, 'apoteker')) { ?>
 						<h4 class="sub-title">BUKTI PEMBAYARAN CALON MAHASISWA</h4>
 						<h5>Info dan Ketentuan Pembayaran</h5>
 						<ol start=1>
-							<li>Biaya Registrasi Pendaftaran Mahasiswa Baru Sebesar <b>Rp. <?= number_format($biaya_pendaftaran->jumlah,0,",",".")?></b></li>
+							<li>Biaya Pendaftaran Mahasiswa Baru Sebesar <b>Rp. <?= number_format($biaya_pendaftaran->jumlah,0,",",".")?></b></li>
 							<li>
 								Uang Pendaftaran dapat di transferkan melalui rekening kami yaitu <br />
-								BRI dengan No. Rekening : <b>0435.01.057580.561</b>
+								Dengan No. Rekening : <b><?=$rekening->norek?> (<?=$rekening->nama_bank?> an. <?=$rekening->atas_nama?>)</b>
 							</li>
 							<li>Setelah melakukan transfer harap mengisi form dibawah ini atau  menghubungi Admin PMB (+62 813-9311-1171 / (024) 6706147)</li>
 						</ol>
@@ -44,10 +45,7 @@
 									Rekening Tujuan :
 									<p>
 										<select name="id_rekening" class="form-control" oninput="this.className = ''" required="">
-											<?php foreach($rekening as $row){
-												echo "<option value='" . $row->id . "'>" . $row->nama_bank . " : " . $row->norek . " (AN. " . $row->atas_nama . ")</option>";
-											}
-											?>
+											<option value='" . $rekening->id . "'>" . $rekening->nama_bank . " : " . $rekening->norek . " (AN. " . $rekening->atas_nama . ")</option>
 										</select>
 									</p>
 									Bukti Transfer :
@@ -62,10 +60,14 @@
 								</div>
 							</div>
 						</form>
+						
 						</div>
+						
 					</div>
 				</div>
-				
+				<?php }else{ ?>
+    			    <div class="alert alert-primary">Bebas Biaya Pendaftaran</div>
+		    	<?php } ?>
 			<?php }else{ ?>
 
 				<div class="card">
