@@ -91,7 +91,7 @@
                             
                             <?php foreach($list_prodi as $key=>$row){?>
 							Program Studi <?= ($key+1)?>
-                                <?php if(stripos($gelombang->nama_gel, 'apoteker')) { ?>
+                                <?php if(stripos($gelombang->nama_gel, 'Apoteker')) { ?>
                                     <?php foreach($row as $detail){ ?>
                                         <input type="hidden" name="prodi[]" value="<?= $detail_cmhs->pilihan1 ?>">
                                     <?php } ?>
