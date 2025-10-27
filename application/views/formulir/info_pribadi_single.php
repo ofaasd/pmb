@@ -88,21 +88,40 @@
                             <p><input type="text" class="form-control" placeholder="Asal Sekolah" name="asal_sekolah" value="<?= $asal_sekolah->asal_sekolah ?>" required=""></p>
                             Asal Kota<span class="text-danger">*</span> :
                             <p><input type="text" class="form-control" placeholder="Asal Kota" name="asal_kota" value="<?= $detail_cmhs->asal_kota ?>" required=""></p>
+                            
                             <?php foreach($list_prodi as $key=>$row){?>
 							Program Studi <?= ($key+1)?>
-							<p><select name='prodi[]' class="form-control">
-								<?php foreach($row as $detail){ 
-									$pilihan = "";
-									if($key == 0){
-										$pilihan = $detail_cmhs->pilihan1;
-									}else{
-										$pilihan = $detail_cmhs->pilihan2;
-									}
-									?>
-									<option value="<?= $detail->id_program_studi; ?>" <?= ($pilihan == $detail->id_program_studi)?"selected":"" ?>><?=$detail->nama_prodi?></option>
-								<?php } ?>
-							</select></p>
-							<?php }	?>
+                                <?php if(stripos($gelombang->nama_gel, 'apoteker')) { ?>
+                                    <?php foreach($row as $detail){ ?>
+                                        <input type="hidden" name="prodi[]" value="<?= $detail_cmhs->pilihan1 ?>">
+                                    <?php } ?>
+                                    <p><select class="form-control" disabled>
+                                        <?php foreach($row as $detail){ 
+                                            $pilihan = "";
+                                            if($key == 0){
+                                                $pilihan = $detail_cmhs->pilihan1;
+                                            }else{
+                                                $pilihan = $detail_cmhs->pilihan2;
+                                            }
+                                            ?>
+                                            <option value="<?= $detail->id_program_studi; ?>" <?= ($pilihan == $detail->id_program_studi)?"selected":"" ?>><?=$detail->nama_prodi?></option>
+                                        <?php } ?>
+                                    </select></p>        
+                                <?php }else{ ?>
+							        <p><select name='prodi[]' class="form-control">
+                                        <?php foreach($row as $detail){ 
+                                            $pilihan = "";
+                                            if($key == 0){
+                                                $pilihan = $detail_cmhs->pilihan1;
+                                            }else{
+                                                $pilihan = $detail_cmhs->pilihan2;
+                                            }
+                                            ?>
+                                            <option value="<?= $detail->id_program_studi; ?>" <?= ($pilihan == $detail->id_program_studi)?"selected":"" ?>><?=$detail->nama_prodi?></option>
+                                        <?php } ?>
+                                    </select></p>
+                            <?php } 
+                                }	?>
                             Upload File Pendukung :
                             <p><input type='file' name="foto" onchange="readURL(this);" />
                             Maksimal 5 MB dengan format pdf.</p>
