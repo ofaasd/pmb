@@ -45,7 +45,7 @@
 									Rekening Tujuan :
 									<p>
 										<select name="id_rekening" class="form-control" oninput="this.className = ''" required="">
-											<option value='" . $rekening->id . "'>" . $rekening->nama_bank . " : " . $rekening->norek . " (AN. " . $rekening->atas_nama . ")</option>
+											<?= "<option value='" . $rekening->id . "'>" . $rekening->nama_bank . " : " . $rekening->norek . " (AN. " . $rekening->atas_nama . ")</option>";?>
 										</select>
 									</p>
 									Bukti Transfer :
