@@ -34,7 +34,7 @@
 			$query = $this->db->where('gelombang',$pmb['cur_gel'])->where(array("user_id"=>$id))->order_by("id","desc")->get("pmb_peserta_online");
 			//$query2 = $this->db->where(array("id"=>$id))->get("user_guest");
 			
-			if($query->num_rows() > 0 && empty($query->row()->nopen)){
+			if($query->num_rows() > 0){
 				//data ditemukan !!
 				//redirect('formulir/info');
 				$data['title'] = "Formulir Mahasiswa - Academic Portal";

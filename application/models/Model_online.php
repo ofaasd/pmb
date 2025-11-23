@@ -244,7 +244,7 @@
 			$user_id = $this->session->userdata("id_user");
 			$gelombang = $this->session->userdata("gelombang");
 			$jalur = $this->input->post('jalur');
-			if(!empty($_FILES['foto'])){
+			if(!empty($_FILES['foto']['name'])){
 				$config['upload_path'] = './assets/file_pmb/';
 				$config['allowed_types'] = 'pdf';
 				$config['max_size']  = '10480';
@@ -261,7 +261,8 @@
 			}
 
 			$cek_validasi = $this->db->get_where('pmb_peserta_online',['id'=>$this->input->post("id")])->row();
-			if(empty($cek_validasi->nopen)){
+			//validasi nopen sementara ditiadakan dulu
+			//if(empty($cek_validasi->nopen)){
 				$data = array(
 					'nisn' => $this->input->post('nisn'),
 					'noktp' => $this->input->post('noktp'),
@@ -299,7 +300,7 @@
 					'is_mundur' => '0',
 					'admin_input_date' => date('Y-m-d H:i:s')
 				);
-				if(!empty($_FILES['foto'])){
+				if(!empty($_FILES['foto']['name'])){
 					$data['file_pendukung'] = $nama_foto;
 				}
 				$r = $this->db->update('pmb_peserta_online', $data, array('user_id' => $user_id,'gelombang'=>$gelombang));
@@ -312,9 +313,9 @@
 				}else{
 					$r = 0;
 				}
-			}else{
-				$r = 2;
-			}
+			// }else{
+			// 	$r = 2;
+			// }
 			return $r;
 		}
 		function tambah_foto(){
