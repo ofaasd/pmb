@@ -125,7 +125,7 @@
 			$pmb['detail_cmhs2'] = $this->db->get_where('pmb_peserta_online', array('user_id' => $id,'gelombang'=>$gelombang))->row();
 			$pmb['jalur'] = $this->db->get('pmb_jalur')->result();
 			$pmb['curr_gelombang'] = $this->db->get_where('pmb_gelombang',['id'=>$pmb['detail_cmhs2']->gelombang])->row();
-			$pmb['curr_jalur'] = $this->db->get_where('pmb_jalur',['id'=>$pmb['detail_cmhs2']->jalur_pendaftaran])->row();
+			$pmb['curr_jalur'] = $this->db->get_where('pmb_jalur',['id'=>$pmb['curr_gelombang']->id_jalur])->row();
 			$pmb['content2'] = $this->load->view('formulir/jalur_pendaftaran',$pmb,true);
 			$data['content'] = $this->load->view('formulir/update_cmhs',$pmb,true);
 
@@ -156,7 +156,7 @@
 			$pmb['detail_cmhs2'] = $this->db->get_where('pmb_peserta_online', array('user_id' => $id,'gelombang'=>$gelombang))->row();
 			$pmb['jalur'] = $this->db->get('pmb_jalur')->result();
 			$pmb['curr_gelombang'] = $this->db->get_where('pmb_gelombang',['id'=>$pmb['detail_cmhs2']->gelombang])->row();
-			$pmb['curr_jalur'] = $this->db->get_where('pmb_jalur',['id'=>$pmb['detail_cmhs2']->jalur_pendaftaran])->row();
+			$pmb['curr_jalur'] = $this->db->get_where('pmb_jalur',['id'=>$pmb['curr_gelombang']->id_jalur])->row();
 			$pmb['rapor'] = $this->db->get_where('pmb_nilai_rapor',['id_peserta'=>$pmb['detail_cmhs2']->id])->row_array();
 			$pmb['asal_sekolah'] = $this->db->get_where('pmb_asal_sekolah',['id_peserta'=>$pmb['detail_cmhs2']->id])->row();
 			$pmb['wilayah'] = $this->db->order_by('nm_wil','asc')->get_where('wilayah', array('id_induk_wilayah' => '000000'))->result();
