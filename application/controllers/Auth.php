@@ -139,8 +139,9 @@ class Auth extends CI_Controller
 
 				// Send WhatsApp message (API key and number should be in config)
 				$dataSending = array();
-				$dataSending["api_key"] = "X2Y7UZOZT0WVQVTG";
-				$dataSending["number_key"] = "3EYdFkP7uhk5RX6D";
+				$wa_setting = $this->db->get_where('wa_api', ['status' => 1])->row();
+				$dataSending["api_key"] = $wa_setting->api_key;
+				$dataSending["number_key"] = $wa_setting->number_key;
 
 				$dataSending["phone_no"] = $no_wa;
 				$dataSending["message"] = $message;
@@ -169,8 +170,11 @@ class Auth extends CI_Controller
 terdapat user pendaftaran baru dengan email sebagai berikut : 
 email : " . $new_email . "";
 				$dataSending = array();
-				$dataSending["api_key"] = "X2Y7UZOZT0WVQVTG"; // Hardcoded API key
-				$dataSending["number_key"] = "3EYdFkP7uhk5RX6D";
+				$wa_setting = $this->db->get_where('wa_api', ['status' => 1])->row();
+				$dataSending["api_key"] = $wa_setting->api_key;
+				$dataSending["number_key"] = $wa_setting->number_key;
+				// $dataSending["api_key"] = "X2Y7UZOZT0WVQVTG"; // Hardcoded API key
+				// $dataSending["number_key"] = "3EYdFkP7uhk5RX6D";
 
 				$dataSending["phone_no"] = '082241139843';
 				$dataSending["message"] = $message2;
