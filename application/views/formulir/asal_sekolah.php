@@ -9,10 +9,23 @@
 					<div class="col-md-6">
 						<h3>Pilihan Program Studi</h3>
 						<div id="jurusan">
-							<?php foreach($list_prodi as $key=>$row){?>
+							
+							<?php 
+							$magister = 0;
+							$profesi = 0;
+							foreach($list_prodi as $key=>$row){?>
 							Program Studi <?= ($key+1)?>
 							<p><select name='prodi[]' class="form-control" readonly>
-								<?php foreach($row as $detail){ 
+								<?php
+								
+								 foreach($row as $detail){ 
+									if($detail->id_program_studi == 4){
+										$magister = 1;
+									}
+
+									if($detail->id_program_studi == 5){
+										$profesi = 1;
+									}
 									$pilihan = "";
 									if($key == 0){
 										$pilihan = $detail_cmhs2->pilihan1;
@@ -29,7 +42,16 @@
 						<span id="judul_asal">Pendidikan Terakhir</span> <span class="text-danger">*</span> :
 						<p>
 							<select name="pendidikan_terakhir" id="asal_sekolah" class="form-control">
-								<?php $pendidikan = array('SMA/SMK/Sederajat','Diploma (D1 - D2 - D3)','Sarjana (S1 / D4)');
+								<?php 
+								if($magister == 1){
+									$pendidikan = array('Sarjana (S1 / D4)','Profesi Apoteker');
+								}elseif($profesi == 1){
+									$pendidikan = array('Sarjana (S1 / D4)');
+								}else{
+									$pendidikan = array('SMA/SMK/Sederajat','Diploma (D1 - D2 - D3)','Sarjana (S1 / D4)');
+								}
+								
+								
 								foreach($pendidikan as $value) {?>
 								<option value="<?=$value?>" <?= ($asal_sekolah->pendidikan_terakhir == $value)?"selected":'' ?>><?=$value?></option>
 								<?php }?>
